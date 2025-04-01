@@ -1,2 +1,5 @@
-# nix-cauldron
-It could not be destroyed, for it had Made all things...
+# Nix Cauldron
+An overly complex nixos-configuration...
+
+## License
+[MIT](./LICENSE) © 2025 Your Name
