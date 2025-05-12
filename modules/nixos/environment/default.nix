@@ -3,14 +3,7 @@ let
   cfg = config.cauldron.environment;
 in {
   imports = [
-    ./console.nix
-    ./locale.nix
-    ./platform.nix
-    ./systemd.nix
-    ./xdg-portal.nix
-    ./xdg.nix
-    ./zram.nix
-  ];
+  ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
 
   config = {
     # don't install the /lib/ld-linux.so.2 stub. This saves on instance of nixpkgs.

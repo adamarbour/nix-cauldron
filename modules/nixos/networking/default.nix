@@ -6,13 +6,7 @@ let
 in {
   imports = [
     ./firewall
-    ./networkd.nix
-    ./optimize.nix
-    ./resolved.nix
-    ./systemd.nix
-    ./timesyncd.nix
-    ./wireless.nix
-  ];
+  ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
 
   config = {
     networking = {

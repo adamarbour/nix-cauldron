@@ -11,6 +11,7 @@ in {
     sops-nix.nixosModules.sops
     stylix.nixosModules.stylix
     home-manager.nixosModules.home-manager {
+      home-manager.useUserPackages = true;
       home-manager.useGlobalPkgs = true;
       home-manager.extraSpecialArgs = { inherit inputs; };
       home-manager.users = {

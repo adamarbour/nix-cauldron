@@ -3,11 +3,5 @@ let
   cfg = config.cauldron.security;
 in {
   imports = [
-    ./pam.nix
-    ./polkit.nix
-    ./sudo.nix
-    ./users.nix
-    ./virtualization.nix
-    ./yubikey.nix
-  ];
+  ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
 }

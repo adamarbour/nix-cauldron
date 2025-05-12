@@ -6,7 +6,9 @@ let
   cfg = config.cauldron.secrets;
   secretsPath = builtins.toString inputs.my-secrets;
 in {
-
+  imports = [
+  ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
+  
   options.cauldron.secrets = {
 
     defaultSecretsFile = mkOption {

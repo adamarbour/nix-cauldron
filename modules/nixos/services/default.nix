@@ -3,13 +3,5 @@ let
   cfg = config.cauldron.services;
 in {
   imports = [
-    ./flatpak.nix
-    ./fstrim.nix
-    ./lightdm.nix
-    ./openssh.nix
-    ./redshift.nix
-    ./tailscale.nix
-    ./xfce.nix
-    ./xserver.nix
-  ];
+  ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
 }

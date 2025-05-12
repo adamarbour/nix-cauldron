@@ -4,16 +4,5 @@ let
   cfg = config.cauldron.programs;
 in {
   imports = [
-    ./comodoro.nix
-    ./flameshot.nix
-    ./git.nix
-    ./himalaya.nix
-    ./libreoffice.nix
-    ./ms-edge.nix
-    ./obs-studio.nix
-    ./obsidian.nix
-    ./opera.nix
-    ./slack-term.nix
-    ./steam.nix
-  ];
+  ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
 }

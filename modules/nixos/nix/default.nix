@@ -1,10 +1,4 @@
 {
   imports = [
-    ./environment.nix
-    ./nh.nix
-    ./nix.nix
-    ./nixpkgs.nix
-    ./settings.nix
-    ./system.nix
-  ];
+  ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
 }
