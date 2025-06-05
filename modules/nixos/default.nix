@@ -1,0 +1,6 @@
+{ lib, sources, ... }:
+{
+  imports = [
+    ./nix
+  ];
+}

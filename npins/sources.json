@@ -1,0 +1,186 @@
+{
+  "pins": {
+    "colmena": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "zhaofengli",
+        "repo": "colmena"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "dad9682052c7da4cbc62f8d984bc3810ce54c06a",
+      "url": "https://github.com/zhaofengli/colmena/archive/dad9682052c7da4cbc62f8d984bc3810ce54c06a.tar.gz",
+      "hash": "0gh9rnzpdwfhhs1ri90c0p493pc73yvb94z6bpf3j7d98hych00m"
+    },
+    "disko": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "disko"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v1.12.0",
+      "revision": "7121f74b976481bc36877abaf52adab2a178fcbe",
+      "url": "https://api.github.com/repos/nix-community/disko/tarball/v1.12.0",
+      "hash": "0wbx518d2x54yn4xh98cgm65wvj0gpy6nia6ra7ns4j63hx14fkq"
+    },
+    "hardware": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nixos",
+        "repo": "nixos-hardware"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "029bd66faa180e11262dd1bc2732254c33415f52",
+      "url": "https://github.com/nixos/nixos-hardware/archive/029bd66faa180e11262dd1bc2732254c33415f52.tar.gz",
+      "hash": "1i3g1dbsv9d9aaw2321csq2pcldhlf00dq19mijsdx3mnjxdr120"
+    },
+    "home-manager": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "home-manager"
+      },
+      "branch": "release-25.05",
+      "submodules": false,
+      "revision": "282e1e029cb6ab4811114fc85110613d72771dea",
+      "url": "https://github.com/nix-community/home-manager/archive/282e1e029cb6ab4811114fc85110613d72771dea.tar.gz",
+      "hash": "1v1r9igz2n7j65rhqspplsq5zg0g1ba4gbkq4042md4nyaf67j24"
+    },
+    "impermanence": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "impermanence"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "4b3e914cdf97a5b536a889e939fb2fd2b043a170",
+      "url": "https://github.com/nix-community/impermanence/archive/4b3e914cdf97a5b536a889e939fb2fd2b043a170.tar.gz",
+      "hash": "04l16szln2x0ajq2x799krb53ykvc6vm44x86ppy1jg9fr82161c"
+    },
+    "lanzaboote": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "lanzaboote"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.4.2",
+      "revision": "f0212638a2ec787a7841882f4477d40ae24f0a5d",
+      "url": "https://api.github.com/repos/nix-community/lanzaboote/tarball/v0.4.2",
+      "hash": "0xc1wawnb0297h5khxblmf9pd1fry950xkcm7mwlck19s2906h80"
+    },
+    "nix-direnv": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "nix-direnv"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "5e729f239f5a3b1a95bfe69d66ccb01a8a01d5b1",
+      "url": "https://github.com/nix-community/nix-direnv/archive/5e729f239f5a3b1a95bfe69d66ccb01a8a01d5b1.tar.gz",
+      "hash": "1w3s7y8z3zrlkfm7shnw1ad9pd622znhdpl2k1lawjw54vhk8wy6"
+    },
+    "nix-flatpak": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "gmodena",
+        "repo": "nix-flatpak"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "latest",
+      "revision": "5e54c3ca05a7c7d968ae1ddeabe01d2a9bc1e177",
+      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/latest",
+      "hash": "0s3mpb28rcmma29vv884fi3as926bfszhn7v8n74bpnp5qg5a1c8"
+    },
+    "nixos-anywhere": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "nixos-anywhere"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "1.10.0",
+      "revision": "1e2882c902322f1fd5992da0f5674c70ad8b133b",
+      "url": "https://api.github.com/repos/nix-community/nixos-anywhere/tarball/1.10.0",
+      "hash": "1p0knllznf3xn53xis703gzn63iss54pzk0kgzaj9li6gp7sadn7"
+    },
+    "nixpkgs": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nixos",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixos-25.05",
+      "submodules": false,
+      "revision": "8f1b52b04f2cb6e5ead50bd28d76528a2f0380ef",
+      "url": "https://github.com/nixos/nixpkgs/archive/8f1b52b04f2cb6e5ead50bd28d76528a2f0380ef.tar.gz",
+      "hash": "0854a0169bh2rlfvrsibaqlmsql0dp3ycwq5z8178kdl7q9h6rrq"
+    },
+    "nixpkgs-unstable": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nixos",
+        "repo": "nixpkgs"
+      },
+      "branch": "nixos-unstable",
+      "submodules": false,
+      "revision": "c2a03962b8e24e669fb37b7df10e7c79531ff1a4",
+      "url": "https://github.com/nixos/nixpkgs/archive/c2a03962b8e24e669fb37b7df10e7c79531ff1a4.tar.gz",
+      "hash": "1r4gklhwylxar9y2dxyikkzf3hl615dj1jzfy851p6kc33qm1ilm"
+    },
+    "sops-nix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Mic92",
+        "repo": "sops-nix"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "8d215e1c981be3aa37e47aeabd4e61bb069548fd",
+      "url": "https://github.com/Mic92/sops-nix/archive/8d215e1c981be3aa37e47aeabd4e61bb069548fd.tar.gz",
+      "hash": "1jkkjrzz9zmhfkc31v1lsslg8p62r7sjrj4z13c2ghhmdmgfa1ll"
+    },
+    "stylix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "danth",
+        "repo": "stylix"
+      },
+      "branch": "release-25.05",
+      "submodules": false,
+      "revision": "689d4db89d3be6fd82b7dcb41a1cea5c4743b1ef",
+      "url": "https://github.com/danth/stylix/archive/689d4db89d3be6fd82b7dcb41a1cea5c4743b1ef.tar.gz",
+      "hash": "0qyw4bgxa9xdcpridzbkhvnhrpk8537zgp3sybcbyhz6rh2igxgi"
+    }
+  },
+  "version": 5
+}
