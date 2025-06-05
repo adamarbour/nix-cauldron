@@ -4,6 +4,7 @@ let
   pkgs = import sources.nixpkgs { inherit system; config = {}; overlays = []; };
   
   colmena = pkgs.callPackage "${sources.colmena}/package.nix" { };
+  nixvim = import sources.nixvim { inherit system; };
 in pkgs.mkShellNoCC {
   NIX_CONFIG = "extra-experimental-features = nix-command flakes";
   
@@ -24,6 +25,7 @@ in pkgs.mkShellNoCC {
     nixos-anywhere
     nixos-install
     nixos-rebuild
+    nixvim.nvimPackage
     nvd
     sops
     ssh-to-age

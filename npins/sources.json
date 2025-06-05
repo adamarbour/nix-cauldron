@@ -155,6 +155,19 @@
       "url": "https://github.com/nixos/nixpkgs/archive/c2a03962b8e24e669fb37b7df10e7c79531ff1a4.tar.gz",
       "hash": "1r4gklhwylxar9y2dxyikkzf3hl615dj1jzfy851p6kc33qm1ilm"
     },
+    "nixvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "adamarbour",
+        "repo": "bob-nixvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "2210b1a99a5b7a08d97d249d66df642b2e153724",
+      "url": "https://github.com/adamarbour/bob-nixvim/archive/2210b1a99a5b7a08d97d249d66df642b2e153724.tar.gz",
+      "hash": "0jzvpghx37jvm9xcx8m73dpkwsm31xj6hgd5xdljlr874if7rj1f"
+    },
     "sops-nix": {
       "type": "Git",
       "repository": {
