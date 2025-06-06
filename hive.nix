@@ -28,7 +28,6 @@ in {
   
   cassian = {
     imports = [
-      ((import sources.lanzaboote).nixosModules.lanzaboote)
       ((import sources.stylix).nixosModules.stylix)
       (sources.nix-flatpak + "/modules/nixos.nix")
       ./hosts/cassian/configuration.nix

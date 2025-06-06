@@ -18,6 +18,7 @@ in pkgs.mkShellNoCC {
     age
     colmena
     disko
+    efibootmgr
     git
     just
     nh
@@ -27,6 +28,7 @@ in pkgs.mkShellNoCC {
     nixos-rebuild
     nixvim.nvimPackage
     nvd
+    sbctl
     sops
     ssh-to-age
     yq-go
