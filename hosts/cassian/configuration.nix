@@ -24,6 +24,7 @@
     host.boot.initrd.enableTweaks = true;
     
     profiles = [
+      "laptop"
       "graphical"
       "workstation"
     ];

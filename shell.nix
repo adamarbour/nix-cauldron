@@ -21,12 +21,12 @@ in pkgs.mkShellNoCC {
     efibootmgr
     git
     just
-    nh
-    npins
+    nix-output-monitor
     nixos-anywhere
     nixos-install
     nixos-rebuild
     nixvim.nvimPackage
+    npins
     nvd
     sbctl
     sops

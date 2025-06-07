@@ -2,6 +2,11 @@
 [private]
 default:
   @just --list
+
+# check the configuration
+[group('dev')]
+check:
+  colmena apply dry-activate
   
 # Update sources
 [group('dev')]
@@ -13,6 +18,11 @@ update:
 upgrade:
   npins upgrade
   npins update --partial
+
+# Show information about the current Nix installation
+[group('utils')]
+info:
+  colmena nix-info
   
 # Verify the integrity of the nix store
 [group('utils')]

@@ -1,7 +1,9 @@
 { lib, pkgs, config, ... }:
-{
-  # TODO: if graphical profile is enabled
-  config = {
+let
+  inherit (lib) mkIf;
+  profiles = config.cauldron.profiles;
+in {
+  config = mkIf (lib.elem "graphical" profiles) {
     environment.systemPackages = [ pkgs.alsa-utils ];
     services.pipewire = {
       enable = true;

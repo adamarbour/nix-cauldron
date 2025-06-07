@@ -2,6 +2,8 @@
 let
   inherit (lib) mkOption types;
   profileList = [
+    "desktop"
+    "laptop"
     "server"
     "container"
     "graphical"

@@ -1,9 +1,9 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf mkDefault;
+  profiles = config.cauldron.profiles;
 in {
-  # TODO: If it is a laptop profile
-  config = {
+  config = mkIf (lib.elem "laptop" profiles) {
     services.libinput = {
       enable = true;
       # disable mouse acceleration

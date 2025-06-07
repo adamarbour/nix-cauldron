@@ -33,9 +33,14 @@ in {
           enable = mkDefault true;
           finegrained = mkDefault false;
         };
-        prime.offload = {
-          enable = if cfg == "nvidia" then false else true; # Dedicated by default. Hybrid otherwise.
-          enableOffloadCmd = config.hardware.nvidia.prime.offload.enable;
+        prime = mkIf (cfg == "intel-nv" || cfg == "amd-nv") {
+          # TODO: Make these configurable
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:1:0:0";
+          offload = {
+            enable = if cfg == "nvidia" then false else true; # Dedicated by default. Hybrid otherwise.
+            enableOffloadCmd = config.hardware.nvidia.prime.offload.enable;
+          };
         };
       };
       graphics = {
