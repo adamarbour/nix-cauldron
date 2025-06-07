@@ -168,6 +168,19 @@
       "url": "https://github.com/adamarbour/bob-nixvim/archive/2210b1a99a5b7a08d97d249d66df642b2e153724.tar.gz",
       "hash": "0jzvpghx37jvm9xcx8m73dpkwsm31xj6hgd5xdljlr874if7rj1f"
     },
+    "noshell": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "viperML",
+        "repo": "noshell"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "4d194d838a50ea106cd0e47c024e47afc154ab42",
+      "url": "https://github.com/viperML/noshell/archive/4d194d838a50ea106cd0e47c024e47afc154ab42.tar.gz",
+      "hash": "1x2d9j6ndihypq985s0610q1l878v6v6k6lg9mm9d46qfjz23wil"
+    },
     "sops-nix": {
       "type": "Git",
       "repository": {

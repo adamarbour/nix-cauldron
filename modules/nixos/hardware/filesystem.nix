@@ -12,12 +12,20 @@ in {
         interval = "weekly";
       };
     }
+    
+    # clean zfs devices
+    (mkIf (config.boot.zfs.enabled) {
+      services.zfs.autoScrub = {
+        enable = true;
+        interval = "monthly";
+      };
+    })
 
     # clean btrfs devices
     (mkIf hasBtrfs {
       services.btrfs.autoScrub = {
         enable = true;
-        interval = "weekly";
+        interval = "monthly";
         fileSystems = [ "/" ];
       };
     })
