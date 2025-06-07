@@ -20,9 +20,9 @@ in {
         horizontalScrolling = false;
         disableWhileTyping = true;
       };
-      # trackpad for lenovo
-      hardware.trackpoint.enable = mkDefault true;
-      hardware.trackpoint.emulateWheel = mkDefault config.hardware.trackpoint.enable;
     };
+    # trackpad for lenovo
+    hardware.trackpoint.enable = mkDefault true;
+    hardware.trackpoint.emulateWheel = mkDefault config.hardware.trackpoint.enable;
   };
 }

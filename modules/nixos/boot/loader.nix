@@ -40,7 +40,7 @@ in {
       boot.loader.grub = {
         enable = mkDefault true;
         configurationLimit = 3;
-        useOsProber = mkDefault false;
+        useOSProber = mkDefault false;
         efiSupport = true;
         enableCryptodisk = mkDefault false;
         inherit (cfg.grub) device;

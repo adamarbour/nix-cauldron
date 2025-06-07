@@ -21,10 +21,11 @@
     
     host.boot.loader = "systemd-boot";
     host.boot.silentBoot = true;
-    host.initrd.enableTweaks = true;
+    host.boot.initrd.enableTweaks = true;
     
-    profile = [
+    profiles = [
       "graphical"
+      "workstation"
     ];
   };
 }
