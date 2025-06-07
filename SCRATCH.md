@@ -1,5 +1,22 @@
-# Nix Cauldron
-An overly complex nixos-configuration that is not flake-based...
+# SCRATCH
+Just some notes...
+
+1. Disk prep
+```
+sudo disko --mode destroy,format,mount ./disks/{{file}} --arg device '"/dev/{{device}}"'
+```
+
+2. Get hardware configuration (in stdout)
+```
+sudo nixos-generate-config --root /mnt --show-hardware-config --no-filesystems
+```
+
+3. Deploy
+```
+# LOCAL
+colmena build --on {{HOST}} --no-build-on-target
+sudo nixos-install --system /nix/store/myclosure <-- output from above
+```
 
 ## Goals
 1. Centralize the setup, management and rollout of my fleet of servers and devices that support various use cases in my personal and professional environments
