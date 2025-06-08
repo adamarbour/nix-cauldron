@@ -5,6 +5,7 @@
     ./environment
     ./hardware
     ./nix
+    ./network
     ./system
     ./users
   ];

@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 {  
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-  
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
@@ -22,6 +20,9 @@
     host.boot.loader = "systemd-boot";
     host.boot.silentBoot = true;
     host.boot.initrd.enableTweaks = true;
+    
+    networking.optimize = true;
+    networking.wireless.backend = "iwd";
     
     profiles = [
       "laptop"

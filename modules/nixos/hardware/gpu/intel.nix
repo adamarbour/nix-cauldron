@@ -24,9 +24,7 @@ in {
       };
     };
     
-    environment.systemPackages = [
-      pkgs.intel-gpu-tools
-    ];
+    hardware.intel-gpu-tools.enable = true;
 
     environment.variables = mkIf (config.hardware.graphics.enable && cfg != "intel-nv") {
       VDPAU_DRIVER = "va_gl";
