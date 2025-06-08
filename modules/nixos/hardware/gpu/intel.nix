@@ -7,7 +7,9 @@ in {
     # i915 kernel module
     boot.initrd.kernelModules = [ "i915" ];
     # we enable modesetting since this is recomeneded for intel gpus
-    services.xserver.videoDrivers = [ "modesetting" ];
+    services.xserver = mkIf (cfg == "intel") {
+      videoDrivers = [ "modesetting" ];
+    };
     
     # OpenCL support and VAAPI
     hardware.graphics = {
