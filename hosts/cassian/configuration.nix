@@ -15,7 +15,7 @@
     host.bluetooth.enable = true;
     host.tpm.enable = true;
     
-    host.kernel = pkgs.linuxPackages_latest;
+    host.kernel = pkgs.linuxPackages;
     host.enableKernelTweaks = true;
     host.tmpOnTmpfs = false;
     
