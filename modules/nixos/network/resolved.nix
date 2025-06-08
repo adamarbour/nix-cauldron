@@ -7,6 +7,6 @@ in {
     enable = mkDefault true;
     dnsovertls = "opportunistic";
     dnssec = "true";
-    llmnr = "resolved";
+    llmnr = "resolve";
   };
 }
