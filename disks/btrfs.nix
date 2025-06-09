@@ -1,5 +1,6 @@
 {
   device ? throw "Pls specify primary device...",
+  swapSizeMB ? 1024,
   ...
 }:
 {
@@ -48,6 +49,12 @@
                   };
                   "/tmp" = {
                     mountpoint = "/tmp";
+                  };
+                  "/swap" = {
+                    mountpoint = "/.swapvol";
+                    swap = {
+                      swapfile.size = "${swapSizeMB}M";
+                    };
                   };
                 };
             	};

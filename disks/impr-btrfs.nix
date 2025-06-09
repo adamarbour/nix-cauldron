@@ -1,13 +1,16 @@
 {
   device ? throw "Pls specify primary device...",
+  rootSizeMB ? "512",
+  swapSizeMB ? "1024",
   ...
 }:
 {
+  cauldron.impermanence.enable = true;
   disko.devices = {
     nodev = {
       "/" = {
         fsType = "tmpfs";
-        mountOptions = [ "defaults" "size=1G" "mode=755" ];
+        mountOptions = [ "defaults" "size=${rootSizeMB}M" "mode=755" ];
       };
     };
     disk = {
@@ -51,6 +54,12 @@
                   };
                   "/tmp" = {
                     mountpoint = "/tmp";
+                  };
+                  "/swap" = {
+                    mountpoint = "/.swapvol";
+                    swap = {
+                      swapfile.size = "${swapSizeMB}M";
+                    };
                   };
                 };
             	};
