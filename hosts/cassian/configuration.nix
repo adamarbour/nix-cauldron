@@ -13,7 +13,7 @@
     host.bluetooth.enable = true;
     host.tpm.enable = true;
     
-    host.kernel = pkgs.linuxPackages;
+    host.kernel = pkgs.unstable.linuxPackages_6_14;
     host.enableKernelTweaks = true;
     host.tmpOnTmpfs = false;
     

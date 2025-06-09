@@ -6,7 +6,6 @@
       (self: super: { nix-direnv = self.callPackage sources.nix-direnv { }; })
       (final: _prev: {
         unstable = import sources.nixpkgs-unstable {
-          inherit (final) system;
           config.allowUnfree = true;
         };
       })

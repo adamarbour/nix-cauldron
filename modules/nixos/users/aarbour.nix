@@ -4,7 +4,7 @@ let
 in {
 
   config = mkMerge [
-    (mkIf config.cauldron.impermanence {
+    (mkIf config.cauldron.impermanence.enable {
       systemd.tmpfiles.rules = [
         "d /persist/users/home/aarbour 0700 aarbour users -"
       ];

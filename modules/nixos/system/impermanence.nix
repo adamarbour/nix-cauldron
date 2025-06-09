@@ -1,9 +1,12 @@
-{ lib, config, ... }:
+{ lib, config, sources, ... }:
 let
   inherit (lib) mkIf mkEnableOption;
   
   cfg = config.cauldron.impermanence;
 in {
+  imports = [
+    (sources.impermanence + "/nixos.nix")
+  ];
   options.cauldron.impermanence = {
     enable = mkEnableOption "Enable bind-mounted impermanence for the system";
   };
@@ -15,7 +18,7 @@ in {
     
     environment.persistence."/persist/system" = {
       hideMounts = true;
-      directorys = [
+      directories = [
         "/var/lib/bluetooth"
         "/var/lib/iwd"
         "/var/lib/nixos"

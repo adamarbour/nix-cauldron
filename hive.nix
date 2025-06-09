@@ -1,15 +1,15 @@
+{ system ? builtins.currentSystem }:
 let
   sources = import ./npins;
 in {
   meta = {
     description = "Where all things were Made...";
-    nixpkgs = import sources.nixpkgs;
+    nixpkgs = import sources.nixpkgs {};
     specialArgs = { inherit sources; };
   };
   defaults = { lib, name, ... }: {
     imports = [
       (sources.disko + "/module.nix")
-      (sources.impermanence + "/nixos.nix")
       (sources.sops-nix + "/modules/sops")
       ./modules/nixos
     ];
@@ -32,7 +32,11 @@ in {
       (sources.nix-flatpak + "/modules/nixos.nix")
       ./hosts/cassian/configuration.nix
       ./hosts/cassian/hardware-configuration.nix
-      (import ./disks/impr-btrfs.nix { device = "/dev/nvme0n1"; })
+      (import ./disks/impr-btrfs.nix {
+        device = "/dev/nvme0n1";
+        rootSizeMB = "1024";
+        swapSizeMB = "2048";
+      })
     ];
     deployment = {
       allowLocalDeployment = true;
