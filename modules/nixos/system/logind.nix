@@ -10,6 +10,7 @@ in
       lidSwitchDocked = "ignore";
       lidSwitchExternalPower = "suspend";
       powerKey = "suspend";
+      powerKeyLongPress = "poweroff";
     };
 #    systemd.sleep.extraConfig = ''
 #      HibernateDelaySec=1h
