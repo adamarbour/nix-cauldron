@@ -4,6 +4,7 @@ let
   inherit (lib.lists) optionals;
   inherit (lib.options) mkOption mkEnableOption literalExpression;
   inherit (lib.types) str raw listOf package;
+  
   cfg = config.cauldron.host;
 in {
   
@@ -134,19 +135,18 @@ in {
         })
       ];
       
-      kernelParams = optionals cfg.enableKernelTweaks [
+      kernelParams = [
+      	"nowatchdog"
+      	"nmi_watchdog=0"
+      	"usbcore.autosuspend=5"
+      ]
+      ++ optionals cfg.enableKernelTweaks [
         # https://en.wikipedia.org/wiki/Kernel_page-table_isolation
         # auto means kernel will automatically decide the pti state
         "pti=auto" # on || off
         
-        # disable the intel_idle driver and use acpi_idle instead
-        "idle=nomwait"
-        
         # enable IOMMU for devices used in passthrough and provide better host performance
         "iommu=pt"
-        
-        # disable usb autosuspend
-        "usbcore.autosuspend=-1"
         
         # allow systemd to set and save the backlight state
         "acpi_backlight=native"

@@ -18,6 +18,7 @@
     host.tmpOnTmpfs = false;
     
     host.boot.loader = "systemd-boot";
+    host.boot.secureBoot = true;
     host.boot.silentBoot = true;
     host.boot.initrd.enableTweaks = true;
     

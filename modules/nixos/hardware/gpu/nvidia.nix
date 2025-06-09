@@ -31,7 +31,7 @@ in {
         # forceFullCompositionPipeline = true;
         powerManagement = {
           enable = mkDefault true;
-          finegrained = mkDefault false;
+          finegrained = mkDefault true;
         };
         prime = mkIf (cfg == "intel-nv" || cfg == "amd-nv") {
           # TODO: Make these configurable

@@ -6,10 +6,10 @@ in
   # compress half of the ram to use as swap basically, get more memory per memory
   zramSwap = {
     enable = true;
-    algorithm = "zstd";
-
+    algorithm = "lz4";
+    priority = 100;
     # defaults to 50
-    memoryPercent = 90;
+    memoryPercent = 60;
   };
 
   boot.kernel.sysctl = mkIf config.zramSwap.enable {
