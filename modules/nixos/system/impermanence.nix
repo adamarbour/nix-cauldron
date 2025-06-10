@@ -36,7 +36,7 @@ in {
     # TODO: Make this configurable...
     environment.persistence."/persist/users" = {
       hideMounts = true;
-        directories = [
+      directories = [
         "/home/aarbour"
       ];
     };

@@ -129,6 +129,19 @@
       "url": "https://api.github.com/repos/nix-community/nixos-anywhere/tarball/1.10.0",
       "hash": "1p0knllznf3xn53xis703gzn63iss54pzk0kgzaj9li6gp7sadn7"
     },
+    "nixos-generators": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "nixos-generators"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "ee07ba0d36c38e9915c55d2ac5a8fb0f05f2afcc",
+      "url": "https://github.com/nix-community/nixos-generators/archive/ee07ba0d36c38e9915c55d2ac5a8fb0f05f2afcc.tar.gz",
+      "hash": "02b8j994czp9vxwy5xwmv12d1vw56z95wq7i6da3ixlfkz87kf1r"
+    },
     "nixpkgs": {
       "type": "Git",
       "repository": {

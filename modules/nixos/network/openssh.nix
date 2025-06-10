@@ -1,6 +1,8 @@
 { lib, pkgs, config, ... }:
 let
+  inherit (lib) mkDefault;
   profiles = config.cauldron.profiles;
+  persistRoot = if config.cauldron.impermanence.enable then "/persist/system" else ""; 
   isGraphical = (lib.elem "graphical" profiles);
 in {
   config = {
@@ -11,15 +13,15 @@ in {
 
       extraConfig = ''
         Host * 
-          IdentityFile /etc/ssh/ssh_host_ed25519_key
+          IdentityFile ${persistRoot}/etc/ssh/ssh_host_ed25519_key
           IdentityFile ~/.ssh/id_ed25519
       '';
     };
     
     services.openssh = {
-      enable = true;
-      startWhenNeeded = true;
-      allowSFTP = true;
+      enable = mkDefault true;
+      startWhenNeeded = mkDefault true;
+      allowSFTP = mkDefault true;
       openFirewall = true;
       ports = [ 22 ];
       
@@ -64,12 +66,12 @@ in {
       hostKeys = [
         {
           bits = 4096;
-          path = "/etc/ssh/ssh_host_rsa_key";
+          path = "${persistRoot}/etc/ssh/ssh_host_rsa_key";
           type = "rsa";
         }
         {
           bits = 4096;
-          path = "/etc/ssh/ssh_host_ed25519_key";
+          path = "${persistRoot}/etc/ssh/ssh_host_ed25519_key";
           type = "ed25519";
         }
       ];
