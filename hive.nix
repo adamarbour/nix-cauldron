@@ -10,7 +10,6 @@ in {
   defaults = { lib, name, ... }: {
     imports = [
       (sources.disko + "/module.nix")
-      (sources.sops-nix + "/modules/sops")
       ./modules/nixos
     ];
     config = {
@@ -28,8 +27,8 @@ in {
   
   cassian = {
     imports = [
-      ((import sources.stylix).nixosModules.stylix)
-      (sources.nix-flatpak + "/modules/nixos.nix")
+      ((import sources.stylix).nixosModules.stylix) # TODO: Move me.. module me..
+      (sources.nix-flatpak + "/modules/nixos.nix") # TODO: Move me... module me..
       ./hosts/cassian/configuration.nix
       ./hosts/cassian/hardware-configuration.nix
       (import ./disks/impr-btrfs.nix {

@@ -194,6 +194,19 @@
       "url": "https://github.com/viperML/noshell/archive/4d194d838a50ea106cd0e47c024e47afc154ab42.tar.gz",
       "hash": "1x2d9j6ndihypq985s0610q1l878v6v6k6lg9mm9d46qfjz23wil"
     },
+    "secrets": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "adamarbour",
+        "repo": "dread-trove"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "8d8ac1e79f3a606b0c8ad003b31967103e6302c6",
+      "url": "https://github.com/adamarbour/dread-trove/archive/8d8ac1e79f3a606b0c8ad003b31967103e6302c6.tar.gz",
+      "hash": "0jf60w0ym5fx7wz87ib9j1kca5hjkkpgyqnq2812vpq5cbrhlm9g"
+    },
     "sops-nix": {
       "type": "Git",
       "repository": {
