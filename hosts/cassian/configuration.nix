@@ -30,6 +30,8 @@
     networking.optimize = true;
     networking.wireless.backend = "iwd";
     
+    impermanence.enable = true;
+    secrets.enable = true;
     profiles = [
       "laptop"
       "graphical"

@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "dad9682052c7da4cbc62f8d984bc3810ce54c06a",
-      "url": "https://github.com/zhaofengli/colmena/archive/dad9682052c7da4cbc62f8d984bc3810ce54c06a.tar.gz",
-      "hash": "0gh9rnzpdwfhhs1ri90c0p493pc73yvb94z6bpf3j7d98hych00m"
+      "revision": "c61641b156dfa3e82fc0671e77fccf7d7ccfaa3b",
+      "url": "https://github.com/zhaofengli/colmena/archive/c61641b156dfa3e82fc0671e77fccf7d7ccfaa3b.tar.gz",
+      "hash": "18rwiczv7w3f1yxlfa4lp8zyb9rlj3h0hwnz6pz2prl0h0z11i3j"
     },
     "disko": {
       "type": "GitRelease",
@@ -38,9 +38,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "029bd66faa180e11262dd1bc2732254c33415f52",
-      "url": "https://github.com/nixos/nixos-hardware/archive/029bd66faa180e11262dd1bc2732254c33415f52.tar.gz",
-      "hash": "1i3g1dbsv9d9aaw2321csq2pcldhlf00dq19mijsdx3mnjxdr120"
+      "revision": "4602f7e1d3f197b3cb540d5accf5669121629628",
+      "url": "https://github.com/nixos/nixos-hardware/archive/4602f7e1d3f197b3cb540d5accf5669121629628.tar.gz",
+      "hash": "1qq9gb0rxw43l2hhdnbf6c24r6051nhnqv7z72zxd79fg108m4av"
     },
     "home-manager": {
       "type": "Git",
@@ -51,9 +51,9 @@
       },
       "branch": "release-25.05",
       "submodules": false,
-      "revision": "282e1e029cb6ab4811114fc85110613d72771dea",
-      "url": "https://github.com/nix-community/home-manager/archive/282e1e029cb6ab4811114fc85110613d72771dea.tar.gz",
-      "hash": "1v1r9igz2n7j65rhqspplsq5zg0g1ba4gbkq4042md4nyaf67j24"
+      "revision": "7aae0ee71a17b19708b93b3ed448a1a0952bf111",
+      "url": "https://github.com/nix-community/home-manager/archive/7aae0ee71a17b19708b93b3ed448a1a0952bf111.tar.gz",
+      "hash": "12246mk1xf1bmak1n36yfnr4b0vpcwlp6q66dgvz8ip8p27pfcw2"
     },
     "impermanence": {
       "type": "Git",
@@ -108,9 +108,9 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "latest",
+      "version": "v0.6.0",
       "revision": "5e54c3ca05a7c7d968ae1ddeabe01d2a9bc1e177",
-      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/latest",
+      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/v0.6.0",
       "hash": "0s3mpb28rcmma29vv884fi3as926bfszhn7v8n74bpnp5qg5a1c8"
     },
     "nixos-anywhere": {
@@ -124,10 +124,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "1.10.0",
-      "revision": "1e2882c902322f1fd5992da0f5674c70ad8b133b",
-      "url": "https://api.github.com/repos/nix-community/nixos-anywhere/tarball/1.10.0",
-      "hash": "1p0knllznf3xn53xis703gzn63iss54pzk0kgzaj9li6gp7sadn7"
+      "version": "1.11.0",
+      "revision": "55fc48f9677822393cd9585b6742e1194accf365",
+      "url": "https://api.github.com/repos/nix-community/nixos-anywhere/tarball/1.11.0",
+      "hash": "01k91p2i7vqdvwkdh76fw9baj906mny3p85ix980rjzhr6yc4m45"
     },
     "nixos-generators": {
       "type": "Git",
@@ -151,9 +151,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "8f1b52b04f2cb6e5ead50bd28d76528a2f0380ef",
-      "url": "https://github.com/nixos/nixpkgs/archive/8f1b52b04f2cb6e5ead50bd28d76528a2f0380ef.tar.gz",
-      "hash": "0854a0169bh2rlfvrsibaqlmsql0dp3ycwq5z8178kdl7q9h6rrq"
+      "revision": "fd487183437963a59ba763c0cc4f27e3447dd6dd",
+      "url": "https://github.com/nixos/nixpkgs/archive/fd487183437963a59ba763c0cc4f27e3447dd6dd.tar.gz",
+      "hash": "0p381cq5b4x6l84h6xb6dy35l5cqgsdggm9vzmsvz60vwp4zyywq"
     },
     "nixpkgs-unstable": {
       "type": "Git",
@@ -164,9 +164,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "c2a03962b8e24e669fb37b7df10e7c79531ff1a4",
-      "url": "https://github.com/nixos/nixpkgs/archive/c2a03962b8e24e669fb37b7df10e7c79531ff1a4.tar.gz",
-      "hash": "1r4gklhwylxar9y2dxyikkzf3hl615dj1jzfy851p6kc33qm1ilm"
+      "revision": "3e3afe5174c561dee0df6f2c2b2236990146329f",
+      "url": "https://github.com/nixos/nixpkgs/archive/3e3afe5174c561dee0df6f2c2b2236990146329f.tar.gz",
+      "hash": "0dcslr2lwfaclfl4pmbwb3yw27bnvwlqiif394d3d66vyd163dvy"
     },
     "nixvim": {
       "type": "Git",
@@ -203,9 +203,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "8d8ac1e79f3a606b0c8ad003b31967103e6302c6",
-      "url": "https://github.com/adamarbour/dread-trove/archive/8d8ac1e79f3a606b0c8ad003b31967103e6302c6.tar.gz",
-      "hash": "0jf60w0ym5fx7wz87ib9j1kca5hjkkpgyqnq2812vpq5cbrhlm9g"
+      "revision": "53fee622c6589d83f1d7197f1debeb45970d4817",
+      "url": "https://github.com/adamarbour/dread-trove/archive/53fee622c6589d83f1d7197f1debeb45970d4817.tar.gz",
+      "hash": "0q1125kms347x968z2fp4lr6j72dwa322a2bl1x1hvf94ma0y6ig"
     },
     "sops-nix": {
       "type": "Git",
@@ -216,9 +216,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "8d215e1c981be3aa37e47aeabd4e61bb069548fd",
-      "url": "https://github.com/Mic92/sops-nix/archive/8d215e1c981be3aa37e47aeabd4e61bb069548fd.tar.gz",
-      "hash": "1jkkjrzz9zmhfkc31v1lsslg8p62r7sjrj4z13c2ghhmdmgfa1ll"
+      "revision": "50754dfaa0e24e313c626900d44ef431f3210138",
+      "url": "https://github.com/Mic92/sops-nix/archive/50754dfaa0e24e313c626900d44ef431f3210138.tar.gz",
+      "hash": "1q0b58m9bm4kkm19c0d8lbr10cg00ijqn63wqwxfc0s5yv6x1san"
     },
     "stylix": {
       "type": "Git",
@@ -229,9 +229,9 @@
       },
       "branch": "release-25.05",
       "submodules": false,
-      "revision": "689d4db89d3be6fd82b7dcb41a1cea5c4743b1ef",
-      "url": "https://github.com/danth/stylix/archive/689d4db89d3be6fd82b7dcb41a1cea5c4743b1ef.tar.gz",
-      "hash": "0qyw4bgxa9xdcpridzbkhvnhrpk8537zgp3sybcbyhz6rh2igxgi"
+      "revision": "1e9b92c4fceb54bf47ed1b53739f681333c45469",
+      "url": "https://github.com/danth/stylix/archive/1e9b92c4fceb54bf47ed1b53739f681333c45469.tar.gz",
+      "hash": "0g8zdbv4pvqk3whyc7bbj4y35i84q41ij8q5q999mkk8z6hyd4sr"
     }
   },
   "version": 5
