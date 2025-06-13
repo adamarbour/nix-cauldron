@@ -9,16 +9,17 @@ in {
       ];
     })
     
-    (mkIf config.cauldron.secrets.enable {
-      users.users.aarbour.hashedPasswordFile = config.sops.secrets.user_passwd.path;
-    })
+#    (mkIf config.cauldron.secrets.enable {
+#      users.users.aarbour.hashedPasswordFile = config.sops.secrets.user_passwd.path;
+#    })
     
-    (mkIf (!config.cauldron.secrets.enable) {
-      users.users.aarbour.initialPassword = "nixos";
-    })
+#    (mkIf (!config.cauldron.secrets.enable) {
+#      users.users.aarbour.initialPassword = "nixos";
+#    })
     
     {
       users.users.aarbour = {
+        initialPassword = "nixos";
         uid = mkDefault 1000;
         isNormalUser = true;
         home = "/home/aarbour";

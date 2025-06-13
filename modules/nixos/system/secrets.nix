@@ -1,4 +1,4 @@
-{ lib, config, sources, ... }:
+{ lib, pkgs, config, sources, ... }:
 let
   inherit (lib) mkIf mkEnableOption;
   persistRoot = if config.cauldron.impermanence.enable then "/persist/system" else ""; 
@@ -17,10 +17,12 @@ in {
     sops = {
       defaultSopsFile = "${secretsRepo}/secrets/crown.yaml";
       age.sshKeyPaths = [ "${persistRoot}/etc/ssh/ssh_host_ed25519_key" ];
-      
       secrets = {
-        user_passwd.neededForUsers = true;
+        user_passwd = {};
       };
     };
+    environment.systemPackages = with pkgs; [
+    	ssh-to-age
+    ];
   };
 }
