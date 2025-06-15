@@ -38,9 +38,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "4602f7e1d3f197b3cb540d5accf5669121629628",
-      "url": "https://github.com/nixos/nixos-hardware/archive/4602f7e1d3f197b3cb540d5accf5669121629628.tar.gz",
-      "hash": "1qq9gb0rxw43l2hhdnbf6c24r6051nhnqv7z72zxd79fg108m4av"
+      "revision": "db030f62a449568345372bd62ed8c5be4824fa49",
+      "url": "https://github.com/nixos/nixos-hardware/archive/db030f62a449568345372bd62ed8c5be4824fa49.tar.gz",
+      "hash": "11kaa1wvzzd1avivq57bqfvlr9v62yq3lcmz382mc7hs22xn3z4m"
     },
     "home-manager": {
       "type": "Git",
@@ -151,9 +151,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "fd487183437963a59ba763c0cc4f27e3447dd6dd",
-      "url": "https://github.com/nixos/nixpkgs/archive/fd487183437963a59ba763c0cc4f27e3447dd6dd.tar.gz",
-      "hash": "0p381cq5b4x6l84h6xb6dy35l5cqgsdggm9vzmsvz60vwp4zyywq"
+      "revision": "5f4f306bea96741f1588ea4f450b2a2e29f42b98",
+      "url": "https://github.com/nixos/nixpkgs/archive/5f4f306bea96741f1588ea4f450b2a2e29f42b98.tar.gz",
+      "hash": "1wqlv4p1g8x63qsrjfq8yyigxipkhnyvw23n03ls65g1gm972vml"
     },
     "nixpkgs-unstable": {
       "type": "Git",
@@ -164,9 +164,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "3e3afe5174c561dee0df6f2c2b2236990146329f",
-      "url": "https://github.com/nixos/nixpkgs/archive/3e3afe5174c561dee0df6f2c2b2236990146329f.tar.gz",
-      "hash": "0dcslr2lwfaclfl4pmbwb3yw27bnvwlqiif394d3d66vyd163dvy"
+      "revision": "ee930f9755f58096ac6e8ca94a1887e0534e2d81",
+      "url": "https://github.com/nixos/nixpkgs/archive/ee930f9755f58096ac6e8ca94a1887e0534e2d81.tar.gz",
+      "hash": "15zn3jbphw6fwv0x7w9i4nqz3yvi8zpjy21d5jd5nvcpsvi4l7ra"
     },
     "nixvim": {
       "type": "Git",
@@ -203,9 +203,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "53fee622c6589d83f1d7197f1debeb45970d4817",
-      "url": "https://github.com/adamarbour/dread-trove/archive/53fee622c6589d83f1d7197f1debeb45970d4817.tar.gz",
-      "hash": "0q1125kms347x968z2fp4lr6j72dwa322a2bl1x1hvf94ma0y6ig"
+      "revision": "f84d929922cbcf56649ed29032d439221f75b83d",
+      "url": "https://github.com/adamarbour/dread-trove/archive/f84d929922cbcf56649ed29032d439221f75b83d.tar.gz",
+      "hash": "1m3cppjn52msxhaxyvaqgrbaw7l9w69fh7k6kgwzl6jnx7lp4px2"
     },
     "sops-nix": {
       "type": "Git",
@@ -229,9 +229,9 @@
       },
       "branch": "release-25.05",
       "submodules": false,
-      "revision": "1e9b92c4fceb54bf47ed1b53739f681333c45469",
-      "url": "https://github.com/danth/stylix/archive/1e9b92c4fceb54bf47ed1b53739f681333c45469.tar.gz",
-      "hash": "0g8zdbv4pvqk3whyc7bbj4y35i84q41ij8q5q999mkk8z6hyd4sr"
+      "revision": "2945d80172e0a82bbdbfe44c205d28ee5d097a5a",
+      "url": "https://github.com/danth/stylix/archive/2945d80172e0a82bbdbfe44c205d28ee5d097a5a.tar.gz",
+      "hash": "0dkrf6bgqrhs2xkqiwjxqghi577nlfkjxq38ph7b4c15dpwrj07f"
     }
   },
   "version": 5
