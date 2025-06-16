@@ -203,9 +203,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "f84d929922cbcf56649ed29032d439221f75b83d",
-      "url": "https://github.com/adamarbour/dread-trove/archive/f84d929922cbcf56649ed29032d439221f75b83d.tar.gz",
-      "hash": "1m3cppjn52msxhaxyvaqgrbaw7l9w69fh7k6kgwzl6jnx7lp4px2"
+      "revision": "bede0db086c095d9b3576bb75c443c633c2ef575",
+      "url": "https://github.com/adamarbour/dread-trove/archive/bede0db086c095d9b3576bb75c443c633c2ef575.tar.gz",
+      "hash": "0fhbjg97sjvnj03rvb2iwagsbqa3q6sqmjfqsk8ngy951arhjpwq"
     },
     "sops-nix": {
       "type": "Git",
