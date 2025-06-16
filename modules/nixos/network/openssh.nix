@@ -20,7 +20,7 @@ in {
     
     services.openssh = {
       enable = mkDefault true;
-      startWhenNeeded = mkDefault true;
+      startWhenNeeded = isGraphical;
       allowSFTP = mkDefault true;
       openFirewall = true;
       ports = [ 22 ];

@@ -7,6 +7,8 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
   
+  programs.firefox.enable = true;
+  
   cauldron = {
     host.cpu = "intel";
     host.gpu = "intel-nv";
