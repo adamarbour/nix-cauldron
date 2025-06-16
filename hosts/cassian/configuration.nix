@@ -8,6 +8,7 @@
   services.xserver.desktopManager.xfce.enable = true;
   
   programs.firefox.enable = true;
+  programs.git.enable = true;
   
   cauldron = {
     host.cpu = "intel";
