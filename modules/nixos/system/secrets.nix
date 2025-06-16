@@ -1,7 +1,8 @@
 { lib, pkgs, config, sources, ... }:
 let
   inherit (lib) mkIf mkEnableOption;
-  persistRoot = if config.cauldron.impermanence.enable then "/persist/system" else ""; 
+  persistRoot = if config.cauldron.impermanence.enable then "/persist/system" else "";
+  persistHome = if config.cauldron.impermanence.enable then "/persist/users" else ""; 
   secretsRepo = sources.secrets;
   
   cfg = config.cauldron.secrets;
@@ -21,6 +22,8 @@ in {
       };
       secrets = {
         user_passwd.neededForUsers = true;
+        "id_ed25519" = {};
+        "id_ed25519_pub" = {};
       };
     };
     environment.systemPackages = with pkgs; [
