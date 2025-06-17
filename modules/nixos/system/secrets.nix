@@ -22,8 +22,18 @@ in {
       };
       secrets = {
         user_passwd.neededForUsers = true;
-        "id_ed25519" = {};
-        "id_ed25519_pub" = {};
+        "user/ssh_key" = {
+          key = "id_ed25519";
+          owner = "aarbour";
+          mode = "0600";
+          path = "${persistHome}/home/aarbour/.ssh/id_ed25519";
+        };
+        "user/ssh_pub" = {
+          key = "id_ed25519_pub";
+          owner = "aarbour";
+          mode = "0644";
+          path = "${persistHome}/home/aarbour/.ssh/id_ed25519.pub";
+        };
       };
     };
     environment.systemPackages = with pkgs; [

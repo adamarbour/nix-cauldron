@@ -1,9 +1,19 @@
+HOST := "self"
 
 [private]
 default:
   @just --list
 
-# check the configuration
+# Apply configuration specified host (assumes local)
+[group('dev')]
+rebuild:
+  @if [ "{{HOST}}" = "self" ]; then \
+    colmena apply-local --sudo --show-trace; \
+  else \
+    colmena apply --on {{HOST}} --show-trace; \
+  fi
+
+# Dry-active the entire configuration
 [group('dev')]
 check:
   colmena apply dry-activate
