@@ -33,6 +33,8 @@
     networking.optimize = true;
     networking.wireless.backend = "iwd";
     
+    security.auditd.enable = true;
+    
     impermanence.enable = true;
     secrets.enable = true;
     profiles = [

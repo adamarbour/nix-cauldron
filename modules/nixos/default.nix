@@ -6,6 +6,7 @@
     ./hardware
     ./nix
     ./network
+    ./security
     ./system
     ./users
   ];

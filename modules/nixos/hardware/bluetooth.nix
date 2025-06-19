@@ -28,10 +28,14 @@ in {
           JustWorksRepairing = "always";
           MultiProfile = "multiple";
           Privacy = "device";
+          PairableTimeout = 30;
+          DiscoverableTimeout = 30;
+          TemporaryTimeout = 0;
         };
         Policy = {
           ReconnectIntervals = "1,1,2,3,5,8,13,21,34,55";
           AutoEnable = true;
+          Privacy = "network/on";
         };
         LE = {
           MinConnectionInterval = "7";
