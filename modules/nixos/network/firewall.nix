@@ -2,9 +2,9 @@
 let
   inherit (lib) mkEnableOption mkDefault mkForce;
   profiles = config.cauldron.profiles;
-  cfg = config.cauldron.networking.firewall;
+  cfg = config.cauldron.network.firewall;
 in {
-  options.cauldron.networking.firewall = {
+  options.cauldron.network.firewall = {
     enable = mkEnableOption true;
   };
   

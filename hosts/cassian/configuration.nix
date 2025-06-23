@@ -30,8 +30,9 @@
     host.boot.silentBoot = true;
     host.boot.initrd.enableTweaks = true;
     
-    networking.optimize = true;
-    networking.wireless.backend = "iwd";
+    network.optimize = true;
+    network.wireless.backend = "iwd";
+    network.tailscale.enable = true;
     
     security.auditd.enable = true;
     

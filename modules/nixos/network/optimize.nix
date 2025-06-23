@@ -1,9 +1,9 @@
 { lib, pkgs, config, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.cauldron.networking;
+  cfg = config.cauldron.network;
 in {
-  options.cauldron.networking = {
+  options.cauldron.network = {
     optimize = mkEnableOption false;
   };
   
