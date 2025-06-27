@@ -21,6 +21,7 @@
     host.enableKernelTweaks = true;
     host.tmpOnTmpfs = false;
     
+    host.boot.plymouth.enable = true;
     host.boot.extraModprobeConfig = ''
       options i915 enable_dc=2 enable_fbc=1 enable_psr=1
       options iwlwifi power_save=true
@@ -38,6 +39,7 @@
     
     impermanence.enable = true;
     secrets.enable = true;
+    
     profiles = [
       "laptop"
       "graphical"

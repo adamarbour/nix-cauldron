@@ -27,7 +27,7 @@ in {
   
   cassian = {
     imports = [
-      ((import sources.stylix).nixosModules.stylix) # TODO: Move me.. module me..
+#      ((import sources.stylix).nixosModules.stylix) # TODO: Move me.. module me..
       (sources.nix-flatpak + "/modules/nixos.nix") # TODO: Move me... module me..
       ./hosts/cassian/configuration.nix
       ./hosts/cassian/hardware-configuration.nix
