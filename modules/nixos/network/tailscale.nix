@@ -40,7 +40,7 @@ in {
       enable = true;
       openFirewall = true;
       permitCertUid = "root";
-      authKeyFile = "${persistRoot}/var/lib/tailscale.key";
+      authKeyFile = if (cfg.isServer) then "${persistRoot}/var/lib/tailscale.key" else null;
       extraDaemonFlags = [ "--no-logs-no-support" ];
       extraUpFlags = cfg.extraFlags;
       useRoutingFeatures =  if (cfg.isServer) then "server" else "client";
