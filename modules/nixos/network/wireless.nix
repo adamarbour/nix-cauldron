@@ -10,12 +10,12 @@ in {
       type = enum [
         "iwd"
         "wpa_supplicant"
+        "none"
       ];
-      default = "wpa_supplicant";
+      default = "none";
       description = ''
         Backend that will be used for wireless connections using either `networking.wireless`
         or `networking.networkmanager.wifi.backend`
-        Defaults to wpa_supplicant until iwd is stable.
       '';
     };
   };

@@ -42,4 +42,11 @@ in {
       targetHost = null;
     };
   };
+  
+  nflix-dlrr = {
+    imports = [
+      ./hosts/nflix/dlrr/configuration.nix
+      ./hosts/nflix/dlrr/disk-configuration.nix
+    ];
+  };
 }

@@ -10,6 +10,9 @@
   programs.firefox.enable = true;
   programs.git.enable = true;
   
+  networking.interfaces.wlan0.useDHCP = true;
+  networking.interfaces.enp0s31f6.useDHCP = true;
+  
   cauldron = {
     host.cpu = "intel";
     host.gpu = "intel-nv";

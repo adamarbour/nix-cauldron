@@ -7,6 +7,7 @@
     ./nix
     ./network
     ./security
+    ./services
     ./system
     ./users
   ];

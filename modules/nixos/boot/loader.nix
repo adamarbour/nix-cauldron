@@ -1,7 +1,7 @@
 { lib, pkgs, config, ...}:
 let
   inherit (lib) mkForce mkOption mkDefault mkMerge mkIf mkEnableOption mkPackageOption;
-  inherit (lib.types) enum nullOr str;
+  inherit (lib.types) enum nullOr str bool;
   cfg = config.cauldron.host.boot;
 in {
   options.cauldron.host.boot = {
@@ -19,6 +19,11 @@ in {
         type = nullOr str;
         default = "nodev";
         description = "The device to install the bootloader to.";
+      };
+      enableEFI = mkOption {
+        type = bool;
+        default = true;
+        description = "Enable EFI boot for GRUB. If faulse, use legacy BIOS boot.";
       };
     };
     memtest = {
@@ -41,9 +46,10 @@ in {
         enable = mkDefault true;
         configurationLimit = 3;
         useOSProber = mkDefault false;
-        efiSupport = true;
+        efiSupport = cfg.grub.enableEFI;
         enableCryptodisk = mkDefault false;
         inherit (cfg.grub) device;
+        devices = mkForce [ cfg.grub.device ]; # I don't use mirrored boot, so using as workaround.
         theme = null;
         backgroundColor = null;
         splashImage = null;
