@@ -42,6 +42,7 @@
     
     impermanence.enable = true;
     secrets.enable = true;
+    home-manager.enable = true;
     
     profiles = [
       "laptop"

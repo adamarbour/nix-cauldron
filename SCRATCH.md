@@ -10,8 +10,12 @@ sudo disko --mode destroy,format,mount ./disks/{{file}} --arg device '"/dev/{{de
 ```
 sudo nixos-generate-config --root /mnt --show-hardware-config --no-filesystems
 ```
+3a. Remote deployment
+```
+nixos-anywhere --store-paths $(nix-build -E '(import ./colmena-anywhere.nix).$HOST.disko-script') $(nix-build -E '(import ./colmena-anywhere.nix).$HOST.nixos-system') root@$HOST
+```
 
-3. Deploy
+3b. Local Deploy
 ```
 # LOCAL
 colmena build --on {{HOST}} --no-build-on-target
@@ -45,11 +49,15 @@ TBD
     
 ### Stages
 1. Core
-    - Boot modules supporting Systemd, Grub and Secure Boot
-    - Disk & Filesystem utilities
-    - Secrets management
-    - Networking, SSH & Tailscale
-    - Security/Hardening & Auditd
+    - Boot modules supporting Systemd, Grub and Secure Boot [X]
+    -- Secure boot still needs to be done...
+    - Disk & Filesystem utilities [X]
+    - Secrets management [X]
+    -- Need to build better scaffolding or helpers
+    - Networking, SSH & Tailscale [X]
+    -- Need to determine if Tailscale is longterm
+    - Security/Hardening & Auditd [X]
+    --- improve Auditd logging
 2. Graphical/ Rice
     - Desktop Experience
     - Flatpak

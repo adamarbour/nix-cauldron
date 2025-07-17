@@ -11,6 +11,15 @@ in {
     imports = [
       (sources.disko + "/module.nix")
       ./modules/nixos
+      "${sources.home-manager}/nixos" (
+      {
+        home-manager.useGlobalPkgs = true;
+        home-manager.useUserPackages = true;
+        home-manager.extraSpecialArgs = {
+          inherit sources;
+        };
+      }
+    )
     ];
     config = {
       networking.hostName = name;
@@ -28,7 +37,7 @@ in {
   cassian = {
     imports = [
 #      ((import sources.stylix).nixosModules.stylix) # TODO: Move me.. module me..
-      (sources.nix-flatpak + "/modules/nixos.nix") # TODO: Move me... module me..
+#      (sources.nix-flatpak + "/modules/nixos.nix") # TODO: Move me... module me..
       ./hosts/cassian/configuration.nix
       ./hosts/cassian/hardware-configuration.nix
       (import ./disks/impr-btrfs.nix {

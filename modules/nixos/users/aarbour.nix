@@ -1,7 +1,12 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mkDefault mkMerge;
+  inherit (lib) mkIf mkDefault mkMerge mkEnableOption;
+  cfg = config.cauldron.home-manager;
 in {
+  options.cauldron.home-manager = {
+    enable = mkEnableOption "Enable home-manager as a module";
+  };
+  
   config = mkMerge [
     (mkIf config.cauldron.impermanence.enable {
       systemd.tmpfiles.rules = [
@@ -15,6 +20,16 @@ in {
     
     (mkIf (!config.cauldron.secrets.enable) {
       users.users.aarbour.initialPassword = "nixos";
+    })
+    
+    # Enable home-manager
+    (mkIf (cfg.enable) {
+      home-manager.users.aarbour = { ... }: {
+        imports = [ 
+          ../../hm
+          ../../hm/aarbour.nix
+        ];
+      };
     })
     
     {
