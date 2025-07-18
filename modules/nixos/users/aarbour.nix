@@ -26,9 +26,12 @@ in {
     (mkIf (cfg.enable) {
       home-manager.users.aarbour = { ... }: {
         imports = [ 
-          ../../hm
-          ../../hm/aarbour.nix
+          ../../home-manager
         ];
+        programs.git = {
+          userName = "Adam Arbour";
+          userEmail = "845679+adamarbour@users.noreply.github.com";
+        };
       };
     })
     

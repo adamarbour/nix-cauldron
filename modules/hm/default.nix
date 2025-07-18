@@ -1,6 +1,0 @@
-{ lib, sources, ... }:
-{
-  imports = [
-    ./home
-  ];
-}
