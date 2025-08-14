@@ -1,15 +1,14 @@
-{ lib, config, ... }:
+{ lib, pkgs, config, ... }:
 let
-  inherit (lib) mkEnableOption mkOption mkIf types;
-  cfg = config.cauldron.host.boot.plymouth;
+  inherit (lib) mkEnableOption mkIf;
+  profiles = config.cauldron.profiles;
 in {
-  options.cauldron.host.boot.plymouth = {
-    enable = mkEnableOption "Use plymouth";
-  };
-
-  config = mkIf cfg.enable {
+  
+  config = mkIf (lib.elem "graphical" profiles) {
     boot.plymouth = {
       enable = true;
+      theme = "nixos-bgrt";
+      themePackages = [ pkgs.nixos-bgrt-plymouth ];
     };
   };
 }

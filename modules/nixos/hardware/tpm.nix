@@ -1,15 +1,15 @@
-{ lib, config, ... }:
+{ lib, config, ...}:
 let
-  inherit (lib.modules) mkIf mkDefault;
-  inherit (lib.options) mkEnableOption;
-  
-  cfg = config.cauldron.host.tpm;
+  inherit (lib) types mkIf mkDefault mkOption;
+  cfg = config.cauldron.host.feature;
 in {
-  options.cauldron.host.tpm = {
-    enable = mkEnableOption "Should the device load tpm drivers and support.";
+  options.cauldron.host.feature.tpm = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Wether to enable tpm support";
   };
   
-  config = mkIf cfg.enable {
+  config = mkIf cfg.tpm {
     security.tpm2 = {
       enable = mkDefault true;
       abrmd.enable = mkDefault false;

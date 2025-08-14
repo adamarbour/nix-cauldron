@@ -1,25 +1,26 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) mkEnableOption mkDefault mkForce;
+  inherit (lib) mkForce mkDefault;
   profiles = config.cauldron.profiles;
-  cfg = config.cauldron.network.firewall;
 in {
-  options.cauldron.network.firewall = {
-    enable = mkEnableOption true;
+  networking.nftables = {
+    enable = mkDefault true;
   };
-  
-  config = {
-    networking.nftables.enable = cfg.enable;
-    networking.firewall = {
-      enable = cfg.enable;
-      allowPing = if (lib.elem "server" profiles) then true else false;
-      pingLimit = "1/minute burst 5 packets";
-      # make a much smaller and easier to read log
-      logReversePathDrops = mkDefault true;
-      logRefusedConnections = mkDefault false;
-
-      # Don't filter DHCP packets, according to nixops-libvirtd
-      checkReversePath = mkForce false;
-    };
+  networking.firewall = {
+    enable = true;
+    
+    allowedTCPPorts = [ ];
+    allowedUDPPorts = [ ];
+    
+    allowedTCPPortRanges = [ ];
+    allowedUDPPortRanges = [ ];
+    
+    allowPing = if (lib.elem "server" profiles) then true else false;
+    pingLimit = "1/minute burst 5 packets";
+    
+    logReversePathDrops = true;
+    logRefusedConnections = false;
+    
+    checkReversePath = mkForce false;
   };
 }

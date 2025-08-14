@@ -1,26 +1,20 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, ...}:
 let
-  inherit (lib.modules) mkIf mkDefault;
-  inherit (lib.types) bool;
-  inherit (lib.options) mkEnableOption mkOption;
-  
-  cfg = config.cauldron.host.bluetooth;
+  inherit (lib) types mkIf mkDefault mkOption;
+  cfg = config.cauldron.host.feature;
 in {
-  options.cauldron.host.bluetooth = {
-    enable = mkEnableOption "Should the device load bluetooth drivers and enable blueman";
-    onBoot = mkOption {
-      type = bool;
-      default = false;
-      description = "Should the device start bluetooth service on boot";
-    };
+  options.cauldron.host.feature.bluetooth = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Wether to enable bluetooth support";
   };
   
-  config = mkIf cfg.enable {
+  config = mkIf cfg.bluetooth {
     hardware.bluetooth = {
       enable = true;
       package = pkgs.bluez-experimental;
-      powerOnBoot = cfg.onBoot;
       disabledPlugins = [ "sap" ];
+      
       settings = {
         General = {
           ControllerMode = "dual";
@@ -44,6 +38,8 @@ in {
         };
       };
     };
+    
+    boot.kernelModules = [ "btusb" ];
     services.blueman.enable = mkDefault true;
   };
 }

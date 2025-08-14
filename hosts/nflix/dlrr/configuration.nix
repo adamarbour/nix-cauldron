@@ -1,19 +1,22 @@
-{ lib, pkgs, modulesPath, ... }:
+{ pkgs, ... }:
 {
-  imports = [
-    (modulesPath + "/profiles/qemu-guest.nix")
-  ];
   cauldron = {
-    host.cpu = "intel";
-    host.boot = {
-      loader = "grub";
-      grub = {
-        enableEFI = false;
+    profiles = [
+      "server"
+      "kvm"
+    ];
+    host = {
+      boot.loader = "grub";
+      hardware.cpu = "intel";
+      disk = {
+        enable = true;
+        rootFs = "ext4";
         device = "/dev/vda";
+        swap.enable = true;
       };
     };
-     
-     profiles = [ "server" ];
-     services.cloud-init.enable = true;
+    services = {
+      cloud-init.enable = true;
+    };
   };
 }

@@ -1,17 +1,14 @@
-{ lib, config, ... }:
+{ lib, config, ...}:
 let
   inherit (lib) mkIf;
-in
-{
-  # compress half of the ram to use as swap basically, get more memory per memory
+in {
   zramSwap = {
     enable = true;
-    algorithm = "lz4";
-    priority = 100;
-    # defaults to 50
-    memoryPercent = 60;
+    algorithm = "zstd";
+    memoryPercent = 100;
+    memoryMax = (16 * 1024 * 1024 * 1024); # 16GB
   };
-
+  
   boot.kernel.sysctl = mkIf config.zramSwap.enable {
     # zram is relatively cheap, prefer swap
     "vm.swappiness" = 180;

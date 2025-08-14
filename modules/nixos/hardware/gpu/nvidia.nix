@@ -1,52 +1,53 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) mkIf mkDefault;
-  cfg = config.cauldron.host.gpu;
+  inherit (lib) mkIf;
+  cfg = config.cauldron.host.hardware;
 in {
-  config = mkIf (cfg == "nvidia" || cfg == "intel-nv" || cfg == "amd-nv") {
-    # nvidia drivers kinda are unfree software
-    nixpkgs.config.allowUnfree = true;
+  config = mkIf (cfg.gpu == "nvidia" || cfg.gpu == "hybrid") {
+    services.xserver.videoDrivers = [ "nvidia" ];
     
-    services.xserver.videoDrivers = mkDefault [ "nvidia" ];
-    
-    boot = {
-      # blacklist nouveau module as otherwise it conflicts with nvidia drm
-      blacklistedKernelModules = [ "nouveau" ];
-
-      # Enables the Nvidia's experimental framebuffer device
-      # fix for the imaginary monitor that does not exist
-      kernelParams = [ "nvidia_drm.fbdev=1" ];
-    };
-    
-    environment.sessionVariables = {
-      LIBVA_DRIVER_NAME = "nvidia";
-    };
+    environment.systemPackages = [
+      pkgs.nvtopPackages.nvidia
+      # vulkan
+      pkgs.vulkan-tools
+      pkgs.vulkan-loader
+      pkgs.vulkan-validation-layers
+      pkgs.vulkan-extension-layer
+      # libva
+      pkgs.libva
+      pkgs.libva-utils
+    ];
     
     hardware = {
       nvidia = {
-        package = mkDefault config.boot.kernelPackages.nvidiaPackages.beta;
-        open = false; # dont use the open drivers by default
-        nvidiaSettings = false; # adds nvidia-settings to pkgs, so useless on nixos
-        nvidiaPersistenced = true;
-        # forceFullCompositionPipeline = true;
+        # use the latest and greatest nvidia drivers
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
+
         powerManagement = {
-          enable = mkDefault true;
-          finegrained = mkDefault true;
+          enable = true;
+          finegrained = false;
         };
-        prime = mkIf (cfg == "intel-nv" || cfg == "amd-nv") {
-          # TODO: Make these configurable
-          intelBusId = "PCI:0:2:0";
-          nvidiaBusId = "PCI:1:0:0";
-          offload = {
-            enable = if cfg == "nvidia" then false else true; # Dedicated by default. Hybrid otherwise.
-            enableOffloadCmd = config.hardware.nvidia.prime.offload.enable;
-          };
-        };
+
+        # dont use the open drivers by default
+        open = false;
+
+        # adds nvidia-settings to pkgs, so useless on nixos
+        nvidiaSettings = false;
+
+        nvidiaPersistenced = true;
       };
       graphics = {
         extraPackages = [ pkgs.nvidia-vaapi-driver ];
         extraPackages32 = [ pkgs.pkgsi686Linux.nvidia-vaapi-driver ];
       };
     };
+    
+    # Enables the Nvidia's experimental framebuffer device
+    # fix for the imaginary monitor that does not exist
+    boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
+    
+    environment.sessionVariables = {
+      LIBVA_DRIVER_NAME = "nvidia";
+    };
   };
-} 
+}

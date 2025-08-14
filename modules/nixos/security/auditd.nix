@@ -1,36 +1,42 @@
 { lib, config, ... }:
 let
-  inherit (lib.modules) mkIf;
-  inherit (lib.options) mkOption mkEnableOption;
-  inherit (lib.types) int str;
+  inherit (lib) types mkIf mkOption mkEnableOption;
   profiles = config.cauldron.profiles;
-  cfg = config.cauldron.security.auditd;
-in {
-  options.cauldron.security.auditd = {
+
+  cfg = config.cauldron.host.feature.security.auditd;
+in
+{
+  options.cauldron.host.feature.security.auditd = {
     enable = mkEnableOption "Enable the audit daemon" // {
       default = (lib.elem "server" profiles);
     };
+
     autoPrune = {
       enable = mkEnableOption "Enable auto-pruning of audit logs" // {
         default = cfg.enable;
       };
+
       size = mkOption {
-        type = int;
+        type = types.int;
         default = 524288000; # ~500 megabytes
         description = "The maximum size of the audit log in bytes";
       };
-      period = mkOption {
-        type = str;
+
+      dates = mkOption {
+        type = types.str;
         default = "daily";
         example = "weekly";
         description = "How often the audit log should be pruned";
       };
     };
   };
-  
+
   config = mkIf cfg.enable {
+    # start as early in the boot process as possible
+    boot.kernelParams = ["audit=1"];
     security = {
       auditd.enable = true;
+
       audit = {
         enable = true;
         backlogLimit = 8192;
@@ -42,13 +48,14 @@ in {
         ];
       };
     };
-     # the audit log can grow quite large, so we automatically prune it
+
+    # the audit log can grow quite large, so we _can_ automatically prune it
     systemd = mkIf cfg.autoPrune.enable {
       timers."clean-audit-log" = {
         description = "Periodically clean audit log";
         wantedBy = [ "timers.target" ];
         timerConfig = {
-          OnCalendar = cfg.autoPrune.period;
+          OnCalendar = cfg.autoPrune.dates;
           Persistent = true;
         };
       };

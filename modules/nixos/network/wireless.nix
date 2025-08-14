@@ -1,13 +1,11 @@
 { lib, config, ... }:
 let
-  inherit (lib.options) mkOption;
-  inherit (lib.types) enum;
-  
-  cfg = config.cauldron.network.wireless;
+  inherit (lib) mkOption types;
+  cfg = config.cauldron.host.network.wireless;
 in {
-  options.cauldron.network.wireless = {
+  options.cauldron.host.network.wireless = {
     backend = mkOption {
-      type = enum [
+      type = types.enum [
         "iwd"
         "wpa_supplicant"
         "none"

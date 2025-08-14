@@ -5,7 +5,7 @@ in {
   imports = [
   ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
   
-  options.cauldron.host.cpu = mkOption {
+  options.cauldron.host.hardware.cpu = mkOption {
     type = types.nullOr (
       types.enum [
         "intel"

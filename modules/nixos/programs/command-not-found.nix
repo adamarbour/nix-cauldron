@@ -1,9 +1,5 @@
-{ lib, config, ... }:
-let
-  profiles = config.cauldron.profiles;
-in {
-  programs = {
-    command-not-found.enable = false;
-    pay-respects.enable = (lib.elem "graphical" profiles);
-  };
+{
+  # disable command-not-found, it doesn't help, and it adds perl
+  # which we don't need, and we know when we don't have a command anyway
+  programs.command-not-found.enable = false;
 }

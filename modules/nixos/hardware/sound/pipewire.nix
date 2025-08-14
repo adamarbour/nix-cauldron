@@ -1,10 +1,11 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, ...}:
 let
   inherit (lib) mkIf;
   profiles = config.cauldron.profiles;
 in {
   config = mkIf (lib.elem "graphical" profiles) {
     environment.systemPackages = [ pkgs.alsa-utils ];
+    
     services.pipewire = {
       enable = true;
       alsa.enable = true;

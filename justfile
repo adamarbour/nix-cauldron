@@ -1,22 +1,29 @@
-HOST := "self"
-
 [private]
 default:
   @just --list
-
+  
 # Apply configuration specified host (assumes local)
 [group('dev')]
-rebuild:
-  @if [ "{{HOST}}" = "self" ]; then \
-    colmena apply-local --sudo --show-trace; \
+apply node="self" action="switch":
+  @if [ "{{node}}" = "self" ]; then \
+    colmena apply-local --sudo --show-trace {{action}}; \
   else \
-    colmena apply --on {{HOST}} --show-trace; \
+    colmena apply --on {{node}} --show-trace {{action}}; \
   fi
 
-# Dry-active the entire configuration
+# Build configuration specified host
 [group('dev')]
-check:
-  colmena apply dry-activate
+build node="self":
+  @if [ "{{node}}" = "self" ]; then \
+    colmena build --show-trace; \
+  else \
+    colmena build --show-trace --on {{node}}; \
+  fi
+  
+# Start an interactive REPL with the configuration
+[group('dev')]
+repl:
+  colmena repl
   
 # Update sources
 [group('dev')]
@@ -28,25 +35,20 @@ update:
 upgrade:
   npins upgrade
   npins update --partial
-
-# Show information about the current Nix installation
-[group('utils')]
-info:
-  colmena nix-info
   
 # Verify the integrity of the nix store
 [group('utils')]
 verify *args:
-  nix-store --verify {{ args }}
-
+  nix-store --verify {{ args }} --log-format internal-json -v |& nom --json
+  
 alias fix := repair
 
 # Repair the nix store
 [group('utils')]
 repair: (verify "--check-contents --repair")
-
+  
 # Clean the nix store
 [group('utils')]
 clean:
-  nix-collect-garbage --delete-older-than 3d
-  nix store optimise
+  nix-collect-garbage --delete-older-than 3d --log-format internal-json -v |& nom --json
+  nix-store --optimise

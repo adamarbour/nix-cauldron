@@ -9,53 +9,44 @@ in {
   };
   defaults = { lib, name, ... }: {
     imports = [
-      (sources.disko + "/module.nix")
+      ./modules/disks
       ./modules/nixos
-      "${sources.home-manager}/nixos" (
-      {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = {
-          inherit sources;
-        };
-      }
-    )
+      ./modules/home
+      ./users/root.nix
+      ./users/aarbour.nix
     ];
     config = {
       networking.hostName = name;
-      deployment = {
-        targetUser = lib.mkDefault null;
-        sshOptions = [
-          "-o ConnectionTimeout=30"
-          "-o ServerAliveInterval=30"
-          "-o ServerAliveCountMax=30"
-        ];
-      };
+      deployment.targetUser = lib.mkDefault null;
     };
   };
   
   cassian = {
     imports = [
-#      ((import sources.stylix).nixosModules.stylix) # TODO: Move me.. module me..
-#      (sources.nix-flatpak + "/modules/nixos.nix") # TODO: Move me... module me..
       ./hosts/cassian/configuration.nix
-      ./hosts/cassian/hardware-configuration.nix
-      (import ./disks/impr-btrfs.nix {
-        device = "/dev/nvme0n1";
-        rootSizeMB = "1024";
-        swapSizeMB = "2048";
-      })
+      ./hosts/cassian/hardware.nix
     ];
-    deployment = {
-      allowLocalDeployment = true;
-      targetHost = null;
+    config = {
+      time.timeZone = "America/Chicago";
+      deployment = {
+        allowLocalDeployment = true;
+        targetHost = null;
+      };
     };
   };
   
-  nflix-dlrr = {
+  ### NFLIX - Hosts and containers supporting nflix.lol
+  dlrr = {
     imports = [
       ./hosts/nflix/dlrr/configuration.nix
-      ./hosts/nflix/dlrr/disk-configuration.nix
     ];
+    config = {
+      time.timeZone = "America/Chicago";
+      deployment = {
+        tags = [ "nflix" ];
+        targetHost = "23.95.134.145";
+        targetUser = "root";
+      };
+    };
   };
 }

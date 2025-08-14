@@ -1,14 +1,13 @@
-{ lib, sources, ... }:
 {
   imports = [
     ./boot
     ./environment
     ./hardware
-    ./nix
     ./network
+    ./nix
+    ./options
+    ./programs
     ./security
     ./services
-    ./system
-    ./users
   ];
 }

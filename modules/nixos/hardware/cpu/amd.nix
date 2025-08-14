@@ -1,9 +1,9 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf;
-  cfg = config.cauldron.host.cpu;
+  cfg = config.cauldron.host.hardware;
 in {
-  config = mkIf (cfg == "amd" || cfg == "vm-amd") {
+  config = mkIf (cfg.cpu == "amd" || cfg.cpu == "vm-amd") {
     hardware.cpu.amd.updateMicrocode = true;
     
     boot = {
@@ -13,4 +13,4 @@ in {
       ];
     };
   };
-} 
+}

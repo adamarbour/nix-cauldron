@@ -1,11 +1,10 @@
-{ lib, pkgs, config, ... }:
+{ lib, config, ... }:
 let
   inherit (lib) mkIf;
-  cfg = config.cauldron.host.cpu;
+  cfg = config.cauldron.host.hardware;
 in {
-  config = mkIf (cfg == "intel" || cfg == "vm-intel") {
+  config = mkIf (cfg.cpu == "intel" || cfg.cpu == "vm-intel") {
     hardware.cpu.intel.updateMicrocode = true;
-
     boot = {
       kernelModules = [ "kvm-intel" ];
       kernelParams = [
@@ -14,4 +13,4 @@ in {
       ];
     };
   };
-} 
+}

@@ -1,7 +1,6 @@
-{ lib, pkgs, config, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkIf mkDefault mkForce;
-  MHz = x: x * 1000;
+  inherit (lib) mkIf;
   profiles = config.cauldron.profiles;
 in {
   config = mkIf (lib.elem "laptop" profiles) {

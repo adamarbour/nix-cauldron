@@ -1,21 +1,20 @@
-{ lib, ... }:
+{ lib, ...}:
 let
   inherit (lib) mkOption types;
 in {
   imports = [
   ] ++ (with builtins; map (fn: ./${fn}) (filter (fn: fn != "default.nix") (attrNames (readDir ./.))));
   
-  options.cauldron.host.gpu = mkOption {
+  options.cauldron.host.hardware.gpu = mkOption {
     type = types.nullOr (
       types.enum [
-        "amd"
         "intel"
+        "amd"
         "nvidia"
-        "intel-nv"
-        "amd-nv"
+        "hybrid"
       ]
     );
     default = null;
-    description = "Manufacturer of GPU... intel-nv/amd-nv for PRIME";
+    description = "Manufacturer of GPU...";
   };
 }

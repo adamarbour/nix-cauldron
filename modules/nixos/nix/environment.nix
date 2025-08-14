@@ -1,10 +1,7 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 let
-  inherit (lib.modules) mkForce;
+  inherit (lib) mkForce;
 in {
-  config = {
-    environment = {
-      variables.NIXPKGS_CONFIG = mkForce "";
-    };
-  };
+  environment.variables.NIX_PATH = mkForce "nixpkgs=${pkgs.path}";
+  environment.variables.NIXPKGS_CONFIG = mkForce "";
 }

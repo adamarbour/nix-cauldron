@@ -4,6 +4,9 @@ let
   profiles = config.cauldron.profiles;
 in {
   config = mkIf (lib.elem "laptop" profiles) {
+    # handle ACPI events
+    services.acpid.enable = true;
+    
     environment.systemPackages = [
       pkgs.acpi
       pkgs.powertop
@@ -16,7 +19,5 @@ in {
         cpupower
       ];
     };
-    hardware.acpilight.enable = false;
-    services.acpid.enable = true;
   };
 }
