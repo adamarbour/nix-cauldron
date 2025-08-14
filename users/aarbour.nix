@@ -15,9 +15,14 @@ in {
         ];
         # My packages
         packages = with pkgs; [
-          colmena
+          bat
+          fd
+          fzf
           just
-          npins
+          procs
+          ripgrep
+          tldr
+          yq-go
         ];
       };
     }

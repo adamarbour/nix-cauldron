@@ -8,7 +8,6 @@ in {
     # reload system units when changing configs
     systemd.user.startServices = mkDefault "sd-switch";
     
-    # let HM manage itself when in standalone mode
-    programs.home-manager.enable = true;
+    programs.home-manager.enable = false;
   };
 }
