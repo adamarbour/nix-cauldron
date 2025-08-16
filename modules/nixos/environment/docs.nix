@@ -16,8 +16,4 @@ in {
       mandoc.enable = mkForce false; 
     };
   };
-  
-  environment.systemPackages = map lib.lowPrio [
-    pkgs.tealdeer
-  ];
 }
