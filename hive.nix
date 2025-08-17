@@ -35,6 +35,22 @@ in {
     };
   };
   
+  lucien = {
+    imports = [
+      ./hosts/lucien/configuration.nix
+      ./hosts/lucien/hardware.nix
+      ./users/steam.nix
+    ];
+    config = {
+      time.timeZone = "America/Chicago";
+      deployment = {
+        tags = [ "gaming" "all" ];
+        targetHost = "100.110.59.111";
+        targetUser = "aarbour";
+      };
+    };
+  };
+  
   ### NFLIX - Hosts and containers supporting nflix.lol
   dlrr = {
     imports = [
@@ -44,7 +60,7 @@ in {
       time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "nflix" ];
-        targetHost = "23.95.134.145";
+        targetHost = "100.124.55.116";
         targetUser = "root";
       };
     };

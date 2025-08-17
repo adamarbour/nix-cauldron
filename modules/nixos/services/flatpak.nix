@@ -1,6 +1,6 @@
 { lib, config, sources, ...}:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkDefault;
   profiles = config.cauldron.profiles;
 in {
   imports = [
@@ -9,7 +9,7 @@ in {
   
   config = mkIf (lib.elem "graphical" profiles) {
     services.flatpak = {
-      enable = true;
+      enable = mkDefault true;
       packages = [
         "com.github.tchx84.Flatseal"
       ];
