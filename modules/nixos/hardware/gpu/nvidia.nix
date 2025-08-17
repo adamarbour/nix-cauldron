@@ -21,7 +21,7 @@ in {
     hardware = {
       nvidia = {
         # use the latest and greatest nvidia drivers
-        package = config.boot.kernelPackages.nvidiaPackages.beta;
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
 
         powerManagement = {
           enable = true;
@@ -44,7 +44,8 @@ in {
     
     # Enables the Nvidia's experimental framebuffer device
     # fix for the imaginary monitor that does not exist
-    boot.kernelParams = [ "nvidia_drm.fbdev=1" ];
+    boot.kernelParams = [ "nvidia_drm.fbdev=1" "nvidia_drm.modeset=1" ];
+    boot.blacklistedKernelModules = [ "nouveau" ];
     
     environment.sessionVariables = {
       LIBVA_DRIVER_NAME = "nvidia";

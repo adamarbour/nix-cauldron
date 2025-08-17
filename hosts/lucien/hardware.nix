@@ -1,20 +1,29 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib) mkForce;
 in {
-  # Nvidia A2000 GFX card
-  hardware = {
-    nvidia.prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
+  boot = {
+    kernelParams = [ "intel_pstate=disable" "intel_idle.max_cstate=1" ];
+    blacklistedKernelModules = [ "i915" ];
   };
+  powerManagement.cpuFreqGovernor = mkForce "powersave";
   
-  # Make SteamLibrary accessible to steam user
-  systemd.tmpfiles.rules = [
-    "d /games 0775 steam users - -"
-    "d /games/SteamLibrary 0775 steam users - -"
-  ];
+  # Expose clocks/volts
+  services.xserver.deviceSection = ''
+    Option "Coolbits" "28"
+  '';
+  
+  environment.sessionVariables = {
+    # Enable VRR and caching
+    __GL_GSYNC_ALLOWED = "1";
+    __GL_VRR_ALLOWED = "1";
+    __GL_SHADER_DISK_CACHE = "1";
+    __GL_SHADER_DISK_CACHE_PATH = "$XDG_CACHE_HOME/nv";
+    
+    # DLSS and NVAPI
+    DXVK_ENABLE_NVAPI = "1";
+    DXVK_NVAPIHACK = "0";
+  };
   
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/61ba0640-2742-4d4c-a794-b3ebb4d3eeaf";
@@ -22,7 +31,7 @@ in {
     options = [ "noatime" "nodiratime" "discard" ];
   };
   
-  fileSystems."/games" = {
+  fileSystems."/home" = {
     device = "/dev/disk/by-label/GAMES";
     fsType = "ext4";
     options = [ "noatime" "nodiratime" "discard" ];

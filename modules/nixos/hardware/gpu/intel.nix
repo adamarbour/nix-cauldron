@@ -6,21 +6,22 @@ in {
   config = mkIf (cfg.gpu == "intel") {
     # i915 kernel module
     boot.initrd.kernelModules = [ "i915" ];
+    boot.kernelParams = [ "i915.fastboot=1" ];
     # we enable modesetting since this is recomeneded for intel gpus
     services.xserver.videoDrivers = [ "modesetting" ];
     
     # OpenCL support and VAAPI
     hardware.graphics = {
-      extraPackages = [
-        pkgs.libva-vdpau-driver
-        pkgs.intel-media-driver
-        pkgs.intel-vaapi-driver
+      extraPackages = with pkgs; [
+        libva-vdpau-driver
+        intel-media-driver
+        intel-vaapi-driver
       ];
 
-      extraPackages32 = [
-        pkgs.pkgsi686Linux.libva-vdpau-driver
-        pkgs.pkgsi686Linux.intel-media-driver
-        pkgs.pkgsi686Linux.intel-vaapi-driver
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        libva-vdpau-driver
+        intel-media-driver
+        intel-vaapi-driver
       ];
     };
     
