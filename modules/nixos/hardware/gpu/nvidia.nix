@@ -21,7 +21,7 @@ in {
     hardware = {
       nvidia = {
         # use the latest and greatest nvidia drivers
-        package = config.boot.kernelPackages.nvidiaPackages.stable;
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
 
         powerManagement = {
           enable = true;
@@ -32,7 +32,7 @@ in {
         open = false;
 
         # adds nvidia-settings to pkgs, so useless on nixos
-        nvidiaSettings = false;
+        nvidiaSettings = true;
 
         nvidiaPersistenced = true;
       };

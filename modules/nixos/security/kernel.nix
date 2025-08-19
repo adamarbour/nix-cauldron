@@ -1,9 +1,10 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkDefault concatLists optionals;
+  inherit (lib) mkIf mkDefault concatLists optionals;
+  profiles = config.cauldron.profiles;
   cfg = config.cauldron.host.feature;
 in {
-  config = {
+  config = mkIf (lib.elem "server" profiles || lib.elem "workstation" profiles) {
     services.jitterentropy-rngd.enable = mkDefault (!config.boot.isContainer);
     security = {
       protectKernelImage = true;

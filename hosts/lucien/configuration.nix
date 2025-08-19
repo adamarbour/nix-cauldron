@@ -17,25 +17,47 @@
       };
       network = {
         tailscale.enable = true;
+        wireless.backend = "wpa_supplicant";
       };
     };
     secrets.enable = false;
   };
-  services.flatpak.enable = false;
   
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
-
-  # Install firefox.
-  programs.firefox.enable = true;
+  
+  ### DEVICE SPECIFIC CONFIGURATION
+  services.flatpak.enable = false;
+  
+  # Power Management
+  services.thermald.enable = true;
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "powersave";
+    powertop.enable = true;
+  };
+  
+  # Sound Setup - Default to HDMI. Switch to Headset when found.
+  services.pipewire.wireplumber.extraConfig = {
+    "10-default-audio" = {
+      "monitor.alsa.rules" = [
+        { matches = [ { "device.name" = "~alsa_output.*hdmi.*" ; } ];
+          actions = { "update-props" = { "device.priority" = 100; }; };
+        }
+        { matches = [ { "device.name" = "~alsa_output.*usb.*" ; } ];
+          actions = { "update-props" = { "device.priority" = 150; }; };
+        }
+      ];
+    };
+  };
   
   environment.systemPackages = with pkgs; [
     unigine-superposition
-    vkmark
-    furmark
+    pegasus-frontend
+    intel-undervolt
+    lm_sensors
+    s-tui
+    msr-tools
   ];
 }

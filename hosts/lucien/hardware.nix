@@ -3,14 +3,69 @@ let
   inherit (lib) mkForce;
 in {
   boot = {
-    kernelParams = [ "intel_pstate=disable" "intel_idle.max_cstate=1" ];
+    kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "intel_rapl_common" "intel_rapl_msr" ];
+    kernelParams = [ "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
     blacklistedKernelModules = [ "i915" ];
   };
-  powerManagement.cpuFreqGovernor = mkForce "powersave";
   
   # Expose clocks/volts
   services.xserver.deviceSection = ''
     Option "Coolbits" "28"
+  '';
+  
+  # Set GPU Fan Speed
+  systemd.services."nvidia-fan-50" = {
+    description = "Set NVIDIA GPU fan to 50%";
+    wantedBy = [ "graphical.target" ];
+    after = [ "graphical.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "/run/current-system/sw/bin/nvidia-settings -a GPUFanControlState=1 -a GPUTargetFanSpeed=50 -c 0";
+    };
+  };
+  
+  # Set GPU Clocks
+  systemd.services."nvidia-tune-pl" = {
+    description = "Tune NVIDA for SFF";
+    wantedBy = [ "graphical.target" ];
+    after = [ "graphical.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -pl 65";
+    };
+  };
+  systemd.services."nvidia-tune-lgc" = {
+    description = "Tune NVIDA for SFF";
+    wantedBy = [ "graphical.target" ];
+    after = [ "graphical.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lgc 1350,1350";
+    };
+  };
+  systemd.services."nvidia-tune-lmc" = {
+    description = "Tune NVIDA for SFF";
+    wantedBy = [ "graphical.target" ];
+    after = [ "graphical.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lmc 6001,6001";
+    };
+  };
+  systemd.services.intel-undervolt = {
+    description = "Intel Undervolt Service";
+    wantedBy = [ "graphical.target" ];
+    after = [ "graphical.target" ];
+    serviceConfig = {
+      ExecStart = ''
+        ${pkgs.intel-undervolt}/bin/intel-undervolt apply
+      '';
+      Restart = "on-failure";
+    };
+  };
+  
+  environment.etc."intel-undervolt.conf".text = ''
+    power package 35/10 35/81920
   '';
   
   environment.sessionVariables = {
@@ -18,11 +73,15 @@ in {
     __GL_GSYNC_ALLOWED = "1";
     __GL_VRR_ALLOWED = "1";
     __GL_SHADER_DISK_CACHE = "1";
-    __GL_SHADER_DISK_CACHE_PATH = "$XDG_CACHE_HOME/nv";
+    __GL_SHADER_DISK_CACHE_PATH = "$\{XDG_CACHE_HOME\}/nv";
     
     # DLSS and NVAPI
     DXVK_ENABLE_NVAPI = "1";
     DXVK_NVAPIHACK = "0";
+    
+    # CAP FRAMERATE
+    __GL_MaxFramesAllowed = "2";
+    __GL_MaxFramesPerSecond = "90";
   };
   
   fileSystems."/" = {

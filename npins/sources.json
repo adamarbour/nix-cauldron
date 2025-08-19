@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "5e0fbc4dbc50b3a38ecdbcb8d0a5bbe12e3f9a72",
-      "url": "https://github.com/zhaofengli/colmena/archive/5e0fbc4dbc50b3a38ecdbcb8d0a5bbe12e3f9a72.tar.gz",
-      "hash": "0z6mmn4iq3wjysnnznivdd1wcsrkpz49ln1bsp5gin89i7kvf2xz"
+      "revision": "5bf4ce6a24adba74a5184f4a9bef01d545a09473",
+      "url": "https://github.com/zhaofengli/colmena/archive/5bf4ce6a24adba74a5184f4a9bef01d545a09473.tar.gz",
+      "hash": "0kcwj2gf7232zzvqxjhsi6rrg4z14dfkvbwc79dy0w4acxpwz56a"
     },
     "disko": {
       "type": "GitRelease",
@@ -69,9 +69,9 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "latest",
+      "version": "v0.6.0",
       "revision": "5e54c3ca05a7c7d968ae1ddeabe01d2a9bc1e177",
-      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/latest",
+      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/v0.6.0",
       "hash": "0s3mpb28rcmma29vv884fi3as926bfszhn7v8n74bpnp5qg5a1c8"
     },
     "nixpkgs": {
@@ -83,9 +83,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "ddae11e58c0c345bf66efbddbf2192ed0e58f896",
-      "url": "https://github.com/nixos/nixpkgs/archive/ddae11e58c0c345bf66efbddbf2192ed0e58f896.tar.gz",
-      "hash": "1g53q4i7b2qs2h1iwif9ixjlmk65mrznf322x8sl2vbjcbjq1ify"
+      "revision": "48f4c982de68d966421d2b6f1ddbeb6227cc5ceb",
+      "url": "https://github.com/nixos/nixpkgs/archive/48f4c982de68d966421d2b6f1ddbeb6227cc5ceb.tar.gz",
+      "hash": "1n2fxdnldlpiql24z0lhyi6hp38gzm09x99kx8vx8w5qr5cjh5bb"
     },
     "nixpkgs-unstable": {
       "type": "Git",
@@ -96,9 +96,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "005433b926e16227259a1843015b5b2b7f7d1fc3",
-      "url": "https://github.com/nixos/nixpkgs/archive/005433b926e16227259a1843015b5b2b7f7d1fc3.tar.gz",
-      "hash": "0wiimn8mw83g7gd7zysmfqzvkh88010fvpyv1ryclws1gzdysmr1"
+      "revision": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
+      "url": "https://github.com/nixos/nixpkgs/archive/fbcf476f790d8a217c3eab4e12033dc4a0f6d23c.tar.gz",
+      "hash": "0ah1hwz0gg9xn5bl1f4d25a2443k7r5vmk1ikmw9539nmgwbgly0"
     },
     "noshell": {
       "type": "Git",

@@ -4,7 +4,7 @@ let
   profiles = config.cauldron.profiles;
 in {
   config = mkIf (lib.elem "graphical" profiles) {
-    environment.systemPackages = [ pkgs.alsa-utils ];
+    environment.systemPackages = [ pkgs.alsa-utils pkgs.pavucontrol ];
     
     services.pipewire = {
       enable = true;
