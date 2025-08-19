@@ -13,6 +13,7 @@ in {
       type = types.enum [
         "ext4"
         "btrfs"
+        "zfs"
       ];
       default = "ext4";
       description = "The filesystem type for the boot drive.";

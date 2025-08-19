@@ -51,6 +51,22 @@ in {
     };
   };
   
+  ### PRYNTHIAN - Hosts and containers to support my homelab
+  mountain = {
+    imports = [
+      ./hosts/prynthian/mountain/configuration.nix
+      ./hosts/prynthian/mountain/disk.nix
+    ];
+    config = {
+      time.timeZone = "America/Chicago";
+      deployment = {
+        tags = [ "prynthian" ];
+        targetHost = "10.50.16.29";
+        targetUser = "nixos";
+      };
+    };
+  };
+  
   ### NFLIX - Hosts and containers supporting nflix.lol
   dlrr = {
     imports = [
