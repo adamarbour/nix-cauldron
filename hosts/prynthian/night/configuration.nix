@@ -1,7 +1,5 @@
 { pkgs, ... }:
-let
-  device = "/dev/disk/by-id/nvme-SPCC_M.2_PCIe_SSD_509D074B162300138574";
-in {
+{
   cauldron = {
     profiles = [
       "server"
@@ -17,9 +15,12 @@ in {
       };
       disk = {
         enable = true;
-        rootFs = "zfs";
-        inherit device;
-        impermanence.enable = true;
+        rootFs = "ext4";
+        device = "/dev/nvme0n1";
+        impermanence = {
+          enable = true;
+          rootSize = "2G";
+        };
       };
     };
     secrets.enable = false;

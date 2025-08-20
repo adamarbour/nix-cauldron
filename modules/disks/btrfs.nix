@@ -19,14 +19,14 @@ in {
         extraArgs = [ "-f" "-L BTRFS" ];
         mountOptions = [ "compress=zstd" "noatime" ];
         subvolumes = {
-          "/" = {
+          "/" = mkIf (!cfg.impermanence.enable) {
             mountpoint = "/";
           };
           "/nix" = {
             mountpoint = "/nix";
             mountOptions = [ "compress-force=zstd:3" ];
           };
-          "/persist" = {
+          "/persist" = mkIf (cfg.impermanence.enable) {
             mountpoint = "/persist";
             mountOptions = [ "lazytime" ];
           };
@@ -88,7 +88,7 @@ in {
               mountOptions = [ "umask=0077" ];
             };
           };
-          rootfs = mkIf (!cfg.impermanence.enable) {
+          rootfs = {
             end = if cfg.swap.enable
               then "-${cfg.swap.size}"
               else "-0";
@@ -101,20 +101,6 @@ in {
               };
               content = rootfsContent;
             } else rootfsContent;
-          };
-          nix = mkIf cfg.impermanence.enable {
-            end = if cfg.swap.enable
-              then "-${cfg.swap.size}"
-              else "-0";
-            content = if cfg.encrypt then {
-              type = "luks";
-              name = "enc";
-              settings = {
-                allowDiscards = true;
-                bypassWorkqueues = true;
-              };
-              content = nixfsContent;
-            } else nixfsContent;
           };
           swap = mkIf cfg.swap.enable {
             size = "100%";

@@ -21,12 +21,7 @@
         tailscale.enable = true;
         wireless.backend = "wpa_supplicant";
       };
-      feature = {
-        printing.enable = true;
-        bluetooth = true;
-        thunderbolt = true;
-        tpm = true;
-      };
+      feature.mlnx-ofed = true;
     };
     secrets.enable = true;
   };

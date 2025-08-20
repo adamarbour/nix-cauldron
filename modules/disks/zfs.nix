@@ -98,14 +98,19 @@ in {
           mountpoint = "/nix";
           options."com.sun:auto-snapshot" = "false";
         };
-        "local/home" = {
-          type = "zfs_fs";
-          mountpoint = "/home";
-          options."com.sun:auto-snapshot" = "true";
-        };
         "local/persist" = mkIf (cfg.impermanence.enable) {
           type = "zfs_fs";
           mountpoint = "/persist";
+          options."com.sun:auto-snapshot" = "false";
+        };
+        "log" = {
+          type = "zfs_fs";
+          mountpoint = "/var/log";
+          options."com.sun:auto-snapshot" = "false";
+        };
+        "tmp" = {
+          type = "zfs_fs";
+          mountpoint = "/tmp";
           options."com.sun:auto-snapshot" = "false";
         };
       };

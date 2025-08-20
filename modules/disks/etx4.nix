@@ -17,12 +17,7 @@ in {
       rootfsContent = {
         type = "filesystem";
         format = "ext4";
-        mountpoint = "/";
-      };
-      nixfsContent = {
-        type = "filesystem";
-        format = "ext4";
-        mountpoint = "/nix";
+        mountpoint = if (cfg.impermanence.enable) then "/nix" else "/";
       };
     in {
       type = "disk";
@@ -47,10 +42,11 @@ in {
               mountOptions = [ "umask=0077" ];
             };
           };
-          rootfs = mkIf (!cfg.impermanence.enable) {
+          rootfs = {
             end = if cfg.swap.enable
               then "-${cfg.swap.size}"
               else "-0";
+            priority = 2000;
             content = if cfg.encrypt then {
               type = "luks";
               name = "enc";
@@ -60,20 +56,6 @@ in {
               };
               content = rootfsContent;
             } else rootfsContent;
-          };
-          nix = mkIf cfg.impermanence.enable {
-            end = if cfg.swap.enable
-              then "-${cfg.swap.size}"
-              else "-0";
-            content = if cfg.encrypt then {
-              type = "luks";
-              name = "enc";
-              settings = {
-                allowDiscards = true;
-                bypassWorkqueues = true;
-              };
-              content = nixfsContent;
-            } else nixfsContent;
           };
           swap = mkIf cfg.swap.enable {
             size = "100%";

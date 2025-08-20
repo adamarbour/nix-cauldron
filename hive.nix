@@ -52,17 +52,31 @@ in {
   };
   
   ### PRYNTHIAN - Hosts and containers to support my homelab
-  mountain = {
+  spring = {
     imports = [
-      ./hosts/prynthian/mountain/configuration.nix
-      ./hosts/prynthian/mountain/disk.nix
+      ./hosts/prynthian/spring/configuration.nix
+      ./hosts/prynthian/spring/network.nix
     ];
     config = {
-      time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "prynthian" ];
-        targetHost = "10.50.16.29";
-        targetUser = "nixos";
+        targetHost = null;
+        targetUser = null;
+      };
+    };
+  };
+  
+  night = {
+    imports = [
+      ./hosts/prynthian/night/configuration.nix
+      ./hosts/prynthian/night/disk.nix
+      ./hosts/prynthian/night/network.nix
+    ];
+    config = {
+      deployment = {
+        tags = [ "prynthian" ];
+        targetHost = null;
+        targetUser = null;
       };
     };
   };

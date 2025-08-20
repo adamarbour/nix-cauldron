@@ -13,6 +13,22 @@ let
       };
     };
   };
+  specialDiskDefaults = {
+    type = "disk";
+    content = {
+      type = "gpt";
+      partitions.zfs = {
+        size = "250G";
+        content = {
+          type = "zfs";
+          pool = "nas-pool";
+        };
+      };
+      partitions.empty = {
+        size = "100%"; # Used for other purposes
+      };
+    };
+  };
 in {
   disko.devices.disk.hdd1 = {
     device = "/dev/disk/by-id/ata-ST16000NM001G-2KK103_ZL28QLQT";
@@ -23,6 +39,12 @@ in {
   disko.devices.disk.hdd3 = {
     device = "/dev/disk/by-id/ata-ST16000NM001G-2KK103_ZL20T8V6";
   } // nasDiskDefaults;
+  disko.devices.disk.special1 = {
+    device = "/dev/disk/by-id/ata-CT1000MX500SSD1_2306E6AB159A";
+  } // specialDiskDefaults;
+  disko.devices.disk.special2 = {
+    device = "/dev/disk/by-id/ata-SPCC_M.2_SSD_GDFCPBAS5JZKN8VXNNOD";
+  } // specialDiskDefaults;
 
   # NAS-POOL
   disko.devices.zpool."nas-pool" = {
@@ -45,12 +67,22 @@ in {
     };
     mode.topology = {
       type = "topology";
+      # storage
       vdev = [
         { mode = "raidz1";
           members = [
             "hdd1"
             "hdd2"
             "hdd3"
+          ];
+        }
+      ];
+      # metadata
+      special = [
+        { mode = "mirror";
+          members = [
+            "special1"
+            "special2"
           ];
         }
       ];
