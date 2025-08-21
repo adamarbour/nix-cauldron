@@ -80,6 +80,34 @@ in {
     };
   };
   
+  autumn = {
+    imports = [
+      ./hosts/prynthian/autumn/configuration.nix
+      ./hosts/prynthian/autumn/network.nix
+    ];
+    config = {
+      deployment = {
+        tags = [ "prynthian" ];
+        targetHost = null;
+        targetUser = null;
+      };
+    };
+  };
+  
+  winter = {
+    imports = [
+      ./hosts/prynthian/winter/configuration.nix
+      ./hosts/prynthian/winter/network.nix
+    ];
+    config = {
+      deployment = {
+        tags = [ "prynthian" ];
+        targetHost = null;
+        targetUser = null;
+      };
+    };
+  };
+  
   night = {
     imports = [
       ./hosts/prynthian/night/configuration.nix
