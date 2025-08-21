@@ -108,6 +108,20 @@ in {
     };
   };
   
+  dawn = {
+    imports = [
+      ./hosts/prynthian/dawn/configuration.nix
+      ./hosts/prynthian/dawn/network.nix
+    ];
+    config = {
+      deployment = {
+        tags = [ "prynthian" ];
+        targetHost = null;
+        targetUser = null;
+      };
+    };
+  };
+  
   night = {
     imports = [
       ./hosts/prynthian/night/configuration.nix

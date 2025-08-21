@@ -31,7 +31,7 @@ in {
     hardware.mlnx-ofed = {
       enable = true;
       fwctl.enable = true;
-#      kernel-mft.enable = true;
+      kernel-mft.enable = true;
     };
   };
 }

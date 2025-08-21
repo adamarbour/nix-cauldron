@@ -67,9 +67,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "c34d81bc74f1acac16d36d9a2004dd97525ce4fe",
-      "url": "https://github.com/codgician/mlnx-ofed-nixos/archive/c34d81bc74f1acac16d36d9a2004dd97525ce4fe.tar.gz",
-      "hash": "091jq630frmdbpbwhk1zlkl8fc5av0ws9zr2gmdjwwpyaaafxszi"
+      "revision": "45449bcf7cef27923e2a823c91cdae30a0512e5d",
+      "url": "https://github.com/codgician/mlnx-ofed-nixos/archive/45449bcf7cef27923e2a823c91cdae30a0512e5d.tar.gz",
+      "hash": "0b1y2c0awmbxqxzp6xf84cxg2815rmylfnbn2akfmr29nxvn7rwm"
     },
     "nix-flatpak": {
       "type": "GitRelease",
