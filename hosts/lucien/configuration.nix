@@ -7,7 +7,7 @@
     ];
     host = {
       boot = {
-        kernel = pkgs.unstable.linuxPackages_6_16;
+        kernel = pkgs.linuxPackages_xanmod_stable;
         loader = "systemd";
         silentBoot = true;
       };
@@ -53,11 +53,12 @@
   };
   
   environment.systemPackages = with pkgs; [
-    unigine-superposition
     pegasus-frontend
+    furmark
     intel-undervolt
     lm_sensors
     s-tui
+    stress-ng
     msr-tools
   ];
 }

@@ -3,7 +3,7 @@ let
   inherit (lib) mkForce;
 in {
   boot = {
-    kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "intel_rapl_common" "intel_rapl_msr" ];
+    kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "intel_rapl_common" "intel_rapl_msr" "virtio_net" ];
     kernelParams = [ "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
     blacklistedKernelModules = [ "i915" ];
   };
@@ -13,6 +13,19 @@ in {
     Option "Coolbits" "28"
   '';
   
+  # Disable BD PROCHOT
+  systemd.services.disable-bd-prochot = {
+    description = "Disable BD PROCHOT";
+    wantedBy = [ "graphical.target" ];
+    after = [ "graphical.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = ''
+        ${pkgs.msr-tools}/bin/wrmsr -a 0x1FC $(( $(${pkgs.msr-tools}/bin/rdmsr 0x1FC -d) - 1 ))
+      '';
+    };
+  };
+  
   # Set GPU Fan Speed
   systemd.services."nvidia-fan-50" = {
     description = "Set NVIDIA GPU fan to 50%";
@@ -20,7 +33,7 @@ in {
     after = [ "graphical.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/nvidia-settings -a GPUFanControlState=1 -a GPUTargetFanSpeed=50 -c 0";
+      ExecStart = "/run/current-system/sw/bin/nvidia-settings -a GPUFanControlState=1 -a GPUTargetFanSpeed=70 -c 0";
     };
   };
   
@@ -49,7 +62,7 @@ in {
     after = [ "graphical.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lmc 6001,6001";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lmc 5701,5701";
     };
   };
   systemd.services.intel-undervolt = {
@@ -65,7 +78,7 @@ in {
   };
   
   environment.etc."intel-undervolt.conf".text = ''
-    power package 35/10 35/81920
+    power package 45/10 45/81920
   '';
   
   environment.sessionVariables = {

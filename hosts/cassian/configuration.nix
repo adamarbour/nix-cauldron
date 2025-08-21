@@ -9,7 +9,6 @@
     ];
     host = {
       boot = {
-        kernel = pkgs.unstable.linuxPackages_6_15;
         loader = "secure";
         silentBoot = true;
       };
