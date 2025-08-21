@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, sources, ... }:
 {
   cauldron = {
     profiles = [
@@ -21,7 +21,12 @@
         tailscale.enable = true;
         wireless.backend = "wpa_supplicant";
       };
-      feature.mlnx-ofed = true;
+      feature = {
+        printing.enable = true;
+        bluetooth = true;
+        thunderbolt = true;
+        tpm = true;
+      };
     };
     secrets.enable = true;
   };

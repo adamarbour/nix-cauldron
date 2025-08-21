@@ -58,6 +58,19 @@
       "url": "https://api.github.com/repos/nix-community/lanzaboote/tarball/v0.4.2",
       "hash": "0xc1wawnb0297h5khxblmf9pd1fry950xkcm7mwlck19s2906h80"
     },
+    "mlnx-ofed": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "codgician",
+        "repo": "mlnx-ofed-nixos"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "c34d81bc74f1acac16d36d9a2004dd97525ce4fe",
+      "url": "https://github.com/codgician/mlnx-ofed-nixos/archive/c34d81bc74f1acac16d36d9a2004dd97525ce4fe.tar.gz",
+      "hash": "091jq630frmdbpbwhk1zlkl8fc5av0ws9zr2gmdjwwpyaaafxszi"
+    },
     "nix-flatpak": {
       "type": "GitRelease",
       "repository": {
@@ -83,9 +96,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "48f4c982de68d966421d2b6f1ddbeb6227cc5ceb",
-      "url": "https://github.com/nixos/nixpkgs/archive/48f4c982de68d966421d2b6f1ddbeb6227cc5ceb.tar.gz",
-      "hash": "1n2fxdnldlpiql24z0lhyi6hp38gzm09x99kx8vx8w5qr5cjh5bb"
+      "revision": "a58390ab6f1aa810eb8e0f0fc74230e7cc06de03",
+      "url": "https://github.com/nixos/nixpkgs/archive/a58390ab6f1aa810eb8e0f0fc74230e7cc06de03.tar.gz",
+      "hash": "1kmh2gdbpjcdwlyci0vfp09rzp2al50x1jclkvb1y3y1z2w4q3q4"
     },
     "nixpkgs-unstable": {
       "type": "Git",
@@ -96,9 +109,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "fbcf476f790d8a217c3eab4e12033dc4a0f6d23c",
-      "url": "https://github.com/nixos/nixpkgs/archive/fbcf476f790d8a217c3eab4e12033dc4a0f6d23c.tar.gz",
-      "hash": "0ah1hwz0gg9xn5bl1f4d25a2443k7r5vmk1ikmw9539nmgwbgly0"
+      "revision": "20075955deac2583bb12f07151c2df830ef346b4",
+      "url": "https://github.com/nixos/nixpkgs/archive/20075955deac2583bb12f07151c2df830ef346b4.tar.gz",
+      "hash": "1s3lxb33cwazlx72pygcbcc76bbgbhdil6q9bhqbzbjxj001zk0w"
     },
     "noshell": {
       "type": "Git",

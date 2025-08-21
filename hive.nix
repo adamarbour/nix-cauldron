@@ -4,7 +4,7 @@ let
 in {
   meta = {
     description = "Where all things were Made...";
-    nixpkgs = import sources.nixpkgs {};
+    nixpkgs = import sources.nixpkgs { };
     specialArgs = { inherit sources; };
   };
   defaults = { lib, name, ... }: {
@@ -56,6 +56,20 @@ in {
     imports = [
       ./hosts/prynthian/spring/configuration.nix
       ./hosts/prynthian/spring/network.nix
+    ];
+    config = {
+      deployment = {
+        tags = [ "prynthian" ];
+        targetHost = null;
+        targetUser = null;
+      };
+    };
+  };
+  
+  summer = {
+    imports = [
+      ./hosts/prynthian/summer/configuration.nix
+      ./hosts/prynthian/summer/network.nix
     ];
     config = {
       deployment = {
