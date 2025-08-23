@@ -3,7 +3,7 @@ let
   inherit (lib) mkForce;
 in {
   boot = {
-    kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "intel_rapl_common" "intel_rapl_msr" "virtio_net" ];
+    kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "intel_rapl_common" "intel_rapl_msr" "msr" ];
     kernelParams = [ "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
     blacklistedKernelModules = [ "i915" ];
   };
@@ -13,16 +13,22 @@ in {
     Option "Coolbits" "28"
   '';
   
-  # Disable BD PROCHOT
-  systemd.services.disable-bd-prochot = {
-    description = "Disable BD PROCHOT";
-    wantedBy = [ "graphical.target" ];
-    after = [ "graphical.target" ];
+  systemd.services.clear-bdprochot = {
+    description = "Clear BD-PROCHOT bit in MSR 0x1FC";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "systemd-modules-load.service" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = ''
-        ${pkgs.msr-tools}/bin/wrmsr -a 0x1FC $(( $(${pkgs.msr-tools}/bin/rdmsr 0x1FC -d) - 1 ))
-      '';
+      RemainAfterExit = true;
+      ExecStart = "${pkgs.bash}/bin/bash -c '" +
+        "old=$(${pkgs.msr-tools}/bin/rdmsr 0x1FC) && " +
+        "new=$((0x$old & 0xFFFFE)) && " +
+        "${pkgs.msr-tools}/bin/wrmsr 0x1FC \"$new\" && " +
+        "echo \"BD-PROCHOT cleared (old: 0x$old → new: 0x$new)\"" +
+        "'";
+      # Run as root
+      User = "root";
+      Group = "root";
     };
   };
   
@@ -44,7 +50,7 @@ in {
     after = [ "graphical.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/nvidia-smi -pl 65";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -pl 70";
     };
   };
   systemd.services."nvidia-tune-lgc" = {
@@ -53,7 +59,7 @@ in {
     after = [ "graphical.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lgc 1350,1350";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lgc 1290,1290";
     };
   };
   systemd.services."nvidia-tune-lmc" = {
@@ -62,14 +68,15 @@ in {
     after = [ "graphical.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lmc 5701,5701";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lmc 6001,6001";
     };
   };
   systemd.services.intel-undervolt = {
     description = "Intel Undervolt Service";
-    wantedBy = [ "graphical.target" ];
-    after = [ "graphical.target" ];
+    wantedBy = [ "multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    after = [ "multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
     serviceConfig = {
+      ExecStartPre="${pkgs.coreutils}/bin/sleep 30";
       ExecStart = ''
         ${pkgs.intel-undervolt}/bin/intel-undervolt apply
       '';
@@ -78,7 +85,7 @@ in {
   };
   
   environment.etc."intel-undervolt.conf".text = ''
-    power package 45/10 45/81920
+    power package 35/10 35/81920
   '';
   
   environment.sessionVariables = {
