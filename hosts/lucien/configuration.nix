@@ -2,6 +2,7 @@
 {
   cauldron = {
     profiles = [
+      "desktop"
       "graphical"
       "gaming"
     ];
