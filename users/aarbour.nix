@@ -30,7 +30,7 @@ in {
     # Impermanence
     (mkIf config.cauldron.host.disk.impermanence.enable {
       systemd.tmpfiles.rules = [
-        "d /persist/users/home/aarbour 0700 aarbour users -"
+        "d /persist/users/aarbour 0700 aarbour users -"
       ];
     })
     

@@ -24,7 +24,6 @@
   };
   
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   
   ### DEVICE SPECIFIC CONFIGURATION
@@ -53,12 +52,8 @@
   };
   
   environment.systemPackages = with pkgs; [
-    pegasus-frontend
-    furmark
-    intel-undervolt
     lm_sensors
     s-tui
     stress-ng
-    msr-tools
   ];
 }
