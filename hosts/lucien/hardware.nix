@@ -50,7 +50,7 @@ in {
     after = [ "graphical.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/nvidia-smi -pl 70";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -pl 60";
     };
   };
   systemd.services."nvidia-tune-lgc" = {

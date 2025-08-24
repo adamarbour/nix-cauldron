@@ -8,5 +8,6 @@ in {
       enable = config.programs.steam.gamescopeSession.enable;
       capSysNice = true;
     };
+    environment.systemPackages = with pkgs.unstable; [ gamescope ];
   };
 }

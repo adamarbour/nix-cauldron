@@ -11,11 +11,17 @@ in {
         general = {
           softrealtime = "auto";
           renice = 15;
+          inhibit_screensaver = 1;
         };
         gpu = {
           apply_gpu_optimisations = "accept-responsibility";
         };
+        custom = {
+          start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+          end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+        };
       };
     };
+    environment.systemPackages = with pkgs.unstable; [ gamemode ];
   };
 }

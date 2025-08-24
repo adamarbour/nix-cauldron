@@ -4,6 +4,7 @@ let
 in {
   config = mkMerge [
     {
+      home-manager.users.steam = import ./steam;
       users.users.steam = {
         isNormalUser = true;
         initialPassword = "steam";

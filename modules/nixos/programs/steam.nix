@@ -24,7 +24,10 @@ in {
           atk
         ];
       };
-      protontricks.enable = true;
+      protontricks = {
+        enable = true;
+        package = pkgs.unstable.protontricks;
+      };
       remotePlay.openFirewall = true;
       extraCompatPackages = [
         pkgs.unstable.proton-ge-bin.steamcompattool
@@ -33,11 +36,23 @@ in {
         pkgs.unstable.mangohud
       ];
     };
+    
+    environment.sessionVariables.STEAM_EXTRA_COMPAT_TOOLS_PATH = 
+      "${pkgs.proton-ge-bin}/share/steam/compatibilitytools.d"
+      + "${pkgs.steamtinkerlaunch}/share/steam/compatibilitytools.d";
+    
+    
     environment.systemPackages = with pkgs.unstable; [
-      protonup-ng
-      goverlay
+      steam
       steamcmd
+      steamtinkerlaunch
+      steam-rom-manager
+      
+      protonup-ng
+      
+      goverlay
       mangohud
+      
       # wine
       wineWowPackages.stable
       # wineWowPackages.unstable
