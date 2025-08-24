@@ -95,9 +95,9 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.6.0",
+      "version": "latest",
       "revision": "5e54c3ca05a7c7d968ae1ddeabe01d2a9bc1e177",
-      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/v0.6.0",
+      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/latest",
       "hash": "0s3mpb28rcmma29vv884fi3as926bfszhn7v8n74bpnp5qg5a1c8"
     },
     "nixpkgs": {

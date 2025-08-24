@@ -58,7 +58,6 @@ in {
       # wineWowPackages.unstable
       winetricks
       # drm_info
-      vulkan-tools
       linuxConsoleTools
     ];
   };

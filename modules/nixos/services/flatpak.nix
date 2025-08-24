@@ -7,7 +7,7 @@ in {
     "${sources.nix-flatpak}/modules/nixos.nix"
   ];
   
-  config = mkIf (lib.elem "graphical" profiles) {
+  config = mkIf (lib.elem "workstation" profiles) {
     services.flatpak = {
       enable = mkDefault true;
       packages = [
