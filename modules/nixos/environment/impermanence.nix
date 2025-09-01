@@ -1,6 +1,6 @@
 { lib, config, sources, ... }:
 let
-  inherit (lib) types mkIf mkOption mapAttrs' nameValuePair;
+  inherit (lib) types mkIf mkMerge mkOption mapAttrs' nameValuePair elem;
   cfg = config.cauldron.host.impermanence;
   
   enableImpermanence = config.cauldron.host.disk.impermanence.enable;
@@ -14,6 +14,11 @@ in {
   imports = [ (sources.impermanence + "/nixos.nix") ];
   
   options.cauldron.host.impermanence = {
+    root = mkOption {
+      type = types.path;
+      default = "/persist";
+      description = "Base directory used by impermanence.";
+    };
     hideMounts = mkOption {
       type = types.bool;
       default = true;
@@ -52,10 +57,10 @@ in {
   };
   
   config = mkIf enableImpermanence {
-    fileSystems."/persist".neededForBoot = true;
-    environment.persistence."/persist" = {
+    environment.persistence."${cfg.root}" = {
       hideMounts = cfg.hideMounts;
       directories = [
+        "/var/log"
         "/var/lib/nixos"
         "/var/lib/systemd/coredump"
         "/var/lib/NetworkManager"
@@ -72,6 +77,7 @@ in {
     programs.fuse.userAllowOther = true;
     
     systemd.tmpfiles.rules = [
+      "d ${cfg.root} 0755 root root -"
       "d /var/log 0755 root root -"
     ];
   };

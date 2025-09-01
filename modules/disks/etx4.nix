@@ -1,9 +1,12 @@
 { lib, config, sources, ...}:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkForce;
   cfg = config.cauldron.host.disk;
 in {
   config = mkIf (cfg.enable && cfg.rootFs == "ext4") {
+    # Force the persistence root when using ext
+    cauldron.host.impermanence.root = mkForce "/nix/persist";
+    
     # TMPFS for impermanence
     disko.devices.nodev = mkIf cfg.impermanence.enable {
       "/" = {

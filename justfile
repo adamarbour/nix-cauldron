@@ -1,8 +1,9 @@
 [private]
 default:
   @just --list
-  
+
 # Apply configuration specified host (assumes local)
+alias switch := apply
 [group('dev')]
 apply node="self" action="switch":
   @if [ "{{node}}" = "self" ]; then \

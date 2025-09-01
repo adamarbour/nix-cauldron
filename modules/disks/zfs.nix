@@ -2,6 +2,7 @@
 let
   inherit (lib) mkIf;
   cfg = config.cauldron.host.disk;
+  persistRoot = config.cauldron.host.impermanence.root;
 in {
   config = mkIf (cfg.enable && cfg.rootFs == "zfs") {
     # TMPFS for impermanence
@@ -11,6 +12,8 @@ in {
         mountOptions = [ "defaults" "size=${cfg.impermanence.rootSize}" "mode=755" ];
       };
     };
+    
+    fileSystems."${persistRoot}".neededForBoot = true;
     
     # PRIMARY disk
     disko.devices.disk.disk0 = let
@@ -101,11 +104,6 @@ in {
         "local/persist" = mkIf (cfg.impermanence.enable) {
           type = "zfs_fs";
           mountpoint = "/persist";
-          options."com.sun:auto-snapshot" = "false";
-        };
-        "log" = {
-          type = "zfs_fs";
-          mountpoint = "/var/log";
           options."com.sun:auto-snapshot" = "false";
         };
         "tmp" = {

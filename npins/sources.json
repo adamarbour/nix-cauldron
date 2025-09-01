@@ -43,20 +43,17 @@
       "hash": "0wbx518d2x54yn4xh98cgm65wvj0gpy6nia6ra7ns4j63hx14fkq"
     },
     "fht-compositor": {
-      "type": "GitRelease",
+      "type": "Git",
       "repository": {
         "type": "GitHub",
         "owner": "nferhat",
         "repo": "fht-compositor"
       },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
+      "branch": "main",
       "submodules": false,
-      "version": "25.03.1",
-      "revision": "b3e634a8fd59dc9ff0387ccc6016555d45e9a3d9",
-      "url": "https://api.github.com/repos/nferhat/fht-compositor/tarball/25.03.1",
-      "hash": "0f5pk1rddylrfawxhnnmnw222dpibndkd0g55q91hbjxi2w5kany"
+      "revision": "9040be394b818bd1649e39cf1e799bc6533ecb5d",
+      "url": "https://github.com/nferhat/fht-compositor/archive/9040be394b818bd1649e39cf1e799bc6533ecb5d.tar.gz",
+      "hash": "03ja3qkimyiij4mkjciq68g5bjgz7dhhhhxq9j90cxkiyycn8wl9"
     },
     "home-manager": {
       "type": "Git",
@@ -124,9 +121,9 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "latest",
+      "version": "v0.6.0",
       "revision": "5e54c3ca05a7c7d968ae1ddeabe01d2a9bc1e177",
-      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/latest",
+      "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/v0.6.0",
       "hash": "0s3mpb28rcmma29vv884fi3as926bfszhn7v8n74bpnp5qg5a1c8"
     },
     "nixpkgs": {
@@ -138,9 +135,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "9cb344e96d5b6918e94e1bca2d9f3ea1e9615545",
-      "url": "https://github.com/nixos/nixpkgs/archive/9cb344e96d5b6918e94e1bca2d9f3ea1e9615545.tar.gz",
-      "hash": "0q43871m2fpm4bq43r4vfjwdp6d7kj2pr6x3s2bpl9zjnv84zac0"
+      "revision": "b1b3291469652d5a2edb0becc4ef0246fff97a7c",
+      "url": "https://github.com/nixos/nixpkgs/archive/b1b3291469652d5a2edb0becc4ef0246fff97a7c.tar.gz",
+      "hash": "1avlwbghhyzxqv72f5rh7bwbfkzyf237w7hlw119dlf7jgc7x3f1"
     },
     "nixpkgs-unstable": {
       "type": "Git",

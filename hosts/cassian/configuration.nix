@@ -25,6 +25,7 @@
         bluetooth = true;
         thunderbolt = true;
         tpm = true;
+        winbox = true;
       };
     };
     secrets.enable = true;

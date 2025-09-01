@@ -2,6 +2,7 @@
 let
   inherit (lib) mkIf;
   cfg = config.cauldron.host.disk;
+  persistRoot = config.cauldron.host.impermanence.root;
 in {
   config = mkIf (cfg.enable && cfg.rootFs == "btrfs") {
     # TMPFS for impermanence
@@ -11,6 +12,8 @@ in {
         mountOptions = [ "defaults" "size=${cfg.impermanence.rootSize}" "mode=755" ];
       };
     };
+    
+    fileSystems."${persistRoot}".neededForBoot = true;
     
     # PRIMARY disk
     disko.devices.disk.disk0 = let
@@ -32,33 +35,6 @@ in {
           };
           "/snapshots" = {
             mountpoint = "/.snapshots";
-          };
-          "/log" = {
-            mountpoint = "/var/log";
-          };
-          "/tmp" = {
-            mountpoint = "/tmp";
-          };
-        };
-      };
-      nixfsContent = {
-        type = "btrfs";
-        extraArgs = [ "-f" "-L BTRFS" ];
-        mountOptions = [ "compress=zstd" "noatime" ];
-        subvolumes = {
-          "/nix" = {
-            mountpoint = "/nix";
-            mountOptions = [ "compress-force=zstd:3" ];
-          };
-          "/persist" = {
-            mountpoint = "/persist";
-            mountOptions = [ "lazytime" ];
-          };
-          "/snapshots" = {
-            mountpoint = "/.snapshots";
-          };
-          "/log" = {
-            mountpoint = "/var/log";
           };
           "/tmp" = {
             mountpoint = "/tmp";

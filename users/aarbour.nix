@@ -13,17 +13,6 @@ in {
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYiOynu6CwX4zHlSNxc0H4MkpseEhoGCOL6ls+laxdc aarbour"
         ];
-        # My packages
-        packages = with pkgs; [
-          bat
-          fd
-          fzf
-          just
-          procs
-          ripgrep
-          tldr
-          yq-go
-        ];
       };
     }
     
