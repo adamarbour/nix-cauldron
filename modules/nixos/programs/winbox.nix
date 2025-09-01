@@ -13,7 +13,7 @@ in {
     services.flatpak.packages = [
       "com.mikrotik.WinBox"
     ];
-    # Open discovery ports... 5678/udp MNDP & 2000/udp Cisco Discovery
-    networking.firewall.allowedUDPPorts = [ 5678 2000 ];
+    # Open discovery ports... 5678/udp MNDP 20561/udp Winbox MAC & 2000/udp Cisco Discovery
+    networking.firewall.allowedUDPPorts = [ 5678 20561 2000 ];
   };
 }
