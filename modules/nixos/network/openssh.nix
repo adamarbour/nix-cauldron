@@ -1,12 +1,13 @@
 { lib, pkgs, config, ... }:
 let
   inherit (lib) mkIf mkMerge mkDefault;
-  enableImpermanence = config.cauldron.host.disk.impermanence.enable;
+  impermanence = config.cauldron.host.disk.impermanence;
+  persistRoot = if (impermanence.enable) then impermanence.root else "";
+  
   profiles = config.cauldron.profiles;
-  persistRoot = if (enableImpermanence) then "/persist" else "";
 in {
   config = mkMerge [
-    (mkIf enableImpermanence {
+    (mkIf impermanence.enable {
       cauldron.host.impermanence.extra = {
         files = [
           "/etc/ssh/ssh_host_rsa_key"

@@ -22,5 +22,6 @@ in pkgs.mkShellNoCC {
     ssh-to-age
     pciutils
     usbutils
+    wireguard-tools
   ];
 }

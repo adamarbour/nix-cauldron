@@ -1,8 +1,8 @@
 { lib, pkgs, config, sources, ... }:
 let
   inherit (lib) mkIf mkEnableOption;
-  enableImpermanence = config.cauldron.host.disk.impermanence.enable;
-  persistRoot = if (enableImpermanence) then "/persist" else "";
+  impermanence = config.cauldron.host.disk.impermanence;
+  persistRoot = if (impermanence.enable) then impermanence.root else "";
   
   secretsRepo = sources.secrets;
   cfg = config.cauldron.secrets;

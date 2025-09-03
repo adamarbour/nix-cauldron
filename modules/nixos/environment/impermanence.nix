@@ -3,7 +3,7 @@ let
   inherit (lib) types mkIf mkMerge mkOption mapAttrs' nameValuePair elem;
   cfg = config.cauldron.host.impermanence;
   
-  enableImpermanence = config.cauldron.host.disk.impermanence.enable;
+  impermanence = config.cauldron.host.disk.impermanence;
   impermanentUsers = mapAttrs' (u: uCfg:
     nameValuePair u {
       directories = uCfg.extraDirs;
@@ -56,7 +56,7 @@ in {
     };
   };
   
-  config = mkIf enableImpermanence {
+  config = mkIf impermanence.enable {
     environment.persistence."${cfg.root}" = {
       hideMounts = cfg.hideMounts;
       directories = [
