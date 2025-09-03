@@ -15,12 +15,15 @@ in {
       };
     };
     
+    fileSystems."/nix".options = [ "noatime" "x-systemd.after=local-fs-pre.target" "x-systemd.requires=local-fs-pre.target" ];
+    
     # PRIMARY disk
     disko.devices.disk.disk0 = let
       rootfsContent = {
         type = "filesystem";
         format = "ext4";
         mountpoint = if (cfg.impermanence.enable) then "/nix" else "/";
+        mountOptions = [ "noatime" ];
       };
     in {
       type = "disk";

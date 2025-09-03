@@ -122,6 +122,20 @@ in {
     };
   };
   
+  day = {
+    imports = [
+      ./hosts/prynthian/day/configuration.nix
+      ./hosts/prynthian/day/network.nix
+    ];
+    config = {
+      deployment = {
+        tags = [ "prynthian" ];
+        targetHost = null;
+        targetUser = null;
+      };
+    };
+  };
+  
   night = {
     imports = [
       ./hosts/prynthian/night/configuration.nix

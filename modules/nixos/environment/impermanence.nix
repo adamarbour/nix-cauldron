@@ -78,7 +78,6 @@ in {
     
     systemd.tmpfiles.rules = [
       "d ${cfg.root} 0755 root root -"
-      "d /var/log 0755 root root -"
     ];
   };
 }
