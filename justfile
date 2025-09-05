@@ -14,11 +14,11 @@ apply node="self" action="switch":
 
 # Build configuration specified host
 [group('dev')]
-build node="self":
+build node="self" *args:
   @if [ "{{node}}" = "self" ]; then \
-    colmena build --show-trace; \
+    colmena build --show-trace {{ args }}; \
   else \
-    colmena build --show-trace --on {{node}}; \
+    colmena build --show-trace --on {{node}} {{ args }}; \
   fi
   
 # Start an interactive REPL with the configuration
