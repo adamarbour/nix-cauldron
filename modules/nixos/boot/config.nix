@@ -5,6 +5,7 @@ let
   cfg = config.cauldron.host;
   
   hasBtrfs = (filterAttrs (_: v: v.fsType == "btrfs") config.fileSystems) != { };
+  isX86 = config.nixpkgs.hostPlatform.system == "x86_64-linux";
 in {
   options.cauldron.host = {
     boot = {
@@ -34,7 +35,6 @@ in {
           "btrfs"
         ];
         availableKernelModules = [
-          "vmd"
           "usbhid"
           "sd_mod"
           "sr_mod"
@@ -43,10 +43,14 @@ in {
           "usb_storage"
           "rtsx_usb_sdmmc"
           "rtsx_pci_sdmmc"
-          "ata_piix"
           "virtio_pci"
           "virtio_scsi"
+          "virtio_blk"
           "ehci_pci"
+        ] ++ optionals isX86 [
+          "vmd"
+          "ata_piix"
+          "uhci_hcd"
         ];
       };
       

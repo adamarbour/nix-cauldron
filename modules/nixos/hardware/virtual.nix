@@ -6,7 +6,6 @@ in {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   
   config = mkIf (lib.elem "kvm" profiles) {
-    boot.initrd.availableKernelModules = [ "ata_piix" "xhci_pci" "uhci_hcd" "virtio_pci" "sr_mod" "virtio_scsi" "virtio_blk" "nvme" ];
     boot.kernelParams = [
       "console=tty1"
       "console=ttyS0,115200"
