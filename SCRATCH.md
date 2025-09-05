@@ -12,7 +12,7 @@ sudo nixos-generate-config --root /mnt --show-hardware-config --no-filesystems
 ```
 3a. Remote deployment
 ```
-nixos-anywhere --store-paths $(nix-build -E '(import ./colmena-anywhere.nix).$HOST.disko-script') $(nix-build -E '(import ./colmena-anywhere.nix).$HOST.nixos-system') root@$HOST
+nixos-anywhere --store-paths $(nix-build -E '(import ./hive-anywhere.nix).$HOST.disko-script') $(nix-build -E '(import ./hive-anywhere.nix).$HOST.nixos-system') root@$HOST
 ```
 
 3b. Local Deploy
