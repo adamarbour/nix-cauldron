@@ -19,15 +19,20 @@
       network = {
         wireless.backend = "wpa_supplicant";
         tailscale.enable = true;
-        wireguard.enableFor."wg-cloud" = {
-          addresses = [ "172.31.7.3/24" ];
-          privateKeyFile = { kind = "sops"; path = "wg/cassian.key"; };
-          publicKey = "/wYcBIwBvnPbVJqSN7o/EJIazS6lc9KaVnzjtl6Vc3s=";
-          routes = [ "172.31.7.0/24" ];
-          dns = [ "172.31.7.254" ];
-        };
+#        wireguard.enableFor."wg-cloud" = {
+#          addresses = [ "172.31.7.3/24" ];
+#          privateKeyFile = { kind = "sops"; path = "wg/cassian.key"; };
+#          publicKey = "/wYcBIwBvnPbVJqSN7o/EJIazS6lc9KaVnzjtl6Vc3s=";
+#          routes = [ "172.31.7.0/24" ];
+#          dns = [ "172.31.7.254" ];
+#        };
       };
       feature = {
+        crossbuild = {
+          enable = true;
+          emulatedSystems = [ "aarch64-linux" ];
+          extraPlatforms = [ "aarch64-linux" ];
+        };
         printing.enable = true;
         bluetooth = true;
         thunderbolt = true;

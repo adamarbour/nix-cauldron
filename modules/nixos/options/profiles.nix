@@ -11,6 +11,7 @@ let
     "workstation"
     "hypervisor"
     "kvm"
+    "remote-builder"
   ];
   
   cfg = config.cauldron;
