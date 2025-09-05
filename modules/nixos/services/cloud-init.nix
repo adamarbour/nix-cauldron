@@ -1,16 +1,27 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkIf mkDefault mkEnableOption;
+  inherit (lib) types mkIf mkDefault mkEnableOption mkOption;
   cfg = config.cauldron.services.cloud-init;
 in {
   options.cauldron.services.cloud-init = {
     enable = mkEnableOption "Enable cloud-init services.";
+    dataSources = mkOption {
+      type = types.listOf types.str;
+      default = [];
+      description = ''
+        List of cloud-init datasource backends to enable.
+        Examples: [ "Oracle" ], [ "NoCloud" "ConfigDrive"], [ "EC2" ].
+      '';
+    };
   };
   
   config = mkIf (cfg.enable) {
     services.cloud-init = {
       enable = true;
       
+      config = ''
+        datasource_list: [ ${lib.concatStringsSep ", " cfg.dataSources} ]
+      '';
       network.enable = true;
       settings.ssh_deletekeys = false;
     } //

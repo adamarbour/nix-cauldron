@@ -15,7 +15,9 @@ in {
       };
     };
     
-    fileSystems."/nix".options = [ "noatime" "x-systemd.after=local-fs-pre.target" "x-systemd.requires=local-fs-pre.target" ];
+    fileSystems = mkIf cfg.impermanence.enable {
+      "/nix".options = [ "noatime" "x-systemd.after=local-fs-pre.target" "x-systemd.requires=local-fs-pre.target" ];
+    };
     
     # PRIMARY disk
     disko.devices.disk.disk0 = let

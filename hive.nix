@@ -51,6 +51,20 @@ in {
     };
   };
   
+  sidra = {
+    imports = [
+      ./hosts/sidra/configuration.nix
+    ];
+    config = {
+      nixpkgs.hostPlatform = "aarch64-linux";
+      deployment = {
+        tags = [ "cloud" ];
+        targetHost = "40.233.13.66";
+        targetUser = "aarbour";
+      };
+    };
+  };
+  
   ### PRYNTHIAN - Hosts and containers to support my homelab
   spring = {
     imports = [
