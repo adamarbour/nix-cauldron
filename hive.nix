@@ -35,6 +35,19 @@ in {
     };
   };
   
+  azriel = {
+    imports = [
+      ./hosts/azriel/configuration.nix
+    ];
+    config = {
+      time.timeZone = "America/Chicago";
+      deployment = {
+        tags = [ "lab" "all" ];
+        targetHost = null;
+      };
+    };
+  };
+  
   lucien = {
     imports = [
       ./hosts/lucien/configuration.nix
@@ -73,7 +86,7 @@ in {
     ];
     config = {
       deployment = {
-        tags = [ "prynthian" ];
+        tags = [ "prynthian" "all" ];
         targetHost = null;
         targetUser = null;
       };
@@ -87,7 +100,7 @@ in {
     ];
     config = {
       deployment = {
-        tags = [ "prynthian" ];
+        tags = [ "prynthian" "all" ];
         targetHost = null;
         targetUser = null;
       };
@@ -101,7 +114,7 @@ in {
     ];
     config = {
       deployment = {
-        tags = [ "prynthian" ];
+        tags = [ "prynthian" "all" ];
         targetHost = null;
         targetUser = null;
       };
@@ -115,7 +128,7 @@ in {
     ];
     config = {
       deployment = {
-        tags = [ "prynthian" ];
+        tags = [ "prynthian" "all" ];
         targetHost = null;
         targetUser = null;
       };
@@ -129,7 +142,7 @@ in {
     ];
     config = {
       deployment = {
-        tags = [ "prynthian" ];
+        tags = [ "prynthian" "all" ];
         targetHost = null;
         targetUser = null;
       };
@@ -143,7 +156,7 @@ in {
     ];
     config = {
       deployment = {
-        tags = [ "prynthian" ];
+        tags = [ "prynthian" "all" ];
         targetHost = null;
         targetUser = null;
       };
@@ -158,7 +171,7 @@ in {
     ];
     config = {
       deployment = {
-        tags = [ "prynthian" ];
+        tags = [ "prynthian" "all" ];
         targetHost = null;
         targetUser = null;
       };
@@ -173,7 +186,7 @@ in {
     config = {
       time.timeZone = "America/Chicago";
       deployment = {
-        tags = [ "nflix" ];
+        tags = [ "nflix" "all"];
         targetHost = "100.124.55.116";
         targetUser = "root";
       };
