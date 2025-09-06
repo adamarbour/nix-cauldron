@@ -63,13 +63,11 @@ in {
         "/var/log"
         "/var/lib/nixos"
         "/var/lib/systemd/coredump"
-        "/var/lib/NetworkManager"
-        "/var/lib/iwd"
         "/var/lib/colord"
         "/var/cache/nix"
       ] ++ cfg.extra.dirs;
       files = [
-        "/etc/machine-id"
+#        "/etc/machine-id" # We do not need this because we set it under the security module.
       ] ++ cfg.extra.files;
       users = impermanentUsers;
     };

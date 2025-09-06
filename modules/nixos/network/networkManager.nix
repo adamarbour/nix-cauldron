@@ -1,10 +1,16 @@
 { lib, pkgs, config, ... }:
 let
   inherit (lib) optionals mkIf;
+  impermanence = config.cauldron.host.disk.impermanence;
   profiles = config.cauldron.profiles;
   cfg = config.cauldron.host.network;
 in {
   environment.systemPackages = optionals (lib.elem "graphical" profiles) [ pkgs.networkmanagerapplet ];
+  
+  # Handle impermanence
+  cauldron.host.impermanence.extra.dirs = mkIf (impermanence.enable && config.networking.networkmanager.enable) [
+    "/var/lib/NetworkManager"
+  ];
   
   networking.networkmanager = mkIf (!(lib.elem "server" profiles)) {
     enable = true;

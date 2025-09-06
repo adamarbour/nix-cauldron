@@ -1,6 +1,9 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkOption types;
+  inherit (lib) mkIf mkOption types;
+  inherit (lib.lists) optionals;
+  impermanence = config.cauldron.host.disk.impermanence;
+  
   cfg = config.cauldron.host.network.wireless;
 in {
   options.cauldron.host.network.wireless = {
@@ -21,6 +24,18 @@ in {
   config = {
     # enable wireless database, it helps keeping wifi speedy
     hardware.wirelessRegulatoryDatabase = true;
+    
+    # Add impermanent directories conditionally...
+    cauldron.host.impermanence.extra.dirs = [
+    ] ++ optionals (impermanence.enable && cfg.backend == "iwd") [
+      "/var/lib/iwd"
+    ] ++ optionals (impermanence.enable && cfg.backend == "wpa_supplicant") [
+      "/etc/wpa_supplicant" # Can be removed if wifi configurations become declarative...
+      "/var/lib/wpa_supplicant"
+    ];
+    cauldron.host.impermanence.extra.files = mkIf (impermanence.enable && cfg.backend == "wpa_supplicant") [
+      "/etc/wpa_supplicant/wpa_supplicant.conf"
+    ];
     
     networking.wireless = {
       # WPA_SUPPLICANT
