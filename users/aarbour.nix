@@ -9,7 +9,7 @@ in {
         uid = mkDefault 1001;
         isNormalUser = true;
         description = "Adam Arbour";
-        extraGroups = [ "wheel" "nix" "audio" "video" "networkmanager" "lpadmin" ];
+        extraGroups = [ "wheel" "nix" "input" "audio" "video" "plugdev" "networkmanager" "lpadmin" ];
         openssh.authorizedKeys.keys = [
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYiOynu6CwX4zHlSNxc0H4MkpseEhoGCOL6ls+laxdc aarbour"
         ];
@@ -18,9 +18,7 @@ in {
     
     # Impermanence
     (mkIf config.cauldron.host.disk.impermanence.enable {
-      systemd.tmpfiles.rules = [
-        "d /persist/users/aarbour 0700 aarbour users -"
-      ];
+      # TODO: Fix this ...
     })
     
     # Secrets
