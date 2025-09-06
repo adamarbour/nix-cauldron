@@ -9,6 +9,13 @@
     host = {
       boot = {
         loader = "systemd";
+        addKernelParams = [
+          "rootdelay=15"
+          "mmc_core.removable=0" 
+          "mmc_block.perdev_minors=16"
+        ];
+        addKernelModules = [ "mmc_core" "mmc_block" ];
+        addAvailKernelModules = [ "mmc_core" "mmc_block" "sdhci" "sdhci_pci" "sdhci_acpi" ];
         silentBoot = true;
       };
       hardware = {
@@ -19,7 +26,6 @@
         enable = true;
         rootFs = "ext4";
         device = "/dev/mmcblk0";
-        encrypt = true;
         impermanence = {
           enable = true;
           rootSize = "1G";

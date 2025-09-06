@@ -1,6 +1,6 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkEnableOption filterAttrs;
+  inherit (lib) types mkOption mkEnableOption filterAttrs;
   inherit (lib.lists) optionals;
   cfg = config.cauldron.host;
   
@@ -10,6 +10,18 @@ in {
   options.cauldron.host = {
     boot = {
       enableTweaks = mkEnableOption "performance and security related parameters.";
+      addKernelParams = mkOption {
+        type = types.listOf types.str;
+        default = [];
+      };
+      addKernelModules = mkOption {
+        type = types.listOf types.str;
+        default = [];
+      };
+      addAvailKernelModules = mkOption {
+        type = types.listOf types.str;
+        default = [];
+      };
     };
   };
   
@@ -33,7 +45,7 @@ in {
           "dm_mod"
         ] ++ optionals hasBtrfs [
           "btrfs"
-        ];
+        ] ++ cfg.boot.addKernelModules;
         availableKernelModules = [
           "usbhid"
           "sd_mod"
@@ -51,7 +63,7 @@ in {
           "vmd"
           "ata_piix"
           "uhci_hcd"
-        ];
+        ] ++ cfg.boot.addAvailKernelModules;
       };
       
       kernelParams = [
@@ -74,7 +86,7 @@ in {
 
         # disable the cursor in vt to get a black screen during intermissions
         "vt.global_cursor_default=0"
-      ];
+      ] ++ cfg.boot.addKernelParams;
     };
   };
 }
