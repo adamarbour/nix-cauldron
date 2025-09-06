@@ -37,8 +37,6 @@
   };
   
   environment.systemPackages = with pkgs; [
-    ethtool
-    iperf3
     pciutils
   ];
 }
