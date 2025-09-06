@@ -8,10 +8,10 @@ in {
     enableEmergencyMode = false;
     
     extraConfig = ''
-      DefaultTimeoutStartSec = "30s";
-      DefaultTimeoutStopSec = "30s";
-      DefaultTimeoutAbortSec = "30s";
-      DefaultDeviceTimeoutSec = "30s";
+      DefaultTimeoutStartSec=30s
+      DefaultTimeoutStopSec=30s
+      DefaultTimeoutAbortSec=30s
+      DefaultDeviceTimeoutSec=30s
     '';
     
     user.extraConfig = ''
