@@ -4,17 +4,16 @@
     profiles = [
       "desktop"
       "graphical"
-      "workstation"
     ];
     host = {
       boot = {
         loader = "systemd";
         addKernelParams = [
-          "rootdelay=15"
-          "mmc_core.removable=0" 
-          "mmc_block.perdev_minors=16"
+          "video=DP-1:3840x2160@60e"
+          "usbhid.quirks=0x2fe9:0x4103:0x40"
+          "usbhid.quirks=0x2fe9:0x0203:0x40"
         ];
-        addKernelModules = [ "mmc_core" "mmc_block" ];
+        addKernelModules = [ "mmc_block" "hid_elo" ];
         addAvailKernelModules = [ "mmc_core" "mmc_block" "sdhci" "sdhci_pci" "sdhci_acpi" ];
         silentBoot = true;
       };
@@ -39,6 +38,7 @@
       feature = {
         touchscreen = {
           enable = true;
+          includeTools = true;
           stylus.enable = true;
         };
         printing.enable = true;

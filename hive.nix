@@ -38,12 +38,15 @@ in {
   azriel = {
     imports = [
       ./hosts/azriel/configuration.nix
+      ./hosts/azriel/hardware.nix
     ];
     config = {
       time.timeZone = "America/Chicago";
+      services.smartd.enable = false;
       deployment = {
         tags = [ "lab" "all" ];
-        targetHost = null;
+        targetHost = "10.50.16.3";
+        targetUser = "aarbour";
       };
     };
   };
