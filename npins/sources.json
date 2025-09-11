@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "5d4eef66392b0dff99a63a4f39ff886624bd69dd",
-      "url": "https://github.com/aylur/astal/archive/5d4eef66392b0dff99a63a4f39ff886624bd69dd.tar.gz",
-      "hash": "0rh8jxn5fsj5dni3mgzank4qk0l7s8fa42q3nb7xvy941vf3ydck"
+      "revision": "344a6dce56437a190b99e516a6cab8332cccf19e",
+      "url": "https://github.com/aylur/astal/archive/344a6dce56437a190b99e516a6cab8332cccf19e.tar.gz",
+      "hash": "1ai0p51jglysdyv8fm06sliv5w7fjsrrcmfqdadr8qqxpjpyy9q5"
     },
     "colmena": {
       "type": "Git",
@@ -51,9 +51,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "9040be394b818bd1649e39cf1e799bc6533ecb5d",
-      "url": "https://github.com/nferhat/fht-compositor/archive/9040be394b818bd1649e39cf1e799bc6533ecb5d.tar.gz",
-      "hash": "03ja3qkimyiij4mkjciq68g5bjgz7dhhhhxq9j90cxkiyycn8wl9"
+      "revision": "8f71ef6ba79b34b4052106db077f176d3d8a55d6",
+      "url": "https://github.com/nferhat/fht-compositor/archive/8f71ef6ba79b34b4052106db077f176d3d8a55d6.tar.gz",
+      "hash": "0x4lglf4dcfz3vj3vd751d75dvf1nzr99zqjl9539hvsgkgp8c6i"
     },
     "home-manager": {
       "type": "Git",
@@ -64,9 +64,9 @@
       },
       "branch": "release-25.05",
       "submodules": false,
-      "revision": "4a44fb9f7555da362af9d499817084f4288a957f",
-      "url": "https://github.com/nix-community/home-manager/archive/4a44fb9f7555da362af9d499817084f4288a957f.tar.gz",
-      "hash": "1y919cqrlmq0k44rgnacaq4zq37jj4rdh6f2swp6y2jiz28xb0iq"
+      "revision": "07fc025fe10487dd80f2ec694f1cd790e752d0e8",
+      "url": "https://github.com/nix-community/home-manager/archive/07fc025fe10487dd80f2ec694f1cd790e752d0e8.tar.gz",
+      "hash": "0d41gr0c89a4y4lllzdgmbm54h9kn9fjnmavwpgw0w9xwqwnzpax"
     },
     "impermanence": {
       "type": "Git",
@@ -106,9 +106,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "81d580859156ccf2d22d86be88594b72292b25e0",
-      "url": "https://github.com/codgician/mlnx-ofed-nixos/archive/81d580859156ccf2d22d86be88594b72292b25e0.tar.gz",
-      "hash": "173m1j2slqrcdpwbsawz41rza9y2pg4172ribdvj6v0axfhb1q14"
+      "revision": "337ca6f2431b8d462528c2d851edc98ae5e52a2e",
+      "url": "https://github.com/codgician/mlnx-ofed-nixos/archive/337ca6f2431b8d462528c2d851edc98ae5e52a2e.tar.gz",
+      "hash": "1hjbgd2dgx30l7sk7qwnj7jxmiiih00b2ga2ja7qk4lfnhf5sjm4"
     },
     "nix-flatpak": {
       "type": "GitRelease",
@@ -135,9 +135,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "b1b3291469652d5a2edb0becc4ef0246fff97a7c",
-      "url": "https://github.com/nixos/nixpkgs/archive/b1b3291469652d5a2edb0becc4ef0246fff97a7c.tar.gz",
-      "hash": "1avlwbghhyzxqv72f5rh7bwbfkzyf237w7hlw119dlf7jgc7x3f1"
+      "revision": "d179d77c139e0a3f5c416477f7747e9d6b7ec315",
+      "url": "https://github.com/nixos/nixpkgs/archive/d179d77c139e0a3f5c416477f7747e9d6b7ec315.tar.gz",
+      "hash": "0kgsm80vwh1kbir1gwb7lmi5fmgjfvh3sjik1npm256d2bh0la39"
     },
     "nixpkgs-unstable": {
       "type": "Git",
@@ -148,9 +148,22 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "20075955deac2583bb12f07151c2df830ef346b4",
-      "url": "https://github.com/nixos/nixpkgs/archive/20075955deac2583bb12f07151c2df830ef346b4.tar.gz",
-      "hash": "1s3lxb33cwazlx72pygcbcc76bbgbhdil6q9bhqbzbjxj001zk0w"
+      "revision": "b599843bad24621dcaa5ab60dac98f9b0eb1cabe",
+      "url": "https://github.com/nixos/nixpkgs/archive/b599843bad24621dcaa5ab60dac98f9b0eb1cabe.tar.gz",
+      "hash": "1jkbwvljz9b05zjnxwgj8aadri3sd4wzamp620ywd7lp5s869dxl"
+    },
+    "nixvim": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "adamarbour",
+        "repo": "bob-nixvim"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "2210b1a99a5b7a08d97d249d66df642b2e153724",
+      "url": "https://github.com/adamarbour/bob-nixvim/archive/2210b1a99a5b7a08d97d249d66df642b2e153724.tar.gz",
+      "hash": "0jzvpghx37jvm9xcx8m73dpkwsm31xj6hgd5xdljlr874if7rj1f"
     },
     "noshell": {
       "type": "Git",
@@ -187,9 +200,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "3223c7a92724b5d804e9988c6b447a0d09017d48",
-      "url": "https://github.com/Mic92/sops-nix/archive/3223c7a92724b5d804e9988c6b447a0d09017d48.tar.gz",
-      "hash": "0ic7gp54yb2d2zrqc5l7ajcf8kvbc6fbbi9kmyhg1mksdxxyisxp"
+      "revision": "0bf793823386187dff101ee2a9d4ed26de8bbf8c",
+      "url": "https://github.com/Mic92/sops-nix/archive/0bf793823386187dff101ee2a9d4ed26de8bbf8c.tar.gz",
+      "hash": "0dfcnl16cm30rp72kgdij1m9329ln7xbz9a6262y11q1fmn7mlab"
     }
   },
   "version": 5
