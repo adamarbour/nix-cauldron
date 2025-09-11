@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, pkgs, config, ... }:
 let
   inherit (lib) mkIf mkEnableOption;
   inherit (config.services) tailscale;
@@ -17,6 +17,7 @@ in {
     
     services.tailscale = {
       enable = true;
+      package = pkgs.unstable.tailscale;
       openFirewall = true;
       permitCertUid = "root";
       extraDaemonFlags = [ "--no-logs-no-support" ];
