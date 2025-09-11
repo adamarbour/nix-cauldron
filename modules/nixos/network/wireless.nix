@@ -34,7 +34,7 @@ in {
       "/var/lib/wpa_supplicant"
     ];
     cauldron.host.impermanence.extra.files = mkIf (impermanence.enable && cfg.backend == "wpa_supplicant") [
-      "/etc/wpa_supplicant/wpa_supplicant.conf"
+      "/etc/wpa_supplicant"
     ];
     
     networking.wireless = {
