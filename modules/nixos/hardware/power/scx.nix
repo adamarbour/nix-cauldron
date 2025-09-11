@@ -1,8 +1,10 @@
-{ lib, config, ... }:
+{ lib, pkgs, config, ... }:
 
 let
   inherit (lib) mkIf optional hasInfix findFirst;
   profiles = config.cauldron.profiles;
+  
+  enableSCX = pkgs.stdenv.hostPlatform.isx86 && !config.boot.isContainer;
   
   # Scheduler configurations with priority order
   schedulerConfigs = {
@@ -62,7 +64,7 @@ let
     hasInfix "sched-ext" (config.boot.kernelPackages.kernel.version or "");
 
 in {
-  config = mkIf (!config.boot.isContainer) {
+  config = mkIf enableSCX {
     services.scx = {
       enable = true;
       scheduler = selectedProfile.scheduler;

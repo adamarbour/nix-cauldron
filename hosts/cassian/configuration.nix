@@ -23,12 +23,9 @@
           "arbour-cloud" = {
             addresses = [ "172.31.7.11/24" ];
             privateKey = { kind = "sops"; path = "wg/cassian.key"; };
-            routes = [ "172.31.7.0/24" ];
-          };
-          "work-cloud" = {
-            addresses = [ "10.10.10.11/24" ];
-            privateKey = { kind = "sops"; path = "wg/cassian-2.key"; };
-            routes = [ "172.31.7.0/24" ];
+            routes = [
+              { Destination = "172.31.7.0/24"; }
+            ];
           };
         };
       };
@@ -36,7 +33,7 @@
         crossbuild = {
           enable = true;
           emulatedSystems = [ "aarch64-linux" ];
-          extraPlatforms = [ "aarch64-linux" ];
+          extraPlatforms = [ "i686-linux" "aarch64-linux" ];
         };
         printing.enable = true;
         bluetooth = true;
