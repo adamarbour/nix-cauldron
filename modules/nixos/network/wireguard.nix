@@ -6,7 +6,7 @@ let
 
   mkSecretName = name: "wg-${name}-key";
 in {
-  config = mkIf cfg.enable (
+  config = mkIf (cfg.tunnels != {}) (
     let
       tunnelsList = attrsets.mapAttrsToList (name: t: {
         name = name;
@@ -50,7 +50,8 @@ in {
         value = {
           matchConfig.Name = t.iface;
           addresses = map (addr: { Address = addr; }) t.addresses;
-          routes    = map (rt:   { Route = rt;   }) t.routes;
+          DHCP = "no";
+          routes = t.routes;
         };
       }) tunnelsList);
       
@@ -78,8 +79,7 @@ in {
       systemd.network.netdevs  = netdevs;
       systemd.network.networks = networks;
       
-      networking.firewall.allowedUDPPorts =
-        (config.networking.firewall.allowedUDPPorts or [ ]) ++ openedUDPPorts;
+      networking.firewall.allowedUDPPorts = openedUDPPorts;
     }
   );
 }

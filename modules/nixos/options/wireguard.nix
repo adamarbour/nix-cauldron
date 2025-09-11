@@ -1,11 +1,10 @@
 { lib, config, ... }:
 let
-  inherit (lib) mkEnableOption mkOption types;
+  inherit (lib) mkOption types;
   
   mkIfaceName  = name: "wg-${name}";
 in {
   options.cauldron.host.network.wireguard = {
-    enable = mkEnableOption "WireGuard tunnels via systemd-networkd + sops-nix";
     tunnels = mkOption {
       description = "WireGuard tunnels for this host.";
       type = types.attrsOf (types.submodule ({ name, ... }: {
@@ -17,10 +16,16 @@ in {
             description = "IP addresses (CIDR) to assign on the wg interface.";
           };
           routes = mkOption {
-            type = types.listOf types.str;
+            # Pass through arbitrary [Route] keys/values for systemd-networkd
+            type = lib.types.listOf (lib.types.attrsOf (lib.types.oneOf [
+              lib.types.str lib.types.int lib.types.bool
+            ]));
             default = [ ];
-            example = [ "10.10.10.0/24" ];
-            description = "Routes to add via the wg interface.";
+            example = [
+              { Destination = "172.31.7.0/24"; Gateway = "172.31.7.1"; Metric = 100; }
+              { Destination = "10.10.20.0/24"; Table = 123; }
+            ];
+            description = "List of systemd-networkd [Route] option sets.";
           };
           privateKey = mkOption {
             type = types.submodule {
