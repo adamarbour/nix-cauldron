@@ -40,6 +40,7 @@ in {
         kernelModules = [
           "nvme"
           "xhci_pci"
+          "xhci_hcd"
           "ahci"
           "sd_mod"
           "dm_mod"

@@ -40,8 +40,8 @@ let
                       else "256M";
       SystemMaxFileSize = "128M";
       RuntimeMaxFileSize = "64M";
-      MaxRetensionSec = if r == "server" then "1month" else "2weeks";
-      RateLimitIntervalUSec = "30s";
+      MaxRetentionSec = if r == "server" then "1month" else "2weeks";
+      RateLimitIntervalSec = "30s";
       RateLimitBurst = "1000";
       Compress = "yes";
       Seal = "yes";
@@ -95,8 +95,8 @@ in {
           RuntimeMaxUse=${d.RuntimeMaxUse}
           SystemMaxFileSize=${d.SystemMaxFileSize}
           RuntimeMaxFileSize=${d.RuntimeMaxFileSize}
-          MaxRetensionSec=${d.MaxRetensionSec}
-          RateLimitIntervalUSec=${d.RateLimitIntervalUSec}
+          MaxRetentionSec=${d.MaxRetentionSec}
+          RateLimitIntervalSec=${d.RateLimitIntervalSec}
           RateLimitBurst=${d.RateLimitBurst}
           Compress=${d.Compress}
           Seal=${d.Seal}

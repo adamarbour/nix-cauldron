@@ -6,7 +6,6 @@ let
   roleCheck = [ "server" "laptop" "desktop" ];
   role = builtins.head (builtins.filter (p: builtins.elem p roleCheck) profiles);
   has = p: builtins.elem p profiles;
-  is = p: role == p;
 in {
   config = mkMerge [
     # COMMON CONFIG
@@ -16,22 +15,21 @@ in {
         suspendKey = mkDefault "suspend";
         hibernateKey = mkDefault "hibernate";
         extraConfig = ''
+          NAutoVTs=0
+          IdleAction=ignore
           InhibitDelayMaxSec=30
           KillUserProcesses=no
         '';
       };
       systemd.sleep.extraConfig = ''
-        NAutoVTs=0
-        IdleAction=ignore
         SuspendState=mem
-        HibernateState=disk
         AllowSuspendThenHibernate=yes
         HibernateDelaySec=1h
       '';
     }
     
     # SERVER
-    (mkIf (is "server") {
+    (mkIf (has "server") {
       services.logind = {
         powerKey = "ignore";
         powerKeyLongPress = "poweroff";
@@ -53,7 +51,7 @@ in {
     })
     
     # DESKTOP
-    (mkIf (is "desktop") {
+    (mkIf (has "desktop") {
       services.logind = {
         powerKey = "suspend";
         powerKeyLongPress = "poweroff";
@@ -76,7 +74,7 @@ in {
     })
     
     # LAPTOP
-    (mkIf (is "laptop") {
+    (mkIf (has "laptop") {
       services.logind = {
         powerKey = "suspend-then-hibernate";
         powerKeyLongPress = "poweroff";
@@ -96,7 +94,6 @@ in {
       };
       systemd.sleep.extraConfig = ''
         SuspendState=mem
-        HibernateState=disk
         AllowSuspendThenHibernate=yes
         HibernateDelaySec=1h
       '';
