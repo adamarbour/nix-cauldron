@@ -53,10 +53,10 @@ in {
                   p.endpoint
                 else null;
             in { PublicKey = p.publicKey; }
-              // lib.optionalAttrs (allowed != []) { AllowedIPs = lib.concatStringsSep ", " allowed; }
+              // lib.optionalAttrs (allowed != []) { AllowedIPs = allowed; }
               // lib.optionalAttrs (endpointStr != null) { Endpoint = endpointStr; }
               // lib.optionalAttrs (p.persistentKeepalive != null) { PersistentKeepalive = p.persistentKeepalive; }
-              // lib.optionalAttrs (endpointStr != null && !(p ? persistentKeepalive)) { PersistentKeepalive = 25; }
+              // lib.optionalAttrs (endpointStr != null && p.persistentKeepalive == null) { PersistentKeepalive = 25; }
           ) peerNames;
           
           # Key source (from your prior module)
@@ -93,7 +93,6 @@ in {
           # Per-tunnel default MTU (if provided)
           linkConfig = lib.optionalAttrs (t.mtuBytes != null) { MTUBytes = t.mtuBytes; };
           addresses = map (addr: { Address = addr; }) t.addresses;
-          DHCP = "no";
           routes = t.routes;
         };
       }) tunnelsList);
@@ -126,6 +125,7 @@ in {
       systemd.network.networks = networks;
       
       networking.firewall.allowedUDPPorts = openedUDPPorts;
+      networking.firewall.trustedInterfaces = (map (t: t.iface) tunnelsList);
     }
   );
 }
