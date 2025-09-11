@@ -4,6 +4,31 @@ let
   
   mkIfaceName  = name: "wg-${name}";
 in {
+  options.cauldron.registry.wireguard = {
+    tunnels = mkOption {
+      type = types.attrsOf (types.attrsOf (types.submodule {
+        options = {
+          publicKey = mkOption { type = types.str; };
+          addresses = mkOption { type = types.listOf types.str; default = []; };
+          endpoint  = mkOption { type = types.nullOr types.str; default = null; }; # host or IP (no port)
+          listenPort = mkOption { type = types.nullOr types.port; default = null; };
+          extraAllowedIPs = mkOption { type = types.listOf types.str; default = []; };
+          # Optional future fields:
+          persistentKeepalive = mkOption { type = types.nullOr types.int; default = null; };
+          # presharedKey: via sops/file (not shown here, easy to add)
+        };
+      }));
+      default = {};
+      description = "Per-tunnel registry keyed by tunnel → hostname → peer spec.";
+    };
+    defaults = mkOption {
+      type = types.attrsOf (types.attrsOf types.anything);
+      default = {};
+      example = { "wg-cloud" = { mtu = 1380; }; };
+      description = "Per-tunnel defaults (e.g., mtu) applied on every host in that tunnel.";
+    };
+  };
+
   options.cauldron.host.network.wireguard = {
     restartOnChange = mkOption {
       type = types.bool;
