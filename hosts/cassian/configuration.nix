@@ -19,13 +19,18 @@
       network = {
         wireless.backend = "wpa_supplicant";
         tailscale.enable = true;
-#        wireguard.enableFor."wg-cloud" = {
-#          addresses = [ "172.31.7.3/24" ];
-#          privateKeyFile = { kind = "sops"; path = "wg/cassian.key"; };
-#          publicKey = "/wYcBIwBvnPbVJqSN7o/EJIazS6lc9KaVnzjtl6Vc3s=";
-#          routes = [ "172.31.7.0/24" ];
-#          dns = [ "172.31.7.254" ];
-#        };
+        wireguard.tunnels = {
+          "arbour-cloud" = {
+            addresses = [ "172.31.7.11/24" ];
+            privateKey = { kind = "sops"; path = "wg/cassian.key"; };
+            routes = [ "172.31.7.0/24" ];
+          };
+          "work-cloud" = {
+            addresses = [ "10.10.10.11/24" ];
+            privateKey = { kind = "sops"; path = "wg/cassian-2.key"; };
+            routes = [ "172.31.7.0/24" ];
+          };
+        };
       };
       feature = {
         crossbuild = {
