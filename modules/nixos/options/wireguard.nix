@@ -5,6 +5,19 @@ let
   mkIfaceName  = name: "wg-${name}";
 in {
   options.cauldron.host.network.wireguard = {
+    restartOnChange = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        When true, restart systemd-networkd whenever the generated
+        /etc/systemd/network payload or any sops-managed WG key changes.
+      '';
+    };
+    forceRestartOnSwitch = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Force a try-restart of systemd-networkd on every nixos-rebuild switch.";
+    };
     tunnels = mkOption {
       description = "WireGuard tunnels for this host.";
       type = types.attrsOf (types.submodule ({ name, ... }: {

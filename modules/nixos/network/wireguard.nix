@@ -35,13 +35,9 @@ in {
             Kind = "wireguard";
             Name = t.iface;
           };
-          wireguardConfig = {
-            PrivateKeyFile =
-              if t.keySource.kind == "file" then
-                t.keySource.file
-              else
-                "/run/secrets/${t.secretName}";
-          };
+          wireguardConfig =
+            { PrivateKeyFile = if t.keySource.kind == "file" then t.keySource.file else "/run/secrets/${t.secretName}"; }
+            // lib.optionalAttrs (t.listenPort != null) { ListenPort = t.listenPort; };
         };
       }) tunnelsList);
       
@@ -69,6 +65,7 @@ in {
             owner = "systemd-network";
             group = "systemd-network";
             mode  = "0400";
+            restartUnits = mkIf cfg.restartOnChange [ "systemd-networkd.service" ];
           };
         } else null
       ) tunnelsList);
