@@ -9,6 +9,7 @@ in {
   };
   defaults = { lib, name, ... }: {
     imports = [
+#      ./hosts/wg-registry.nix
       ./modules/disks
       ./modules/nixos
       ./modules/home

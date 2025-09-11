@@ -1,7 +1,15 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  cauldron.host.boot = {
+    addKernelParams = [
+      "i915.enable_guc=2"
+      "video=DP-1:3840x2160@60e"
+    ];
+    addKernelModules = [ "mmc_block" ];
+    addAvailKernelModules = [ "mmc_core" "mmc_block" "sdhci" "sdhci_pci" "sdhci_acpi" "i2c_designware_pci" "i2c_designware_platform" ];
+  };
+  
   services.udev.extraRules = ''
-    KERNEL=="event*", SUBSYSTEM=="input", ATTRS{idVendor}=="2fe9", ATTRS{capabilities/abs}!="0", \
-    ENV{ID_INPUT}="1", ENV{ID_INPUT_TOUCHSCREEN}="1", SYMLINK+="input/touchscreen0"
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2FE9", TEST=="power/control", ATTR{power/control}="on"
   '';
 }

@@ -8,13 +8,6 @@
     host = {
       boot = {
         loader = "systemd";
-        addKernelParams = [
-          "video=DP-1:3840x2160@60e"
-          "usbhid.quirks=0x2fe9:0x4103:0x40"
-          "usbhid.quirks=0x2fe9:0x0203:0x40"
-        ];
-        addKernelModules = [ "mmc_block" "hid_elo" ];
-        addAvailKernelModules = [ "mmc_core" "mmc_block" "sdhci" "sdhci_pci" "sdhci_acpi" ];
         silentBoot = true;
       };
       hardware = {

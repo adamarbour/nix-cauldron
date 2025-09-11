@@ -1,12 +1,14 @@
 { lib, pkgs, config, ...}:
 let
   inherit (lib) types mkIf mkOption mkEnableOption;
+  inherit (lib.lists) optionals;
   profiles = config.cauldron.profiles;
   cfg = config.cauldron.host.feature.touchscreen;
 in {
   options.cauldron.host.feature.touchscreen = {
     enable = mkEnableOption "Touch screen support";
     autoRotate = mkEnableOption "Auto-rotate via iio-sensor-proxy";
+    includeTools = mkEnableOption "Include troubleshooting and calibration tools";
     stylus = {
       enable = mkEnableOption "Stylus support";
       backend = mkOption {
@@ -27,11 +29,16 @@ in {
       daemon.enable = cfg.stylus.backend == "opentabletdriver";
     };
     
-    services.libinput.enable = true;
+    services.xserver.wacom.enable = true;
+    services.libinput.enable = cfg.stylus.backend == "libinput";
     services.udev.packages = with pkgs; [ libwacom ];
     
     environment.systemPackages = with pkgs; [
       libwacom
+    ] ++ optionals cfg.includeTools [
+      libinput evtest wev wlr-randr jq
+      weston xorg.xinput xinput_calibrator
+      usbutils pciutils lshw
     ];
   };
 }
