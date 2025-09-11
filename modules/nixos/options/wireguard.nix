@@ -40,6 +40,19 @@ in {
             };
             description = "WireGuard private key source (sops-backed).";
           };
+          # Optional, only needed if this host accepts inbound handshakes for the tunnel.
+          listenPort = mkOption {
+            type = types.nullOr types.port;
+            default = null;
+            example = 51820;
+            description = "UDP port the interface listens on. If null, no explicit ListenPort is set.";
+          };
+          # When true and listenPort is set, open that UDP port in the firewall.
+          openFirewall = mkOption {
+            type = types.bool;
+            default = false;
+            description = "If true, add listenPort to networking.firewall.allowedUDPPorts.";
+          };
           interfaceName = mkOption {
             type = types.str;
             default = mkIfaceName name;

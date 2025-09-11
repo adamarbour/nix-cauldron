@@ -14,6 +14,8 @@ in {
         secretName = mkSecretName name;
         addresses = t.addresses;
         routes = t.routes;
+        listenPort = t.listenPort;
+        openFirewall = t.openFirewall;
 
         # Decide how to handle the privateKey
         keySource =
@@ -52,6 +54,11 @@ in {
         };
       }) tunnelsList);
       
+      openedUDPPorts =
+        lib.unique (lib.flatten (map (t:
+          if t.openFirewall && t.listenPort != null then [ t.listenPort ] else [ ]
+        ) tunnelsList));
+      
       secrets = builtins.listToAttrs (map (t:
         if t.keySource.kind == "sops" then {
           name = t.secretName;
@@ -70,6 +77,9 @@ in {
 
       systemd.network.netdevs  = netdevs;
       systemd.network.networks = networks;
+      
+      networking.firewall.allowedUDPPorts =
+        (config.networking.firewall.allowedUDPPorts or [ ]) ++ openedUDPPorts;
     }
   );
 }

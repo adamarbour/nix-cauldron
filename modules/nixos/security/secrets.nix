@@ -2,7 +2,7 @@
 let
   inherit (lib) mkIf mkEnableOption;
   impermanence = config.cauldron.host.disk.impermanence;
-  persistRoot = if (impermanence.enable) then impermanence.root else "";
+  persistRoot = if (impermanence.enable) then config.cauldron.host.impermanence.root else "";
   
   secretsRepo = sources.secrets;
   cfg = config.cauldron.secrets;
