@@ -23,7 +23,7 @@ in {
         datasource_list: [ ${lib.concatStringsSep ", " cfg.dataSources} ]
       '';
       network.enable = true;
-      settings.ssh_deletekeys = false;
+      settings.system_info.distro = "nixos";
     } //
     ( lib.genAttrs([
       "btrfs"
