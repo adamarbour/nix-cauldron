@@ -186,13 +186,14 @@ in {
   dlrr = {
     imports = [
       ./hosts/nflix/dlrr/configuration.nix
+      ./hosts/nflix/dlrr/disk.nix
     ];
     config = {
       time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "nflix" "all"];
-        targetHost = "100.124.55.116";
-        targetUser = "root";
+        targetHost = "23.95.134.145";
+        targetUser = "aarbour";
       };
     };
   };
