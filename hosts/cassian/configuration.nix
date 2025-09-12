@@ -21,7 +21,7 @@
         tailscale.enable = true;
         wireguard.tunnels = {
           "arbour-cloud" = {
-            addresses = [ "172.31.7.11/24" ];
+            addresses = [ "172.31.7.11/24" "2001:db8:ac::11/64"];
             privateKey = { kind = "sops"; path = "wg/cassian.key"; };
             routes = [
               { Destination = "172.31.7.0/24"; }

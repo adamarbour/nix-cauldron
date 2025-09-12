@@ -47,6 +47,17 @@ in {
       description = "WireGuard tunnels for this host.";
       type = types.attrsOf (types.submodule ({ name, ... }: {
         options = {
+          enableIPForward = mkOption { type = types.bool; default = false; };
+          masquerade = mkOption {
+            type = types.nullOr (types.enum [ "both" "ipv4" "ipv6" ]);
+            default = null;
+            description = "Enable NAT (IPMasquerade) on this wg interface; choose yes/ipv4/ipv6.";
+          };
+          rpFilterMode = mkOption {
+            type = types.enum [ "inherit" "loose" "strict" "off" ];
+            default = "inherit";
+            description = "Reverse-path filtering mode for this WireGuard iface.";
+          };
           addresses = mkOption {
             type = types.listOf types.str;
             default = [ ];

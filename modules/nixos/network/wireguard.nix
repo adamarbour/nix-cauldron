@@ -9,6 +9,9 @@ let
   mkSecretName = name: "wg-${name}-key";
   mkIfaceName  = name: "wg-${name}";
   
+  # Detect IPv6
+  isV6 = ip: lib.hasInfix ":" ip;
+
   # Turn "A.B.C.D/xx" -> "A.B.C.D/32" and IPv6 -> /128.
   # If no CIDR is present, assume host (/32 or /128) based on address family.
   hostCIDR = addr: let
@@ -17,6 +20,15 @@ let
     isV6  = lib.hasInfix ":" ip;
     mask  = if isV6 then "128" else "32";
   in "${ip}/${mask}";
+  
+  # Bracket IPv6 literal for Endpoint if needed:
+  # "2001:db8::10" -> "[2001:db8::10]"
+  bracketIfV6 = host: if isV6 host then "[${host}]" else host;
+  
+  # Compose Endpoint correctly for v4/v6
+  mkEndpoint = host: port:
+    if host == null || port == null then null
+    else "${bracketIfV6 host}:${toString port}";
 in {
   config = mkIf (cfg.tunnels != {}) (
     let      
@@ -24,6 +36,11 @@ in {
       tunnelsList = mapAttrsToList (tunnelName: tCfg:
         let
           iface = tCfg.interfaceName or (mkIfaceName tunnelName);
+          enableIPForward = tCfg.enableIPForward;
+          rp = if tCfg.rpFilterMode == "loose" then 2
+            else if tCfg.rpFilterMode == "strict" then 1
+            else if tCfg.rpFilterMode == "off" then 0
+            else null;
           rPeers = (reg.tunnels or {}).${tunnelName} or {};
           myReg = (reg.tunnels or {}).${tunnelName}.${thisHost} or null;
           myExtraAllowed = if myReg == null then [] else (myReg.extraAllowedIPs or []);
@@ -47,16 +64,13 @@ in {
               p = rPeers.${peerName};
               peerHostRoutes = map hostCIDR (p.addresses or []);
               allowed = lib.unique (peerHostRoutes ++ myExtraAllowed);
-              endpointStr = if p.endpoint != null && p.listenPort != null then
-                  "${p.endpoint}:${toString p.listenPort}"
-                else if p.endpoint != null then
-                  p.endpoint
-                else null;
+              endpointStr = mkEndpoint p.endpoint p.listenPort;
             in { PublicKey = p.publicKey; }
               // lib.optionalAttrs (allowed != []) { AllowedIPs = allowed; }
               // lib.optionalAttrs (endpointStr != null) { Endpoint = endpointStr; }
               // lib.optionalAttrs (p.persistentKeepalive != null) { PersistentKeepalive = p.persistentKeepalive; }
-              // lib.optionalAttrs (endpointStr != null && p.persistentKeepalive == null) { PersistentKeepalive = 25; }
+              # Optional: auto-keepalive when dialing an endpoint from behind NAT
+              // lib.optionalAttrs (endpointStr != null && !(p ? persistentKeepalive)) { PersistentKeepalive = 25; }
           ) peerNames;
           
           # Key source (from your prior module)
@@ -65,7 +79,9 @@ in {
             else { kind = "sops"; sopsFile = "${secretsRepo}/trove/${tCfg.privateKey.path}"; };
         in {
           name = tunnelName;
-          inherit iface keySource mtuBytes;
+          inherit iface rp keySource mtuBytes;
+          enableIPForward = tCfg.enableIPForward;
+          masquerade = tCfg.masquerade;
           addresses = myAddresses;
           routes = tCfg.routes;
           listenPort = myListenPort;
@@ -90,8 +106,10 @@ in {
         name = t.iface;
         value = {
           matchConfig.Name = t.iface;
+          networkConfig = optionalAttrs (t.enableIPForward or false) { IPv4Forwarding = true; }
+            // optionalAttrs (t.masquerade != null) { IPMasquerade = t.masquerade; };
           # Per-tunnel default MTU (if provided)
-          linkConfig = lib.optionalAttrs (t.mtuBytes != null) { MTUBytes = t.mtuBytes; };
+          linkConfig = optionalAttrs (t.mtuBytes != null) { MTUBytes = t.mtuBytes; };
           addresses = map (addr: { Address = addr; }) t.addresses;
           routes = t.routes;
         };
@@ -101,6 +119,12 @@ in {
         lib.unique (lib.flatten (map (t:
           if t.openFirewall && t.listenPort != null then [ t.listenPort ] else [ ]
         ) tunnelsList));
+        
+      # Build the sysctl commands only for those ifaces that requested an override
+      rpfCmds = lib.concatStringsSep "\n" (map (t:
+        lib.optionalString (t.rp != null)
+          ''${pkgs.kmod}/bin/sysctl -w "net.ipv4.conf.${t.iface}.rp_filter=${toString t.rp}" || true''
+      ) tunnelsList);
       
       secrets = builtins.listToAttrs (map (t:
         if t.keySource.kind == "sops" then {
@@ -126,6 +150,25 @@ in {
       
       networking.firewall.allowedUDPPorts = openedUDPPorts;
       networking.firewall.trustedInterfaces = (map (t: t.iface) tunnelsList);
+      
+      systemd.services.cauldron-wg-rpf = mkIf (rpfCmds != "") {
+        description = "Set rp_filter on WireGuard router interfaces";
+        after = [ "network-online.target" "systemd-networkd.service" ];
+        requires = [ "systemd-networkd.service" ];
+        wantedBy = [ "multi-user.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = pkgs.writeShellScript "set-wg-rpf.sh" ''
+            set -eu
+            ${rpfCmds}
+          '';
+        };
+        # Re-run if your WG config changes
+        restartTriggers = [
+          (pkgs.writeText "wg-rpf-trigger.json"
+            (builtins.toJSON (map (t: { iface = t.iface; rp = t.rp; }) tunnelsList)))
+        ];
+      };
     }
   );
 }

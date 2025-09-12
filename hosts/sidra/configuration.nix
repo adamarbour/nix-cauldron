@@ -27,6 +27,7 @@
             privateKey = { kind = "sops"; path = "wg/sidra.key"; };
             listenPort = 51820;
             openFirewall = true;
+            enableIPForward = true;
           };
         };
       };
