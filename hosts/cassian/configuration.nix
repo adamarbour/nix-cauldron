@@ -27,6 +27,13 @@
               { Destination = "172.31.7.0/24"; }
             ];
           };
+          "nflix" = {
+            addresses = [ "10.11.12.1/24" ];
+            privateKey = { kind = "sops"; path = "wg/cassian.key"; };
+            routes = [
+              { Destination = "10.11.12.0/24"; }
+            ];
+          };
         };
       };
       feature = {
