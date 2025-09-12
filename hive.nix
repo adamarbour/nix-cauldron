@@ -192,7 +192,7 @@ in {
       time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "nflix" "all"];
-        targetHost = "23.95.134.145";
+        targetHost = "10.11.12.13";
         targetUser = "aarbour";
       };
     };
