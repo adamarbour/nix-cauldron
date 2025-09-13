@@ -56,13 +56,6 @@ let
       if sortedProfiles != [] 
       then (lib.head sortedProfiles).config
       else schedulerConfigs.default;
-
-  # Check if kernel supports sched-ext
-  kernelSupportsSchedExt = 
-    config.boot.kernelPackages.kernel.isZen ||
-    config.boot.kernelPackages.kernel.isHardened ||
-    hasInfix "sched-ext" (config.boot.kernelPackages.kernel.version or "");
-
 in {
   config = mkIf enableSCX {
     services.scx = {
@@ -72,8 +65,5 @@ in {
     };
     
     boot.kernel.sysctl."kernel.sched_autogroup_enabled" = 0;
-    
-    warnings = optional (!kernelSupportsSchedExt) 
-      "SCX schedulers require sched-ext kernel support. Current profiles: [${lib.concatStringsSep ", " profiles}] → ${selectedProfile.scheduler}";
   };
 }

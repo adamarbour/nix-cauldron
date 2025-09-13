@@ -6,7 +6,8 @@ in {
   config = mkIf (lib.elem "laptop" profiles) {
     services = {
       thermald.enable = config.cauldron.host.hardware.cpu == "intel";
-      power-profiles-daemon.enable = mkForce false;
+      power-profiles-daemon.enable = mkForce true;
+      tlp.enable = mkForce false;
       auto-cpufreq.enable = mkForce false;
     };
     powerManagement = {
@@ -14,5 +15,8 @@ in {
       cpuFreqGovernor = "powersave";
       powertop.enable = true;
     };
+    systemd.tmpfiles.rules = [
+      "f /sys/class/rtc/rtc0/wakealarm 0664 root root -"
+    ];
   };
 }
