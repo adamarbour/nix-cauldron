@@ -7,7 +7,7 @@ let
 in {
   options.cauldron.host.feature.touchscreen = {
     enable = mkEnableOption "Touch screen support";
-    autoRotate = mkEnableOption "Auto-rotate via iio-sensor-proxy";
+    sensors = mkEnableOption "Auto-rotate via iio-sensor-proxy";
     includeTools = mkEnableOption "Include troubleshooting and calibration tools";
     stylus = {
       enable = mkEnableOption "Stylus support";
@@ -23,7 +23,7 @@ in {
       "hid_multitouch"
     ] ++ (lib.optional cfg.stylus.enable "wacom");
     
-    hardware.sensor.iio.enable = cfg.enable && cfg.autoRotate;
+    hardware.sensor.iio.enable = cfg.enable && cfg.sensors;
     hardware.opentabletdriver = {
       enable = cfg.stylus.backend == "opentabletdriver";
       daemon.enable = cfg.stylus.backend == "opentabletdriver";
