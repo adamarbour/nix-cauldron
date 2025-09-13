@@ -18,13 +18,12 @@ in {
           NAutoVTs=0
           IdleAction=ignore
           InhibitDelayMaxSec=30
-          KillUserProcesses=no
+          HibernateDelaySec=1h
         '';
       };
       systemd.sleep.extraConfig = ''
         SuspendState=mem
         AllowSuspendThenHibernate=yes
-        HibernateDelaySec=1h
       '';
     }
     
@@ -42,7 +41,6 @@ in {
           IdleAction=ignore
           IdleActionSec=0
           InhibitDelayMaxSec=10
-          KillUserProcesses=yes
         '';
       };
       systemd.sleep.extraConfig = ''
@@ -64,38 +62,35 @@ in {
           IdleAction=ignore
           IdleActionSec=0
           InhibitDelayMaxSec=30
-          KillUserProcesses=no
+          HibernateDelaySec=2h
         '';
       };
       systemd.sleep.extraConfig = ''
         AllowSuspendThenHibernate=yes
-        HibernateDelaySec=2h
       '';
     })
     
     # LAPTOP
     (mkIf (has "laptop") {
       services.logind = {
-        powerKey = "suspend-then-hibernate";
+        powerKey = "suspend";
         powerKeyLongPress = "poweroff";
-        suspendKey = "suspend-then-hibernate";
-        hibernateKey = "suspend-then-hibernate";
-        lidSwitch = "suspend-then-hibernate";
+        suspendKey = "suspend";
+        hibernateKey = "suspend";
+        lidSwitch = "suspend";
         lidSwitchDocked = "ignore";
-        lidSwitchExternalPower = "suspend-then-hibernate";
+        lidSwitchExternalPower = "suspend";
         killUserProcesses = false;
         extraConfig = ''
           NAutoVTs=6
-          IdleAction=suspend-then-hibernate
-          IdleActionSec=30min
+          IdleAction=suspend
+          IdleActionSec=20min
           InhibitDelayMaxSec=30
-          KillUserProcesses=no
         '';
       };
       systemd.sleep.extraConfig = ''
-        SuspendState=mem
-        AllowSuspendThenHibernate=yes
-        HibernateDelaySec=1h
+        SuspendState=s2idle
+        HibernateMode=shutdown
       '';
     })
     
