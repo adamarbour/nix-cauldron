@@ -31,8 +31,8 @@ in {
       time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "work" ];
-        allowLocalDeployment = true;
-        targetHost = null;
+        targetHost = "10.50.16.3";
+        targetUser = "aarbour";
       };
     };
   };
@@ -61,7 +61,7 @@ in {
       services.smartd.enable = false;
       deployment = {
         tags = [ "lab" "all" ];
-        targetHost = "10.50.16.3";
+#        targetHost = "10.50.16.3";
         targetUser = "aarbour";
       };
     };
