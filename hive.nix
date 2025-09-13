@@ -22,6 +22,21 @@ in {
     };
   };
   
+  morrigan = {
+    imports = [
+      ./hosts/morrigan/configuration.nix
+      ./hosts/morrigan/hardware.nix
+    ];
+    config = {
+      time.timeZone = "America/Chicago";
+      deployment = {
+        tags = [ "work" ];
+        allowLocalDeployment = true;
+        targetHost = null;
+      };
+    };
+  };
+  
   cassian = {
     imports = [
       ./hosts/cassian/configuration.nix
@@ -186,6 +201,7 @@ in {
   dlrr = {
     imports = [
       ./hosts/nflix/dlrr/configuration.nix
+      ./hosts/nflix/dlrr/network.nix
       ./hosts/nflix/dlrr/disk.nix
     ];
     config = {

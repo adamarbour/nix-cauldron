@@ -5,6 +5,7 @@ let
 in {
   options.cauldron.services.cloud-init = {
     enable = mkEnableOption "Enable cloud-init services.";
+    network.enable = mkEnableOption "Enable network auto configuration";
     dataSources = mkOption {
       type = types.listOf types.str;
       default = [];
@@ -22,7 +23,7 @@ in {
       config = ''
         datasource_list: [ ${lib.concatStringsSep ", " cfg.dataSources} ]
       '';
-      network.enable = true;
+      network.enable = cfg.network.enable;
       settings.system_info.distro = "nixos";
     } //
     ( lib.genAttrs([
