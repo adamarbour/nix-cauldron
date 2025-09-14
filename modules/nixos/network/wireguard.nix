@@ -8,6 +8,10 @@ let
 
   mkSecretName = name: "wg-${name}-key";
   mkIfaceName  = name: "wg-${name}";
+  # Compose Endpoint correctly for v4/v6
+  mkEndpoint = host: port:
+    if host == null || port == null then null
+    else "${bracketIfV6 host}:${toString port}";
   
   # Detect IPv6
   isV6 = ip: lib.hasInfix ":" ip;
@@ -24,17 +28,19 @@ let
   # Bracket IPv6 literal for Endpoint if needed:
   # "2001:db8::10" -> "[2001:db8::10]"
   bracketIfV6 = host: if isV6 host then "[${host}]" else host;
-  
-  # Compose Endpoint correctly for v4/v6
-  mkEndpoint = host: port:
-    if host == null || port == null then null
-    else "${bracketIfV6 host}:${toString port}";
 in {
   config = mkIf (cfg.tunnels != {}) (
     let      
       # Build a normalized list for all *configured* host tunnels, merging registry info.
       tunnelsList = mapAttrsToList (tunnelName: tCfg:
         let
+          hubCandidates = lib.attrNames (filterAttrs (_: p: (p.endpoint or null) != null) rPeers);
+          hubName = if hubCandidates != [] then builtins.head hubCandidates else null;
+          # Determine if *this* node is the hub (robust if your registry tags it with endpoint+listenPort).
+          iAmHub = myReg != null
+            && (myReg.listenPort or null) != null
+            && (myReg.endpoint or null) != null;
+  
           iface = tCfg.interfaceName or (mkIfaceName tunnelName);
           enableIPForward = tCfg.enableIPForward;
           rp = if tCfg.rpFilterMode == "loose" then 2
@@ -57,20 +63,24 @@ in {
           tDefaults = (reg.defaults or {}).${tunnelName} or {};
           mtuBytes  = if tDefaults ? mtu then tDefaults.mtu else null;
           
-          # Build peers = all registry entries except self
-          peerNames = lib.remove thisHost (attrNames rPeers);
+          # Build peers: hub gets everyone; spokes get only the hub.
+          peerNames = if iAmHub then lib.remove thisHost (attrNames rPeers)
+            else if hubName != null then [ hubName ]
+            else lib.remove thisHost (attrNames rPeers);
+          
           peers = map (peerName:
             let
               p = rPeers.${peerName};
+              isPeerHub = (hubName != null) && (peerName == hubName);
               peerHostRoutes = map hostCIDR (p.addresses or []);
-              allowed = lib.unique (peerHostRoutes ++ myExtraAllowed);
+              allowed = if iAmHub then peerHostRoutes
+                else if isPeerHub then lib.unique myExtraAllowed
+                else peerHostRoutes;
               endpointStr = mkEndpoint p.endpoint p.listenPort;
             in { PublicKey = p.publicKey; }
               // lib.optionalAttrs (allowed != []) { AllowedIPs = allowed; }
               // lib.optionalAttrs (endpointStr != null) { Endpoint = endpointStr; }
-              // lib.optionalAttrs (p.persistentKeepalive != null) { PersistentKeepalive = p.persistentKeepalive; }
-              # Optional: auto-keepalive when dialing an endpoint from behind NAT
-              // lib.optionalAttrs (endpointStr != null && !(p ? persistentKeepalive)) { PersistentKeepalive = 25; }
+              // lib.optionalAttrs (endpointStr != null) { PersistentKeepalive = 25; }
           ) peerNames;
           
           # Key source (from your prior module)
