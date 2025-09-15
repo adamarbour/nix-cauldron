@@ -26,6 +26,7 @@ in {
           intel-vaapi-driver = pkgs.pkgsi686Linux.intel-vaapi-driver.override { enableHybridCodec = true; };
         };
       };
+      environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
     })
     
     (mkIf (cfg.gpu == "hybrid" && cfg.cpu == "amd") {

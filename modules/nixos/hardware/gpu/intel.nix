@@ -28,5 +28,6 @@ in {
     environment.variables = mkIf (config.hardware.graphics.enable) {
       VDPAU_DRIVER = "va_gl";
     };
+    environment.sessionVariables.LIBVA_DRIVER_NAME = "iHD";
   };
 }
