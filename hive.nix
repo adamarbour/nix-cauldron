@@ -9,7 +9,6 @@ in {
   };
   defaults = { lib, name, ... }: {
     imports = [
-      ./hosts/wg-registry.nix   # Wireguard tunnel registry
       ./modules/disks           # Disk templates
       ./modules/nixos
       ./modules/home
