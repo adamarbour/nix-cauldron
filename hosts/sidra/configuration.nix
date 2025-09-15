@@ -23,7 +23,7 @@
       network = {
         wireguard.tunnels = {
           "arbour-cloud" = {
-            addresses = [ "172.31.7.1/24" ];
+            addresses = [ "172.31.7.254/24" ];
             privateKey = { kind = "sops"; path = "wg/sidra.key"; };
             listenPort = 51820;
             openFirewall = true;

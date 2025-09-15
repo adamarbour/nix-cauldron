@@ -1,106 +1,62 @@
 { lib, pkgs, config, sources, ... }:
 let
-  inherit (lib) mkOption mkEnableOption types mkIf mapAttrsToList attrNames filterAttrs optionalAttrs getAttrFromPath;
+  inherit (lib)
+    mkOption mkEnableOption types mkIf mapAttrsToList attrNames filterAttrs
+    optionalAttrs getAttrFromPath concatStringsSep optionalString;
+
   secretsRepo = sources.secrets;
   cfg = config.cauldron.host.network.wireguard;
-  reg = config.cauldron.registry.wireguard or {};
   thisHost = config.networking.hostName;
 
-  mkSecretName = name: "wg-${name}-key";
-  mkIfaceName  = name: "wg-${name}";
-  # Compose Endpoint correctly for v4/v6
-  mkEndpoint = host: port:
-    if host == null || port == null then null
-    else "${bracketIfV6 host}:${toString port}";
-  
-  # Detect IPv6
+  # Helpers
   isV6 = ip: lib.hasInfix ":" ip;
+  bracketIfV6 = host: if isV6 host then "[${host}]" else host;
 
   # Turn "A.B.C.D/xx" -> "A.B.C.D/32" and IPv6 -> /128.
   # If no CIDR is present, assume host (/32 or /128) based on address family.
   hostCIDR = addr: let
     parts = lib.splitString "/" addr;
     ip    = builtins.elemAt parts 0;
-    isV6  = lib.hasInfix ":" ip;
-    mask  = if isV6 then "128" else "32";
+    mask  = if (isV6 ip) then "128" else "32";
   in "${ip}/${mask}";
-  
-  # Bracket IPv6 literal for Endpoint if needed:
-  # "2001:db8::10" -> "[2001:db8::10]"
-  bracketIfV6 = host: if isV6 host then "[${host}]" else host;
-in {
+
+  mkSecretName = name: "wg-${name}-key";
+  mkIfaceName  = name: "wg-${name}";
+
+  mkEndpoint = host: port:
+    if host == null || port == null then null
+    else "${bracketIfV6 host}:${toString port}";
+in
+{
   config = mkIf (cfg.tunnels != {}) (
-    let      
-      # Build a normalized list for all *configured* host tunnels, merging registry info.
+    let
+      # NOTE: use 'tunnelsList' consistently
       tunnelsList = mapAttrsToList (tunnelName: tCfg:
         let
-          hubCandidates = lib.attrNames (filterAttrs (_: p: (p.endpoint or null) != null) rPeers);
-          hubName = if hubCandidates != [] then builtins.head hubCandidates else null;
-          # Determine if *this* node is the hub (robust if your registry tags it with endpoint+listenPort).
-          iAmHub = myReg != null
-            && (myReg.listenPort or null) != null
-            && (myReg.endpoint or null) != null;
-  
           iface = tCfg.interfaceName or (mkIfaceName tunnelName);
-          enableIPForward = tCfg.enableIPForward;
           rp = if tCfg.rpFilterMode == "loose" then 2
             else if tCfg.rpFilterMode == "strict" then 1
             else if tCfg.rpFilterMode == "off" then 0
             else null;
-          rPeers = (reg.tunnels or {}).${tunnelName} or {};
-          myReg = (reg.tunnels or {}).${tunnelName}.${thisHost} or null;
-          myExtraAllowed = if myReg == null then [] else (myReg.extraAllowedIPs or []);
-          
-          # Local interface addresses: prefer host config; else registry self
-          myAddresses = if (tCfg.addresses or []) != [] then tCfg.addresses
-            else if myReg != null then myReg.addresses else [];
-          
-          # Local listen port: prefer host config; else registry self
-          myListenPort = if tCfg ? listenPort && tCfg.listenPort != null then tCfg.listenPort
-            else if myReg != null then myReg.listenPort else null;
-          
-          # Per-tunnel defaults (e.g., mtu)
-          tDefaults = (reg.defaults or {}).${tunnelName} or {};
-          mtuBytes  = if tDefaults ? mtu then tDefaults.mtu else null;
-          
-          # Build peers: hub gets everyone; spokes get only the hub.
-          peerNames = if iAmHub then lib.remove thisHost (attrNames rPeers)
-            else if hubName != null then [ hubName ]
-            else lib.remove thisHost (attrNames rPeers);
-          
-          peers = map (peerName:
-            let
-              p = rPeers.${peerName};
-              isPeerHub = (hubName != null) && (peerName == hubName);
-              peerHostRoutes = map hostCIDR (p.addresses or []);
-              allowed = if iAmHub then peerHostRoutes
-                else if isPeerHub then lib.unique myExtraAllowed
-                else peerHostRoutes;
-              endpointStr = mkEndpoint p.endpoint p.listenPort;
-            in { PublicKey = p.publicKey; }
-              // lib.optionalAttrs (allowed != []) { AllowedIPs = allowed; }
-              // lib.optionalAttrs (endpointStr != null) { Endpoint = endpointStr; }
-              // lib.optionalAttrs (endpointStr != null) { PersistentKeepalive = 25; }
-          ) peerNames;
-          
-          # Key source (from your prior module)
-          keySource = if tCfg.privateKey.kind == "file"
-            then { kind = "file"; file = tCfg.privateKey.path; }
-            else { kind = "sops"; sopsFile = "${secretsRepo}/trove/${tCfg.privateKey.path}"; };
+          keySource =
+            if tCfg.privateKey.kind == "file"
+              then { kind = "file"; file = tCfg.privateKey.path; }
+              else { kind = "sops"; sopsFile = "${secretsRepo}/trove/${tCfg.privateKey.path}"; };
         in {
           name = tunnelName;
-          inherit iface rp keySource mtuBytes;
+          inherit iface rp;
+          addresses = tCfg.addresses;
+          routes = tCfg.routes;
+          listenPort = tCfg.listenPort;
+          mtuBytes = tCfg.mtu;
           enableIPForward = tCfg.enableIPForward;
           masquerade = tCfg.masquerade;
-          addresses = myAddresses;
-          routes = tCfg.routes;
-          listenPort = myListenPort;
           openFirewall = tCfg.openFirewall;
-          wireguardPeers = peers;
+          keySource = keySource;
           secretName = mkSecretName tunnelName;
         }
       ) cfg.tunnels;
-      
+
       netdevs = builtins.listToAttrs (map (t: {
         name = t.iface;
         value = {
@@ -108,34 +64,34 @@ in {
           wireguardConfig =
             { PrivateKeyFile = if t.keySource.kind == "file" then t.keySource.file else "/run/secrets/${t.secretName}"; }
             // lib.optionalAttrs (t.listenPort != null) { ListenPort = t.listenPort; };
-          wireguardPeers = t.wireguardPeers;
+          wireguardPeers = []; # handled at runtime
         };
       }) tunnelsList);
-      
+
       networks = builtins.listToAttrs (map (t: {
         name = t.iface;
         value = {
           matchConfig.Name = t.iface;
-          networkConfig = optionalAttrs (t.enableIPForward or false) { IPv4Forwarding = true; }
+          networkConfig =
+            optionalAttrs (t.enableIPForward or false) { IPv4Forwarding = true; }
             // optionalAttrs (t.masquerade != null) { IPMasquerade = t.masquerade; };
-          # Per-tunnel default MTU (if provided)
           linkConfig = optionalAttrs (t.mtuBytes != null) { MTUBytes = t.mtuBytes; };
           addresses = map (addr: { Address = addr; }) t.addresses;
           routes = t.routes;
         };
       }) tunnelsList);
-      
+
       openedUDPPorts =
         lib.unique (lib.flatten (map (t:
           if t.openFirewall && t.listenPort != null then [ t.listenPort ] else [ ]
         ) tunnelsList));
-        
+
       # Build the sysctl commands only for those ifaces that requested an override
       rpfCmds = lib.concatStringsSep "\n" (map (t:
         lib.optionalString (t.rp != null)
           ''${pkgs.kmod}/bin/sysctl -w "net.ipv4.conf.${t.iface}.rp_filter=${toString t.rp}" || true''
       ) tunnelsList);
-      
+
       secrets = builtins.listToAttrs (map (t:
         if t.keySource.kind == "sops" then {
           name = t.secretName;
@@ -145,40 +101,173 @@ in {
             owner = "systemd-network";
             group = "systemd-network";
             mode  = "0400";
-            restartUnits = mkIf cfg.restartOnChange [ "systemd-networkd.service" ];
+            restartUnits = [ "systemd-networkd.service" ];
           };
         } else null
       ) tunnelsList);
     in {
-      # Only sops-based keys go into secrets
+      # Handy while debugging; service also has curl/jq in its PATH
+      environment.systemPackages = [ pkgs.wireguard-tools pkgs.curl pkgs.jq ];
       sops.secrets = lib.filterAttrs (_: v: v != null) secrets;
-      
-      environment.systemPackages = [ pkgs.wireguard-tools ];
 
       systemd.network.netdevs  = netdevs;
       systemd.network.networks = networks;
-      
+
       networking.firewall.allowedUDPPorts = openedUDPPorts;
       networking.firewall.trustedInterfaces = (map (t: t.iface) tunnelsList);
+
+ #     systemd.services.cauldron-wg-rpf = mkIf (rpfCmds != "") {
+ #       description = "Set rp_filter on WireGuard router interfaces";
+ #       after = [ "network-online.target" "systemd-networkd.service" ];
+ #       requires = [ "systemd-networkd.service" ];
+ #       wantedBy = [ "multi-user.target" ];
+ #       serviceConfig = {
+ #         Type = "oneshot";
+ #         ExecStart = pkgs.writeShellScript "set-wg-rpf.sh" ''
+ #           set -eu
+ #           ${rpfCmds}
+ #         '';
+ #       };
+ #       # Re-run if your WG config changes
+ #      restartTriggers = [
+ #        (pkgs.writeText "wg-rpf-trigger.json"
+ #          (builtins.toJSON (map (t: { iface = t.iface; rp = t.rp; }) tunnelsList)))
+ #      ];
+ #    };
       
-      systemd.services.cauldron-wg-rpf = mkIf (rpfCmds != "") {
-        description = "Set rp_filter on WireGuard router interfaces";
-        after = [ "network-online.target" "systemd-networkd.service" ];
-        requires = [ "systemd-networkd.service" ];
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          Type = "oneshot";
-          ExecStart = pkgs.writeShellScript "set-wg-rpf.sh" ''
-            set -eu
-            ${rpfCmds}
-          '';
-        };
-        # Re-run if your WG config changes
-        restartTriggers = [
-          (pkgs.writeText "wg-rpf-trigger.json"
-            (builtins.toJSON (map (t: { iface = t.iface; rp = t.rp; }) tunnelsList)))
-        ];
-      };
+      systemd.services = lib.foldl' (acc: t:
+        let
+          iface = t.iface;
+          tunnelName = t.name;
+        in acc // {
+          "wg-sync@${iface}" = {
+            description = "Sync WireGuard peers for ${iface} from ${cfg.peerRegistryURL}";
+            after = [ "network-online.target" "systemd-networkd.service" ];
+            wants = [ "network-online.target" ];
+            serviceConfig = { Type = "oneshot"; User = "root"; };
+            path = [ pkgs.curl pkgs.jq pkgs.wireguard-tools pkgs.util-linux ];
+            script = ''
+              set -euo pipefail
+              IFACE=${lib.escapeShellArg iface}
+              URL=${lib.escapeShellArg cfg.peerRegistryURL}
+              TUNNEL=${lib.escapeShellArg tunnelName}
+              HOST=${lib.escapeShellArg thisHost}
+
+              fetch() {
+                curl -fsSL "$URL"
+              }
+
+              RAW="$(fetch)"
+
+              rPeers="$(jq -c --arg T "$TUNNEL" '.tunnels[$T] // {}' <<<"$RAW")"
+              myReg="$(jq -c --arg T "$TUNNEL" --arg H "$HOST" '.tunnels[$T][$H] // null' <<<"$RAW")"
+              if [ "$myReg" = "null" ]; then
+                echo "No registry entry for $HOST in tunnel $TUNNEL; skipping."
+                exit 0
+              fi
+
+              # Identify a hub (any peer with endpoint+listenPort)
+              hubName="$(
+                jq -r '. | to_entries
+                       | map(select(.value.endpoint!=null and .value.listenPort!=null))
+                       | .[0].key // empty' <<<"$rPeers"
+              )"
+
+              # Are we a hub?
+              iAmHub="$(
+                jq -r 'select(.!=null) | ((.listenPort!=null) and (.endpoint!=null))' <<<"$myReg" || true
+              )"
+              [ -z "$iAmHub" ] && iAmHub="false"
+
+              TMP="$(mktemp)"
+              echo "[Interface]" > "$TMP"
+              echo "PrivateKey = $(cat ${if (t.keySource.kind == "file") then t.keySource.file else "/run/secrets/${t.secretName}"})" >> "$TMP"
+              # Optional if you want to set runtime; otherwise let networkd handle it at creation:
+              ${lib.optionalString (t.listenPort or null != null) ''echo "ListenPort = ${toString t.listenPort}" >> "$TMP"''}
+              echo "" >> "$TMP"
+
+              # Choose peer set for this host:
+              # - hub → everyone except self
+              # - spoke → just the hub (if known), else everyone but self (fallback)
+              peerNamesJSON="$(
+                if [ "$iAmHub" = "true" ]; then
+                  jq -c --arg H "$HOST" '. | keys | map(select(. != $H))' <<<"$rPeers"
+                else
+                  if [ -n "$hubName" ]; then
+                    jq -c --arg hub "$hubName" '[ $hub ]' <<<"{}"
+                  else
+                    jq -c --arg H "$HOST" '. | keys | map(select(. != $H))' <<<"$rPeers"
+                  fi
+                fi
+              )"
+
+              myExtraAllowed="$(jq -c '.extraAllowedIPs // []' <<<"$myReg")"
+
+              for peer in $(jq -r '.[]' <<<"$peerNamesJSON"); do
+                p="$(jq -c --arg P "$peer" '.[$P]' <<<"$rPeers")"
+                pub=$(jq -r '.publicKey' <<<"$p")
+                epHost=$(jq -r '.endpoint // empty' <<<"$p")
+                epPort=$(jq -r '.listenPort // empty' <<<"$p")
+
+                if [ "$iAmHub" = "true" ]; then
+                  allowed="$(jq -c '[.addresses[]?]
+                                    | map(. | split("/")[0]
+                                          + (if contains(":") then "/128" else "/32" end))' <<<"$p")"
+                else
+                  if [ -n "$hubName" ] && [ "$peer" = "$hubName" ]; then
+                    allowed="$myExtraAllowed"
+                  else
+                    allowed="$(jq -c '[.addresses[]?]
+                                      | map(. | split("/")[0]
+                                            + (if contains(":") then "/128" else "/32" end))' <<<"$p")"
+                  fi
+                fi
+
+                echo "[Peer]" >>"$TMP"
+                echo "PublicKey = $pub" >>"$TMP"
+
+                if [ -n "$epHost" ] && [ -n "$epPort" ]; then
+                  if printf "%s" "$epHost" | grep -q ':'; then
+                    echo "Endpoint = [$epHost]:$epPort" >>"$TMP"
+                  else
+                    echo "Endpoint = $epHost:$epPort" >>"$TMP"
+                  fi
+                  echo "PersistentKeepalive = 25" >>"$TMP"
+                fi
+
+                aList=$(jq -r 'join(",")' <<<"$allowed")
+                [ -n "$aList" ] && echo "AllowedIPs = $aList" >>"$TMP"
+                echo "" >>"$TMP"
+              done
+
+              wg setconf "$IFACE" "$TMP"
+              rm -f "$TMP"
+            '';
+          };
+        }
+      )
+      {}
+      tunnelsList;
+      
+      systemd.timers = lib.foldl' (acc: t:
+        let
+          iface = t.iface;
+        in acc // {
+          "wg-sync@${iface}" = {
+            description = "Timer: refresh peers for ${iface}";
+            wantedBy = [ "timers.target" ];
+            partOf = [ "wg-sync@${iface}.service" ];
+            timerConfig = {
+              OnBootSec = "10s";
+              OnUnitActiveSec = cfg.pollInterval;
+              AccuracySec = "2s";
+            };
+          };
+        }
+      )
+      {}
+      tunnelsList;
     }
   );
 }
+

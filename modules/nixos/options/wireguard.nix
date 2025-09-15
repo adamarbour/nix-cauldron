@@ -1,47 +1,21 @@
 { lib, config, ... }:
 let
   inherit (lib) mkOption types;
+  peerRegistry = "https://raw.githubusercontent.com/adamarbour/nix-cauldron/refs/heads/main/hosts/wg-registry.json";
   
   mkIfaceName  = name: "wg-${name}";
 in {
-  options.cauldron.registry.wireguard = {
-    tunnels = mkOption {
-      type = types.attrsOf (types.attrsOf (types.submodule {
-        options = {
-          publicKey = mkOption { type = types.str; };
-          addresses = mkOption { type = types.listOf types.str; default = []; };
-          endpoint  = mkOption { type = types.nullOr types.str; default = null; }; # host or IP (no port)
-          listenPort = mkOption { type = types.nullOr types.port; default = null; };
-          extraAllowedIPs = mkOption { type = types.listOf types.str; default = []; };
-          # Optional future fields:
-          persistentKeepalive = mkOption { type = types.nullOr types.int; default = null; };
-          # presharedKey: via sops/file (not shown here, easy to add)
-        };
-      }));
-      default = {};
-      description = "Per-tunnel registry keyed by tunnel → hostname → peer spec.";
-    };
-    defaults = mkOption {
-      type = types.attrsOf (types.attrsOf types.anything);
-      default = {};
-      example = { "wg-cloud" = { mtu = 1380; }; };
-      description = "Per-tunnel defaults (e.g., mtu) applied on every host in that tunnel.";
-    };
-  };
-
   options.cauldron.host.network.wireguard = {
-    restartOnChange = mkOption {
-      type = types.bool;
-      default = true;
-      description = ''
-        When true, restart systemd-networkd whenever the generated
-        /etc/systemd/network payload or any sops-managed WG key changes.
-      '';
+    peerRegistryURL = mkOption {
+      type = types.str;
+      default = peerRegistry;
+      example = "https://raw.githubusercontent.com/user/sample.json";
+      description = "HTTP(S) URL exporting the peer registry JSON";
     };
-    forceRestartOnSwitch = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Force a try-restart of systemd-networkd on every nixos-rebuild switch.";
+    pollInterval = mkOption {
+      type = types.str;
+      default = "30s";
+      description = "How often to refresh peers and sync the interface.";
     };
     tunnels = mkOption {
       description = "WireGuard tunnels for this host.";
@@ -76,6 +50,7 @@ in {
             ];
             description = "List of systemd-networkd [Route] option sets.";
           };
+          mtu = mkOption { type = types.nullOr types.int; default = null; };
           privateKey = mkOption {
             type = types.submodule {
               options = {
