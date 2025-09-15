@@ -1,6 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkDefault;
   cfg = config.cauldron.host.hardware;
 in {
   config = mkIf (cfg.gpu == "nvidia" || cfg.gpu == "hybrid") {
@@ -47,7 +47,7 @@ in {
     boot.kernelParams = [ "nvidia_drm.fbdev=1" "nvidia_drm.modeset=1" ];
     boot.blacklistedKernelModules = [ "nouveau" ];
     
-    environment.sessionVariables = {
+    environment.sessionVariables = mkIf (cfg.gpu == "nvidia") {
       LIBVA_DRIVER_NAME = "nvidia";
     };
   };
