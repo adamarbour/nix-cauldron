@@ -1,5 +1,9 @@
-{
-  programs.git = {
+{ lib, config, ... }:
+let
+  inherit (lib) mkIf;
+  inherit (lib.cauldron) hasProfile;
+in {
+  programs.git =  mkIf (hasProfile config "workstation") {
     enable = true;
     lfs = {
       enable = true;

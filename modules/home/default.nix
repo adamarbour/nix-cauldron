@@ -1,6 +1,7 @@
 {
   imports = [
     ./environment
+    ./options
     ./programs
   ];
 }
