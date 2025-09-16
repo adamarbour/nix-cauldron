@@ -3,5 +3,6 @@
     ./environment
     ./options
     ./programs
+    ./security
   ];
 }
