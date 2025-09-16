@@ -1,11 +1,11 @@
 { lib, pkgs, config, modulesPath, ...}:
 let
   inherit (lib) mkIf mkForce mkDefault;
-  profiles = config.cauldron.profiles;
+  inherit (lib.cauldron) hasProfile;
 in {
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
   
-  config = mkIf (lib.elem "kvm" profiles) {
+  config = mkIf (hasProfile config "kvm") {
     boot.kernelParams = [
       "console=tty1"
       "console=ttyS0,115200"

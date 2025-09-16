@@ -1,15 +1,20 @@
 { system ? builtins.currentSystem }:
 let
   sources = import ./npins;
+  nixpkgs = import sources.nixpkgs { };
+  lib = nixpkgs.lib.extend (final: prev: {
+    cauldron = import ./lib { lib = prev; };
+  });
 in {
   meta = {
     description = "Where all things were Made...";
     nixpkgs = import sources.nixpkgs { };
-    specialArgs = { inherit sources; };
+    specialArgs = { inherit sources lib; };
   };
   defaults = { lib, name, ... }: {
     imports = [
-      ./modules/disks           # Disk templates
+      ({...}: { _module.args.lib = lib; })  # Custom helpers
+      ./modules/disks                       # Disk templates
       ./modules/nixos
       ./modules/home
     ];
