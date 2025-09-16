@@ -29,7 +29,7 @@ in {
           };
           rpFilterMode = mkOption {
             type = types.enum [ "inherit" "loose" "strict" "off" ];
-            default = "inherit";
+            default = "loose";
             description = "Reverse-path filtering mode for this WireGuard iface.";
           };
           addresses = mkOption {

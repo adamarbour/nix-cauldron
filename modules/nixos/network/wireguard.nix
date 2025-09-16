@@ -30,7 +30,6 @@ in
 {
   config = mkIf (cfg.tunnels != {}) (
     let
-      # NOTE: use 'tunnelsList' consistently
       tunnelsList = mapAttrsToList (tunnelName: tCfg:
         let
           iface = tCfg.interfaceName or (mkIfaceName tunnelName);
@@ -89,7 +88,7 @@ in
       # Build the sysctl commands only for those ifaces that requested an override
       rpfCmds = lib.concatStringsSep "\n" (map (t:
         lib.optionalString (t.rp != null)
-          ''${pkgs.kmod}/bin/sysctl -w "net.ipv4.conf.${t.iface}.rp_filter=${toString t.rp}" || true''
+          ''${pkgs.sysctl}/bin/sysctl -w "net.ipv4.conf.${t.iface}.rp_filter=${toString t.rp}" || true''
       ) tunnelsList);
 
       secrets = builtins.listToAttrs (map (t:
@@ -115,25 +114,6 @@ in
 
       networking.firewall.allowedUDPPorts = openedUDPPorts;
       networking.firewall.trustedInterfaces = (map (t: t.iface) tunnelsList);
-
- #     systemd.services.cauldron-wg-rpf = mkIf (rpfCmds != "") {
- #       description = "Set rp_filter on WireGuard router interfaces";
- #       after = [ "network-online.target" "systemd-networkd.service" ];
- #       requires = [ "systemd-networkd.service" ];
- #       wantedBy = [ "multi-user.target" ];
- #       serviceConfig = {
- #         Type = "oneshot";
- #         ExecStart = pkgs.writeShellScript "set-wg-rpf.sh" ''
- #           set -eu
- #           ${rpfCmds}
- #         '';
- #       };
- #       # Re-run if your WG config changes
- #      restartTriggers = [
- #        (pkgs.writeText "wg-rpf-trigger.json"
- #          (builtins.toJSON (map (t: { iface = t.iface; rp = t.rp; }) tunnelsList)))
- #      ];
- #    };
       
       systemd.services = lib.foldl' (acc: t:
         let
@@ -247,7 +227,25 @@ in
         }
       )
       {}
-      tunnelsList;
+      tunnelsList
+      // lib.optionalAttrs (rpfCmds != "") {
+        cauldron-wg-rpf = {
+          description = "Set rp_filter on WireGuard router interfaces";
+          after = [ "network-online.target" "systemd-networkd.service" ];
+          requires = [ "systemd-networkd.service" ];
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig.Type = "oneshot";
+          # Re-run if WG config changes (iface / rp values)
+          restartTriggers = [
+            (pkgs.writeText "wg-rpf-trigger.json"
+              (builtins.toJSON (map (t: { iface = t.iface; rp = t.rp; }) tunnelsList)))
+          ];
+          script = ''
+            set -eu
+            ${rpfCmds}
+          '';
+        };
+      };
       
       systemd.timers = lib.foldl' (acc: t:
         let
