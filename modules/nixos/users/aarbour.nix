@@ -1,10 +1,10 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) mkIf mkMerge mkDefault;
+  inherit (lib) elem mkIf mkMerge mkDefault;
+  enableUser = (elem "aarbour" config.cauldron.host.users);
 in {
   config = mkMerge [
-    {
-      home-manager.users.aarbour = import ./aarbour;
+    (mkIf enableUser {
       users.users.aarbour = {
         uid = mkDefault 1001;
         isNormalUser = true;
@@ -14,20 +14,20 @@ in {
           "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYiOynu6CwX4zHlSNxc0H4MkpseEhoGCOL6ls+laxdc aarbour"
         ];
       };
-    }
+    })
     
     # Impermanence
-    (mkIf config.cauldron.host.disk.impermanence.enable {
+    (mkIf (enableUser && config.cauldron.host.disk.impermanence.enable) {
       # TODO: Fix this ...
     })
     
     # Secrets
-    (mkIf config.cauldron.secrets.enable {
+    (mkIf (enableUser && config.cauldron.secrets.enable) {
       users.users.aarbour.hashedPasswordFile = config.sops.secrets.passwd.path;
     })
     
     # No Secrets
-    (mkIf (!config.cauldron.secrets.enable) {
+    (mkIf (enableUser && (!config.cauldron.secrets.enable)) {
       users.users.aarbour.initialPassword = "nixos";
     })
   ];

@@ -12,8 +12,6 @@ in {
       ./modules/disks           # Disk templates
       ./modules/nixos
       ./modules/home
-      ./users/root.nix
-      ./users/aarbour.nix
     ];
     config = {
       networking.hostName = name;
@@ -70,7 +68,6 @@ in {
     imports = [
       ./hosts/lucien/configuration.nix
       ./hosts/lucien/hardware.nix
-      ./users/steam.nix
     ];
     config = {
       time.timeZone = "America/Chicago";
