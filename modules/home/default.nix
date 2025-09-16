@@ -1,22 +1,6 @@
-{ sources, ... }:
 {
   imports = [
-    "${sources.home-manager}/nixos"
+    ./environment
+    ./programs
   ];
-  
-  home-manager = {
-    verbose = true;
-    useUserPackages = true;
-    useGlobalPkgs = true;
-    backupFileExtension = "bak";
-    
-    extraSpecialArgs = {
-      inherit sources;
-    };
-    
-    sharedModules = [
-      ./environment
-      ./programs
-    ];
-  };
 }

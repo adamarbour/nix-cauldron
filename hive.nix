@@ -14,9 +14,9 @@ in {
   defaults = { lib, name, ... }: {
     imports = [
       ({...}: { _module.args.lib = lib; })  # Custom helpers
+      ./homes                               # Home configurations
       ./modules/disks                       # Disk templates
       ./modules/nixos
-      ./modules/home
     ];
     config = {
       networking.hostName = name;
