@@ -1,7 +1,13 @@
 { lib, ... }:
 let
-  inherit (lib) mkIf;
-in {
+  inherit (lib) filter hasAttr;
+  
+  # TODO: Document...
   hasProfile = config: profile: builtins.elem profile (config.cauldron.profiles or []);
-  mkIfProfile = config: profile: x: mkIf (builtins.elem profile (config.cauldron.profiles or [])) x;
+  ifTheyExist = config: groups: filter (group: hasAttr group config.users.groups) groups;
+in {
+  inherit
+    hasProfile
+    ifTheyExist
+    ;
 }
