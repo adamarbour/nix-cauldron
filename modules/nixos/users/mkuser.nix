@@ -16,27 +16,30 @@ in {
             sopsFile = "${secretsRepo}/trove/users/${name}.yaml";
           in acc // {
             # Per-user secrets with unique names
-            "passwd" = {
+            "users/${name}/passwd" = {
               inherit sopsFile;
+              key = "passwd";
               owner = "root";
               group = "root";
               mode  = "0400";
             };
 
-            "id_ed25519" = {
+            "users/${name}/id_ed25519" = {
               inherit sopsFile;
+              key = "id_ed25519";
               owner = name;
               group = "users";
-              mode  = "0600";
+              mode  = "0400";
               # materialize where the user expects it
               path  = "/home/${name}/.ssh/id_ed25519";
             };
 
-            "id_ed25519.pub" = {
+            "users/${name}/id_ed25519.pub" = {
               inherit sopsFile;
+              key = "id_ed25519.pub";
               owner = name;
               group = "users";
-              mode  = "0644";
+              mode  = "0444";
               path  = "/home/${name}/.ssh/id_ed25519.pub";
             };
           })
@@ -46,30 +49,29 @@ in {
     ####### Per-user accounts ########
     users.users = genAttrs userList (name: let
       passwdPath = mkIf config.cauldron.secrets.enable
-        config.sops.secrets."passwd".path;
+        config.sops.secrets."users/${name}/passwd".path;
       pubKeyString = mkIf config.cauldron.secrets.enable
-        (builtins.readFile config.sops.secrets."id_ed25519.pub".path);
+        (builtins.readFile config.sops.secrets."users/${name}/id_ed25519.pub".path);
     in {
       home = "/home/${name}";
       uid = mkDefault 1000;
       isNormalUser = true;
 
-      extraGroups =
-        [ "wheel" "nix" ]
-        ++ ifTheyExist config [
-          "network"
-          "networkmanager"
-          "systemd-journal"
-          "audio"
-          "pipewire" 
-          "video"
-          "input"
-          "plugdev"
-          "lp"
-          "tss"
-          "power"
-          "git"
-        ];
+      extraGroups = [ "wheel" "nix" ]
+      ++ ifTheyExist config [
+        "network"
+        "networkmanager"
+        "systemd-journal"
+        "audio"
+        "pipewire" 
+        "video"
+        "input"
+        "plugdev"
+        "lp"
+        "tss"
+        "power"
+        "git"
+      ];
 
       # If secrets are disabled, fall back to a throwaway initial password.
       initialPassword = mkIf (!config.cauldron.secrets.enable) "nixos";

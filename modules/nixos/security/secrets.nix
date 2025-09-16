@@ -16,9 +16,7 @@ in {
   config = mkIf cfg.enable {
     sops = {
       defaultSopsFile = "${secretsRepo}/trove/default.yaml";
-      age = {
-        	sshKeyPaths = [ "${persistRoot}/etc/ssh/ssh_host_ed25519_key" ];
-      };
+      age.sshKeyPaths = [ "${persistRoot}/etc/ssh/ssh_host_ed25519_key" ];
     };
     
     environment.systemPackages = with pkgs; [
