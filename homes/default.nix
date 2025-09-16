@@ -15,7 +15,18 @@ in {
       imports = [ ./${name} ];
     });
     
-    extraSpecialArgs = { inherit sources; };
-    sharedModules = [ ../modules/home ];
+    extraSpecialArgs = {
+      inherit sources;
+      cauldron = lib.cauldron;
+      osConfig = config;
+    };
+    sharedModules = [
+      ({ lib, cauldron, ... }:
+        { _module.args.lib = lib.extend (final: prev: {
+          cauldron = cauldron;
+        });
+      })
+      ../modules/home
+    ];
   };
 }
