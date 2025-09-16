@@ -8,7 +8,7 @@ in {
   
   config = mkIf cfg.enable {
     sops = {
-      defaultSopsFile = "${secretsRepo}/trove/${name}.yaml";
+      defaultSopsFile = "${secretsRepo}/trove/users/${name}.yaml";
       age.sshKeyPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
     };
   };
