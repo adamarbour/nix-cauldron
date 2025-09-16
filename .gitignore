@@ -1,3 +1,5 @@
 # Ignore nixos build outputs
 result*
 .direnv/
+# Ignore codex logs
+.codex/logs

@@ -1,0 +1,23 @@
+preferred_auth_method = "chatgpt"
+
+# approval mode for edits (ask | auto | full-auto)
+approvals = "ask"
+
+# persist logs & sessions in repo
+[logging]
+save_sessions = true
+log_dir = ".codex/logs"
+
+[context]
+include = [
+  "CODING.md"
+  "justfile"
+  "hive.nix",
+  "modules/**.nix",
+  "hosts/**.nix"
+]
+exclude = [
+  "result",
+  ".git/**",
+  ".direnv/**"
+]

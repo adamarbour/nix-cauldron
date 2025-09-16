@@ -9,6 +9,7 @@ in pkgs.mkShellNoCC {
   
   packages = with pkgs; [
     age
+    codex
     colmena
     disko
     git
