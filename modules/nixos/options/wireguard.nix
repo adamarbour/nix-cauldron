@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib) mkOption types;
-  peerRegistry = "https://raw.githubusercontent.com/adamarbour/nix-cauldron/refs/heads/main/hosts/wg-registry.json";
+  peerRegistry = "https://raw.githubusercontent.com/adamarbour/nix-cauldron/main/hosts/wg-registry.json";
   
   mkIfaceName  = name: "wg-${name}";
 in {
