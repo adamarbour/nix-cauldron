@@ -11,12 +11,12 @@
         "endpoint": "wg1.arbour.cloud"
       },
       "morrigan": {
-        "addresses": ["172.31.7.101/32"],
+        "addresses": ["172.31.7.101/32", "2001:db8:ac::101/128"],
         "publicKey": "qBd0mGQuBCxL3Pl401UHTt6Ng1PjbCPRz56vppiwfG8=",
         "extraAllowedIPs": ["172.31.7.0/24", "2001:db8:ac::0/64"]
       },
       "cassian": {
-        "addresses": ["172.31.7.102/32"],
+        "addresses": ["172.31.7.102/32", "2001:db8:ac::102/128"],
         "publicKey": "/wYcBIwBvnPbVJqSN7o/EJIazS6lc9KaVnzjtl6Vc3s=",
         "extraAllowedIPs": ["172.31.7.0/24", "2001:db8:ac::0/64"]
       }
@@ -24,7 +24,7 @@
     "nflix": {
       "dlrr": {
         "addresses": ["10.11.12.254/32"],
-        "publicKey": "MRpOWd8l8dCgW3akz2RDUGOw+NBwe81fEXE74mPRglM="
+        "publicKey": "MRpOWd8l8dCgW3akz2RDUGOw+NBwe81fEXE74mPRglM=",
         "listenPort": 51820,
         "endpoint": "wg.nflix.lol",
       },
