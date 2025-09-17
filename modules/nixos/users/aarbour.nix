@@ -1,11 +1,11 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) elem mkIf mkMerge mkDefault;
-  enableUser = (elem "aarbour" config.cauldron.host.users);
+  inherit (lib) elem mkIf mkDefault;
 in {
-  config = mkIf enableUser {
+  config = mkIf (elem "aarbour" config.cauldron.host.users) {
     users.users.aarbour = {
-      description = "Adam Arbour";
+      # Initial throwaway password: "nixos"
+      initialHashedPassword = mkDefault "$y$j9T$FbXu9/hYPFtVkAy.3JSCs1$XAgWbQs7MbNHP/jH3LRYoxzcwhpQAjY74U7fv40XO94";
     };
   };
 }

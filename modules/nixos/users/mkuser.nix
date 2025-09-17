@@ -19,9 +19,7 @@ in {
             "users/${name}/passwd" = {
               inherit sopsFile;
               key = "passwd";
-              owner = "root";
-              group = "root";
-              mode  = "0400";
+              neededForUsers = true;
             };
 
             "users/${name}/id_ed25519" = {
@@ -47,12 +45,7 @@ in {
       userList);
     
     ####### Per-user accounts ########
-    users.users = genAttrs userList (name: let
-      passwdPath = mkIf config.cauldron.secrets.enable
-        config.sops.secrets."users/${name}/passwd".path;
-      pubKeyString = mkIf config.cauldron.secrets.enable
-        (builtins.readFile config.sops.secrets."users/${name}/id_ed25519.pub".path);
-    in {
+    users.users = genAttrs userList (name: {
       home = "/home/${name}";
       uid = mkDefault 1000;
       isNormalUser = true;
@@ -73,10 +66,11 @@ in {
         "git"
       ];
 
-      # If secrets are disabled, fall back to a throwaway initial password.
-      initialPassword = mkIf (!config.cauldron.secrets.enable) "nixos";
-      hashedPasswordFile = passwdPath;
-      openssh.authorizedKeys.keys = mkIf config.cauldron.secrets.enable [ pubKeyString ];
+      hashedPasswordFile = mkIf config.cauldron.secrets.enable
+        config.sops.secrets."users/${name}/passwd".path;
+      openssh.authorizedKeys.keyFiles = mkIf config.cauldron.secrets.enable [
+        config.sops.secrets."users/${name}/id_ed25519.pub".path
+      ];
     });
     
     ####### Ensure ~/.ssh exists with correct perms ########
