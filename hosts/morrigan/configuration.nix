@@ -30,14 +30,15 @@
         wireless.backend = "iwd";
          wireguard.tunnels = {
           "arbour-cloud" = {
-            addresses = [ "172.31.7.13/24" "2001:db8:ac::13/64"];
+            addresses = [ "172.31.7.101/24" "2001:db8:ac::101/64"];
             privateKey = { kind = "sops"; path = "wg/morrigan.key"; };
             routes = [
               { Destination = "172.31.7.0/24"; }
+              { Destination = "2001:db8:ac::254/64"; }
             ];
           };
           "nflix" = {
-            addresses = [ "10.11.12.2/24" ];
+            addresses = [ "10.11.12.1/24" ];
             privateKey = { kind = "sops"; path = "wg/morrigan.key"; };
             routes = [
               { Destination = "10.11.12.0/24"; }
