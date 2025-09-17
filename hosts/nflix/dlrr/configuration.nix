@@ -1,14 +1,10 @@
 { lib, pkgs, ... }:
 {
   cauldron = {
-    profiles = [
-      "server"
-      "kvm"
-    ];
     host = {
       boot = {
         kernel = pkgs.linuxPackages;
-        loader = "systemd";
+        loader = "grub";
       };
       hardware.cpu = "intel";
       disk = {
@@ -21,21 +17,27 @@
         };
         swap.enable = true;
       };
+      impermanence = {
+        extra.dirs = [
+          "/var/lib/transmission"
+          "/srv/media/"
+        ];
+      };
       network = {
-        wireguard.tunnels = {
-          "nflix" = {
-            addresses = [ "10.11.12.254/24" ];
-            privateKey = { kind = "sops"; path = "wg/dlrr.key"; };
-            listenPort = 51820;
-            openFirewall = true;
-            enableIPForward = true;
-          };
-        };
+#        wireguard.tunnels = {
+#          "nflix" = {
+#            addresses = [ "10.11.12.254/24" ];
+#            privateKey = { kind = "sops"; path = "wg/dlrr.key"; };
+#            listenPort = 51820;
+#            openFirewall = true;
+#            enableIPForward = true;
+#          };
+#        };
       };
     };
     services = {
       transmission = {
-        enable = true;
+        enable = false;
         dataDir = "/srv/media/transmission";
         downloadDir = "/srv/media/Downloads";
         rpcInterface = "wg-nflix";
@@ -53,17 +55,16 @@
           "download-queue-size" = 10;
           "peer-congestion-algorithm" = "cubic";
           # Seeding
-          "seedRatioLimited" = true;
-          "seedRatioLimit" = 2.0;
+          "ratio-limit-enabled" = true;
+          "ratio-limit" = 2.5;
           "idle-seeding-limit-enabled" = true;
           "idle-seeding-limit" = 20160;
           "seed-queue-enabled" = true;
           "seed-queue-size" = 10;
+          # Blocklist
+          "blocklist-enabled" = true;
+          "blocklist-url" = "https://raw.githubusercontent.com/Naunter/BT_BlockLists/master/bt_blocklists.gz";
         };
-      };
-      cloud-init = {
-        enable = true;
-        dataSources = [ "NoCloud" ];
       };
     };
     secrets.enable = true;
