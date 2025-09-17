@@ -29,7 +29,7 @@ in {
               key = "id_ed25519";
               owner = name;
               group = "users";
-              mode  = "0400";
+              mode  = "0600";
               # materialize where the user expects it
               path  = "/home/${name}/.ssh/id_ed25519";
             };
@@ -39,7 +39,7 @@ in {
               key = "id_ed25519.pub";
               owner = name;
               group = "users";
-              mode  = "0444";
+              mode  = "0644";
               path  = "/home/${name}/.ssh/id_ed25519.pub";
             };
           })
