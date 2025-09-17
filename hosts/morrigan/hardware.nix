@@ -25,16 +25,6 @@ in {
     i2c.enable = true;
   };
   
-  systemd.services.set-power-profile = {
-    description = "Set default power profile";
-    after = [ "power-profiles-daemon.service" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced";
-    };
-    wantedBy = [ "multi-user.target" ];
-  };
-  
   systemd.services.ath11k_hibernate = {
     description = "load/unload ath11k to prevent hibernation issues";
     before = [
