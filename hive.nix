@@ -203,13 +203,12 @@ in {
     imports = [
       ./hosts/nflix/dlrr/configuration.nix
       ./hosts/nflix/dlrr/network.nix
-      ./hosts/nflix/dlrr/disk.nix
     ];
     config = {
-      time.timeZone = "America/Chicago";
+      cauldron.profiles = [ "server" "kvm" ];
       deployment = {
         tags = [ "nflix" "all"];
-        targetHost = "10.11.12.13";
+        targetHost = "82.118.230.103";
         targetUser = "aarbour";
       };
     };
