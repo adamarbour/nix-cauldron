@@ -24,7 +24,7 @@
       network = {
         wireguard.tunnels = {
           "nflix" = {
-            addresses = [ "10.11.12.13/24" ];
+            addresses = [ "10.11.12.254/24" ];
             privateKey = { kind = "sops"; path = "wg/dlrr.key"; };
             listenPort = 51820;
             openFirewall = true;
@@ -39,7 +39,7 @@
         dataDir = "/srv/media/transmission";
         downloadDir = "/srv/media/Downloads";
         rpcInterface = "wg-nflix";
-        rpcBindIPv4 = "10.11.12.13";
+        rpcBindIPv4 = "10.11.12.254";
         rpcReqAuth = false;
         cacheSize = 128;
         peerLimit = 2000;
