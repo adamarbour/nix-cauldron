@@ -24,10 +24,9 @@
     "nflix": {
       "dlrr": {
         "addresses": ["10.11.12.254/32"],
+        "publicKey": "MRpOWd8l8dCgW3akz2RDUGOw+NBwe81fEXE74mPRglM="
         "listenPort": 51820,
         "endpoint": "wg.nflix.lol",
-        "publicKey": "MRpOWd8l8dCgW3akz2RDUGOw+NBwe81fEXE74mPRglM=",
-        "extraAllowedIPs": ["10.11.12.0/24"]
       },
       "morrigan": {
         "addresses": ["10.11.12.1/32"],
