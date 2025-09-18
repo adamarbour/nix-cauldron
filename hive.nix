@@ -203,6 +203,7 @@ in {
     imports = [
       ./hosts/nflix/dlrr/configuration.nix
       ./hosts/nflix/dlrr/network.nix
+      ./hosts/nflix/dlrr/vpn.nix
     ];
     config = {
       cauldron.profiles = [ "server" "kvm" ];

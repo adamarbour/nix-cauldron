@@ -1,6 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) types mkIf mkOption mkEnableOption;
+  inherit (lib) types mkIf mkForce mkOption mkEnableOption;
   
   cfg = config.cauldron.services.transmission;
 in {
@@ -12,7 +12,7 @@ in {
     downloadDir = mkOption { type = types.path; default = "${cfg.dataDir}/Downloads"; };
     incompleteDir = mkOption { type = types.path; default = "${cfg.downloadDir}/.incomplete"; };
     # Network
-    torrentPort = mkOption { type = types.port; default = 51413; };
+    torrentPort = mkOption { type = types.port; default = 53585; };
     # RPC
     rpcInterface = mkOption {
       type = types.nullOr types.str;
@@ -67,6 +67,7 @@ in {
     
     users.users.${cfg.user} = {
       isSystemUser = true;
+      uid = mkForce 3003;
       group = cfg.group;
       home = cfg.dataDir;
     };
@@ -104,9 +105,9 @@ in {
         "rpc-whitelist-enabled" = false;
         
         # Networking
-        "port-forwarding-enabled" = false;
+        "port-forwarding-enabled" = true;
         utp-enabled = true;
-        "dht-enabled" = true;
+        "dht-enabled" = false;
         "lpd-enabled" = false;
         "pex-enabled" = true;
         

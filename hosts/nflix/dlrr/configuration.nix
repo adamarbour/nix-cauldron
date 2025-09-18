@@ -24,20 +24,20 @@
         ];
       };
       network = {
-#        wireguard.tunnels = {
-#          "nflix" = {
-#            addresses = [ "10.11.12.254/24" ];
-#            privateKey = { kind = "sops"; path = "wg/dlrr.key"; };
-#            listenPort = 51820;
-#            openFirewall = true;
-#            enableIPForward = true;
-#          };
-#        };
+        wireguard.tunnels = {
+          "nflix" = {
+            addresses = [ "10.11.12.254/24" ];
+            privateKey = { kind = "sops"; path = "wg/dlrr.key"; };
+            listenPort = 51820;
+            openFirewall = true;
+            enableIPForward = true;
+          };
+        };
       };
     };
     services = {
       transmission = {
-        enable = false;
+        enable = true;
         dataDir = "/srv/media/transmission";
         downloadDir = "/srv/media/Downloads";
         rpcInterface = "wg-nflix";
