@@ -55,6 +55,7 @@ in {
       set -euo pipefail
       # Add (or refresh) the default in table 51821, onlink for /32
       ${ip} route replace default via 10.2.0.1 dev wg-proton table 51821 onlink
+      ${ip} route replace 10.11.12.0/24 dev wg-nflix table 51821
     '';
     preStop = ''
       set -euo pipefail
@@ -62,7 +63,7 @@ in {
     '';
     wantedBy = [ "multi-user.target" ];
   };
-  
+
   # Killswitch
   networking.nftables.tables.transmission_ipv6_drop = {
     family = "inet";
@@ -75,6 +76,23 @@ in {
 
         # Drop ANY IPv6 packet from Transmission (UID 3003)
         meta skuid 3003 meta nfproto ipv6 drop
+      }
+    '';
+  };
+  
+  networking.nftables.tables.transmission_peer = {
+    family = "inet";
+    content = ''
+      # A dynamic set we can update from the service
+      set t_peer {
+        type inet_service
+        flags timeout
+      }
+
+      chain input {
+        type filter hook input priority -90;
+        iifname "wg-proton" tcp dport @t_peer accept
+        iifname "wg-proton" udp dport @t_peer accept
       }
     '';
   };
@@ -164,8 +182,8 @@ in {
       date
 
       # Keep UDP mapping (harmless), extract TCP port for publishing
-      out_udp="$(natpmpc -a 1 0 udp 60 -g "$gateway" 2>&1 || true)"
-      out_tcp="$(natpmpc -a 1 0 tcp 60 -g "$gateway" 2>&1 || true)"
+      out_udp="$(natpmpc -a ${toString transmission.torrentPort} 0 udp 60 -g "$gateway" 2>&1 || true)"
+      out_tcp="$(natpmpc -a ${toString transmission.torrentPort} 0 tcp 60 -g "$gateway" 2>&1 || true)"
 
       echo "$out_udp"
       echo "$out_tcp"
@@ -204,4 +222,20 @@ in {
       Unit = "transmission-natpmp.service";
     };
   };
+  
+  boot.kernel.sysctl = {
+    "net.ipv4.conf.wg-proton.rp_filter" = 0;  # off is safest with PBR
+    "net.ipv4.conf.all.rp_filter" = 0;
+    "net.core.default_qdisc" = "fq";
+    "net.ipv4.tcp_congestion_control" = "bbr";
+    # ~64 MiB background, ~256 MiB hard cap
+    "vm.dirty_background_bytes" = 67108864;
+    "vm.dirty_bytes"            = 268435456;
+    "vm.dirty_expire_centisecs" = 3000;  # 30s until dirty data is old
+    "vm.dirty_writeback_centisecs" = 500; # 5s writeback period
+  };
+  
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="vd[a-z]", ATTR{queue/scheduler}="mq-deadline"
+  '';
 }

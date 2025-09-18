@@ -84,7 +84,7 @@ in {
     services.transmission = {
       enable = true;
       package = pkgs.transmission_4;
-      webHome = pkgs.flood-for-transmission;
+      webHome = pkgs.unstable.flood-for-transmission;
       user = cfg.user;
       group = cfg.group;
       home = cfg.dataDir;
@@ -105,7 +105,7 @@ in {
         "rpc-whitelist-enabled" = false;
         
         # Networking
-        "port-forwarding-enabled" = true;
+        "port-forwarding-enabled" = false;
         utp-enabled = true;
         "dht-enabled" = false;
         "lpd-enabled" = false;
@@ -163,5 +163,13 @@ in {
     systemd.services.transmission.after = [ "network-online.target" ]
       ++ lib.optionals (cfg.rpcInterface != null) [ "${cfg.rpcInterface}.device" ];
     systemd.services.transmission.requires = [ "network-online.target" ];
+    
+    boot.kernel.sysctl = mkForce {
+      "net.core.rmem_max" = 67108864;
+      "net.core.wmem_max" = 67108864;
+      "net.ipv4.tcp_rmem" = "4096 87380 67108864";
+      "net.ipv4.tcp_wmem" = "4096 65536 67108864";
+      "net.ipv4.tcp_congestion_control" = "cubic";
+    };
   };
 }
