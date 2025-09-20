@@ -3,8 +3,7 @@ let
   inherit (lib) mkForce;
 in {
   boot = {
-    kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "intel_rapl_common" "intel_rapl_msr" "msr" ];
-    kernelParams = [ "nvidia-drm.modeset=1" "nvidia-drm.fbdev=1" ];
+    kernelModules = [ "intel_rapl_common" "intel_rapl_msr" "msr" ];
     blacklistedKernelModules = [ "i915" ];
   };
   
@@ -33,8 +32,8 @@ in {
   };
   
   # Set GPU Fan Speed
-  systemd.services."nvidia-fan-50" = {
-    description = "Set NVIDIA GPU fan to 50%";
+  systemd.services."nvidia-fan-70" = {
+    description = "Set NVIDIA GPU fan to 70%";
     wantedBy = [ "graphical.target" ];
     after = [ "graphical.target" ];
     serviceConfig = {
@@ -50,7 +49,7 @@ in {
     after = [ "graphical.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/nvidia-smi -pl 60";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -pl 65";
     };
   };
   systemd.services."nvidia-tune-lgc" = {
@@ -59,7 +58,7 @@ in {
     after = [ "graphical.target" ];
     serviceConfig = {
       Type = "oneshot";
-      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lgc 1290,1290";
+      ExecStart = "/run/current-system/sw/bin/nvidia-smi -lgc 1305,1305";
     };
   };
   systemd.services."nvidia-tune-lmc" = {
@@ -71,6 +70,11 @@ in {
       ExecStart = "/run/current-system/sw/bin/nvidia-smi -lmc 6001,6001";
     };
   };
+  
+  # Setup CPU undervolt given that this has an "unsupported" CPU
+  environment.etc."intel-undervolt.conf".text = ''
+    power package 45/10 45/81920
+  '';
   systemd.services.intel-undervolt = {
     description = "Intel Undervolt Service";
     wantedBy = [ "multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
@@ -84,9 +88,19 @@ in {
     };
   };
   
-  environment.etc."intel-undervolt.conf".text = ''
-    power package 35/10 35/81920
-  '';
+  # Sound Setup - Default to HDMI. Switch to Headset when found.
+  services.pipewire.wireplumber.extraConfig = {
+    "10-default-audio" = {
+      "monitor.alsa.rules" = [
+        { matches = [ { "device.name" = "~alsa_output.*hdmi.*" ; } ];
+          actions = { "update-props" = { "device.priority" = 100; }; };
+        }
+        { matches = [ { "device.name" = "~alsa_output.*usb.*" ; } ];
+          actions = { "update-props" = { "device.priority" = 150; }; };
+        }
+      ];
+    };
+  };
   
   environment.sessionVariables = {
     # Enable VRR and caching
@@ -103,24 +117,4 @@ in {
     __GL_MaxFramesAllowed = "2";
     __GL_MaxFramesPerSecond = "90";
   };
-  
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/61ba0640-2742-4d4c-a794-b3ebb4d3eeaf";
-    fsType = "ext4";
-    options = [ "noatime" "nodiratime" "discard" ];
-  };
-  
-  fileSystems."/home" = {
-    device = "/dev/disk/by-label/GAMES";
-    fsType = "ext4";
-    options = [ "noatime" "nodiratime" "discard" ];
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/8656-893C";
-    fsType = "vfat";
-    options = [ "fmask=0077" "dmask=0077" ];
-  };
-
-  swapDevices = [ ];
 }

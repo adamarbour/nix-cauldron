@@ -12,16 +12,39 @@
         loader = "systemd";
         silentBoot = true;
       };
+      disk = {
+        enable = true;
+        rootFs = "ext4";
+        device = "/dev/nvme1n1";
+        impermanence = {
+          enable = true;
+          rootSize = "1G";
+        };
+        swap.enable = true;
+      };
       hardware = {
         cpu = "intel";
         gpu = "nvidia";
       };
       network = {
-        tailscale.enable = true;
         wireless.backend = "wpa_supplicant";
+        tailscale.enable = true; 
+        wireguard.tunnels = {
+          "arbour-cloud" = {
+            addresses = [ "172.31.7.103/24" "2001:db8:ac::103/64"];
+            privateKey = { kind = "sops"; path = "wg/lucien.key"; };
+            routes = [
+              { Destination = "172.31.7.0/24"; }
+              { Destination = "2001:db8:ac::0/64"; }
+            ];
+          };
+        };
+      };
+      impermanence = {
+        root = "/persist";
       };
     };
-    secrets.enable = false;
+    secrets.enable = true;
   };
   
   # Enable the GNOME Desktop Environment.
@@ -29,32 +52,4 @@
   
   ### DEVICE SPECIFIC CONFIGURATION
   services.flatpak.enable = false;
-  
-  # Power Management
-  services.thermald.enable = true;
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "powersave";
-    powertop.enable = true;
-  };
-  
-  # Sound Setup - Default to HDMI. Switch to Headset when found.
-  services.pipewire.wireplumber.extraConfig = {
-    "10-default-audio" = {
-      "monitor.alsa.rules" = [
-        { matches = [ { "device.name" = "~alsa_output.*hdmi.*" ; } ];
-          actions = { "update-props" = { "device.priority" = 100; }; };
-        }
-        { matches = [ { "device.name" = "~alsa_output.*usb.*" ; } ];
-          actions = { "update-props" = { "device.priority" = 150; }; };
-        }
-      ];
-    };
-  };
-  
-  environment.systemPackages = with pkgs; [
-    lm_sensors
-    s-tui
-    stress-ng
-  ];
 }
