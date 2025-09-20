@@ -84,6 +84,9 @@ in
         lib.unique (lib.flatten (map (t:
           if t.openFirewall && t.listenPort != null then [ t.listenPort ] else [ ]
         ) tunnelsList));
+        
+      wantsIPForward =
+        lib.any (t: (t.enableIPForward or false)) tunnelsList;
 
       # Build the sysctl commands only for those ifaces that requested an override
       rpfCmds = lib.concatStringsSep "\n" (map (t:
@@ -108,12 +111,18 @@ in
       # Handy while debugging; service also has curl/jq in its PATH
       environment.systemPackages = [ pkgs.wireguard-tools pkgs.curl pkgs.jq ];
       sops.secrets = lib.filterAttrs (_: v: v != null) secrets;
+      
+      boot.kernel.sysctl = mkIf wantsIPForward {
+        "net.ipv4.ip_forward" = 1;
+        "net.ipv6.conf.all.forwarding" = 1;
+      };
 
       systemd.network.netdevs  = netdevs;
       systemd.network.networks = networks;
 
       networking.firewall.allowedUDPPorts = openedUDPPorts;
       networking.firewall.trustedInterfaces = (map (t: t.iface) tunnelsList);
+      networking.firewall.checkReversePath = "loose";
       
       systemd.services = lib.foldl' (acc: t:
         let

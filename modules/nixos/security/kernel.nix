@@ -53,36 +53,36 @@ in {
           # "kernel.unprivileged_userns_clone" = 0; # commented out because it makes NH and other programs fail
           # restrict all usage of performance events to the CAP_PERFMON capability
           "kernel.perf_event_paranoid" = 3;
-          
-          # Network
-          # protect against SYN flood attacks (denial of service attack)
-          "net.ipv4.tcp_syncookies" = 1;
-          # protection against TIME-WAIT assassination
-          "net.ipv4.tcp_rfc1337" = 1;
-          # enable source validation of packets received (prevents IP spoofing)
-          "net.ipv4.conf.default.rp_filter" = 1;
-          "net.ipv4.conf.all.rp_filter" = 1;
-          "net.ipv4.conf.all.accept_redirects" = 0;
-          "net.ipv4.conf.default.accept_redirects" = 0;
-          "net.ipv4.conf.all.secure_redirects" = 0;
-          "net.ipv4.conf.default.secure_redirects" = 0;
-          # Protect against IP spoofing
-          "net.ipv6.conf.all.accept_redirects" = 0;
-          "net.ipv6.conf.default.accept_redirects" = 0;
-          "net.ipv4.conf.all.send_redirects" = 0;
-          "net.ipv4.conf.default.send_redirects" = 0;
-          # prevent man-in-the-middle attacks
-          "net.ipv4.icmp_echo_ignore_all" = 1;
-          # ignore ICMP request, helps avoid Smurf attacks
-          "net.ipv4.conf.all.forwarding" = 0;
-          "net.ipv4.conf.default.accept_source_route" = 0;
-          "net.ipv4.conf.all.accept_source_route" = 0;
-          "net.ipv6.conf.all.accept_source_route" = 0;
-          "net.ipv6.conf.default.accept_source_route" = 0;
-          # Reverse path filtering causes the kernel to do source validation of
-          "net.ipv6.conf.all.forwarding" = 0;
-          "net.ipv6.conf.all.accept_ra" = 0;
-          "net.ipv6.conf.default.accept_ra" = 0;
+# TODO: Move to enhanced module or enable option...          
+#          # Network
+#          # protect against SYN flood attacks (denial of service attack)
+#          "net.ipv4.tcp_syncookies" = 1;
+#          # protection against TIME-WAIT assassination
+#          "net.ipv4.tcp_rfc1337" = 1;
+#          # enable source validation of packets received (prevents IP spoofing)
+#          "net.ipv4.conf.default.rp_filter" = 1;
+#          "net.ipv4.conf.all.rp_filter" = 1;
+#          "net.ipv4.conf.all.accept_redirects" = 0;
+#          "net.ipv4.conf.default.accept_redirects" = 0;
+#          "net.ipv4.conf.all.secure_redirects" = 0;
+#          "net.ipv4.conf.default.secure_redirects" = 0;
+#          # Protect against IP spoofing
+#          "net.ipv6.conf.all.accept_redirects" = 0;
+#          "net.ipv6.conf.default.accept_redirects" = 0;
+#          "net.ipv4.conf.all.send_redirects" = 0;
+#          "net.ipv4.conf.default.send_redirects" = 0;
+#          # prevent man-in-the-middle attacks
+#          "net.ipv4.icmp_echo_ignore_all" = 1;
+#          # ignore ICMP request, helps avoid Smurf attacks
+#          "net.ipv4.conf.all.forwarding" = 0;
+#          "net.ipv4.conf.default.accept_source_route" = 0;
+#          "net.ipv4.conf.all.accept_source_route" = 0;
+#          "net.ipv6.conf.all.accept_source_route" = 0;
+#          "net.ipv6.conf.default.accept_source_route" = 0;
+#          # Reverse path filtering causes the kernel to do source validation of
+#          "net.ipv6.conf.all.forwarding" = 0;
+#          "net.ipv6.conf.all.accept_ra" = 0;
+#          "net.ipv6.conf.default.accept_ra" = 0;
           
           ## TCP hardening
           # Prevent bogus ICMP errors from filling up logs.
