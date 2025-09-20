@@ -44,6 +44,7 @@ in {
     
     # Enables the Nvidia's experimental framebuffer device
     # fix for the imaginary monitor that does not exist
+    boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
     boot.kernelParams = [ "nvidia_drm.fbdev=1" "nvidia_drm.modeset=1" ];
     boot.blacklistedKernelModules = [ "nouveau" ];
     
