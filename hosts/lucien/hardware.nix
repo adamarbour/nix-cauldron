@@ -80,7 +80,7 @@ in {
     wantedBy = [ "multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
     after = [ "multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
     serviceConfig = {
-      ExecStartPre="${pkgs.coreutils}/bin/sleep 30";
+      ExecStartPre="${pkgs.coreutils}/bin/sleep 60";
       ExecStart = ''
         ${pkgs.intel-undervolt}/bin/intel-undervolt apply
       '';
