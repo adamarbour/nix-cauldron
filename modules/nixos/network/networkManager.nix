@@ -10,6 +10,7 @@ in {
   # Handle impermanence
   cauldron.host.impermanence.extra.dirs = mkIf (impermanence.enable && config.networking.networkmanager.enable) [
     "/var/lib/NetworkManager"
+    "/etc/NetworkManager/system-connections"
   ];
   
   networking.networkmanager = mkIf (!(lib.elem "server" profiles)) {

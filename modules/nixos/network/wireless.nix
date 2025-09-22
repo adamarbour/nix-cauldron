@@ -33,8 +33,11 @@ in {
       "/etc/wpa_supplicant" # Can be removed if wifi configurations become declarative...
       "/var/lib/wpa_supplicant"
     ];
-    cauldron.host.impermanence.extra.files = mkIf (impermanence.enable && cfg.backend == "wpa_supplicant") [
-      "/etc/wpa_supplicant"
+    cauldron.host.impermanence.extra.files = [
+    ] ++ optionals (impermanence.enable && cfg.backend == "wpa_supplicant") [
+      "/etc/wpa_supplicant.conf"
+    ] ++ optionals (impermanence.enable && cfg.backend == "iwd") [
+      "/etc/iwd/main.conf"
     ];
     
     networking.wireless = {
