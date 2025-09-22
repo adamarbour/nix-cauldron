@@ -7,7 +7,7 @@ let
     base = {
       publicKey = peer.publicKey or null;
       endpoint = peer.endpoint or null;
-      listenPort = peer.listenport or null;
+      listenPort = peer.listenPort or null;
       addresses = peer.addresses or [];
       extraAllowedIPs = peer.extraAllowedIPs or [];
     };
