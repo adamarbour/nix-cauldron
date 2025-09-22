@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib) mkOption types;
-  peerRegistry = "https://raw.githubusercontent.com/adamarbour/nix-cauldron/main/hosts/wg-registry.json";
+  peerRegistry = "https://raw.githubusercontent.com/adamarbour/nix-cauldron/main/systems/wg-registry.json";
   
   mkIfaceName  = name: "wg-${name}";
 in {
@@ -21,6 +21,9 @@ in {
       description = "WireGuard tunnels for this host.";
       type = types.attrsOf (types.submodule ({ name, ... }: {
         options = {
+          publicKey = mkOption { type = types.nullOr types.str; default = null; };
+          endpoint = mkOption { type = types.nullOr types.str; default = null; };
+          extraAllowedIPs = mkOption { type = types.listOf types.str; default = []; };
           enableIPForward = mkOption { type = types.bool; default = false; };
           masquerade = mkOption {
             type = types.nullOr (types.enum [ "both" "ipv4" "ipv6" ]);

@@ -1,7 +1,7 @@
 { lib, pkgs, config, sources, ... }:
 let
   inherit (lib)
-    mkOption mkEnableOption types mkIf mapAttrsToList attrNames filterAttrs
+    mkForce mkOverride mkMerge mkOption mkEnableOption types mkIf mapAttrsToList attrNames filterAttrs
     optionalAttrs getAttrFromPath concatStringsSep optionalString;
 
   secretsRepo = sources.secrets;
@@ -112,10 +112,20 @@ in
       environment.systemPackages = [ pkgs.wireguard-tools pkgs.curl pkgs.jq ];
       sops.secrets = lib.filterAttrs (_: v: v != null) secrets;
       
-      boot.kernel.sysctl = mkIf wantsIPForward {
-        "net.ipv4.ip_forward" = 1;
-        "net.ipv6.conf.all.forwarding" = 1;
-      };
+      boot.kernel.sysctl = mkMerge [
+        {
+          "net.core.default_qdisc" = mkOverride 999 "fq";
+          "net.ipv4.tcp_congestion_control" = mkOverride 999 "bbr";
+          "net.core.rmem_max" = mkOverride 999 "2500000";
+          "net.core.wmem_max" = mkOverride 999 "2500000";
+          "net.ipv4.udp_rmem_min" = mkOverride 999 "8192";
+          "net.ipv4.udp_wmem_min" = mkOverride 999 "8192";
+        }
+        (mkIf wantsIPForward {
+          "net.ipv4.ip_forward" = mkForce 1;
+          "net.ipv6.conf.all.forwarding" = mkForce 1;
+        })
+      ];
 
       systemd.network.netdevs  = netdevs;
       systemd.network.networks = networks;
