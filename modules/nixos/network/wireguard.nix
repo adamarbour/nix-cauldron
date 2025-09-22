@@ -116,10 +116,10 @@ in
         {
           "net.core.default_qdisc" = mkOverride 999 "fq";
           "net.ipv4.tcp_congestion_control" = mkOverride 999 "bbr";
-          "net.core.rmem_max" = mkOverride 999 "2500000";
-          "net.core.wmem_max" = mkOverride 999 "2500000";
-          "net.ipv4.udp_rmem_min" = mkOverride 999 "8192";
-          "net.ipv4.udp_wmem_min" = mkOverride 999 "8192";
+          "net.core.rmem_max" = mkOverride 999 2500000;
+          "net.core.wmem_max" = mkOverride 999 2500000;
+          "net.ipv4.udp_rmem_min" = mkOverride 999 8192;
+          "net.ipv4.udp_wmem_min" = mkOverride 999 8192;
         }
         (mkIf wantsIPForward {
           "net.ipv4.ip_forward" = mkForce 1;
