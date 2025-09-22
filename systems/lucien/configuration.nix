@@ -31,8 +31,9 @@
         tailscale.enable = true; 
         wireguard.tunnels = {
           "arbour-cloud" = {
-            addresses = [ "172.31.7.103/24" "2001:db8:ac::103/64"];
+            publicKey = "zFMgPfln0vDOWZkSWDOk/SNt+J1hn1pbKHOVjDrMNhU=";
             privateKey = { kind = "sops"; path = "wg/lucien.key"; };
+            addresses = [ "172.31.7.103/32" "2001:db8:ac::103/128"];
             routes = [
               { Destination = "172.31.7.0/24"; }
               { Destination = "2001:db8:ac::0/64"; }

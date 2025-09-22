@@ -25,9 +25,11 @@
       network = {
         wireguard.tunnels = {
           "nflix" = {
-            addresses = [ "10.11.12.254/24" ];
+            publicKey = "MRpOWd8l8dCgW3akz2RDUGOw+NBwe81fEXE74mPRglM=";
             privateKey = { kind = "sops"; path = "wg/dlrr.key"; };
+            endpoint = "wg.nflix.lol";
             listenPort = 51820;
+            addresses = [ "10.11.12.254/32" ];
             openFirewall = true;
             enableIPForward = true;
           };

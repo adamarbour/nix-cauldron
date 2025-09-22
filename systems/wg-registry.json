@@ -1,7 +1,4 @@
 {
-  "defaults": {
-    "arbour-cloud": { "mtu": 1360 }
-  },
   "tunnels": {
     "arbour-cloud": {
       "sidra": {

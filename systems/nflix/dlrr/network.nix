@@ -1,5 +1,9 @@
 { lib, pkgs, ... }:
-{
+let
+  inherit (lib) mkForce;
+in {
+  networking.enableIPv6 = mkForce false;
+  
   systemd.network.networks."10-eth0" = {
     matchConfig = {
       MACAddress = "00:16:3c:3f:dc:51";

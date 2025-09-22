@@ -133,7 +133,7 @@ in {
     ];
     networkConfig = {
       IPMasquerade = "ipv4";
-      DNS = [ "10.2.0.1" ];
+      DNS = [ "10.2.0.1" "9.9.9.9" ];
       DNSDefaultRoute = true;
     };
   };

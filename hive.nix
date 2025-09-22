@@ -26,8 +26,8 @@ in {
   
   morrigan = {
     imports = [
-      ./hosts/morrigan/configuration.nix
-      ./hosts/morrigan/hardware.nix
+      ./systems/morrigan/configuration.nix
+      ./systems/morrigan/hardware.nix
     ];
     config = {
       time.timeZone = "America/Chicago";
@@ -41,8 +41,8 @@ in {
   
   cassian = {
     imports = [
-      ./hosts/cassian/configuration.nix
-      ./hosts/cassian/hardware.nix
+      ./systems/cassian/configuration.nix
+      ./systems/cassian/hardware.nix
     ];
     config = {
       time.timeZone = "America/Chicago";
@@ -55,8 +55,8 @@ in {
   
   azriel = {
     imports = [
-      ./hosts/azriel/configuration.nix
-      ./hosts/azriel/hardware.nix
+      ./systems/azriel/configuration.nix
+      ./systems/azriel/hardware.nix
     ];
     config = {
       time.timeZone = "America/Chicago";
@@ -71,14 +71,15 @@ in {
   
   lucien = {
     imports = [
-      ./hosts/lucien/configuration.nix
-      ./hosts/lucien/hardware.nix
+      ./systems/lucien/configuration.nix
+      ./systems/lucien/disk.nix
+      ./systems/lucien/hardware.nix
     ];
     config = {
       time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "gaming" "all" ];
-        targetHost = "100.110.59.111";
+        targetHost = "10.50.16.31";
         targetUser = "aarbour";
       };
     };
@@ -86,7 +87,7 @@ in {
   
   sidra = {
     imports = [
-      ./hosts/sidra/configuration.nix
+      ./systems/sidra/configuration.nix
     ];
     config = {
       nixpkgs.hostPlatform = "aarch64-linux";
@@ -101,8 +102,8 @@ in {
   ### PRYNTHIAN - Hosts and containers to support my homelab
   spring = {
     imports = [
-      ./hosts/prynthian/spring/configuration.nix
-      ./hosts/prynthian/spring/network.nix
+      ./systems/prynthian/spring/configuration.nix
+      ./systems/prynthian/spring/network.nix
     ];
     config = {
       deployment = {
@@ -115,8 +116,8 @@ in {
   
   summer = {
     imports = [
-      ./hosts/prynthian/summer/configuration.nix
-      ./hosts/prynthian/summer/network.nix
+      ./systems/prynthian/summer/configuration.nix
+      ./systems/prynthian/summer/network.nix
     ];
     config = {
       deployment = {
@@ -129,8 +130,8 @@ in {
   
   autumn = {
     imports = [
-      ./hosts/prynthian/autumn/configuration.nix
-      ./hosts/prynthian/autumn/network.nix
+      ./systems/prynthian/autumn/configuration.nix
+      ./systems/prynthian/autumn/network.nix
     ];
     config = {
       deployment = {
@@ -143,8 +144,8 @@ in {
   
   winter = {
     imports = [
-      ./hosts/prynthian/winter/configuration.nix
-      ./hosts/prynthian/winter/network.nix
+      ./systems/prynthian/winter/configuration.nix
+      ./systems/prynthian/winter/network.nix
     ];
     config = {
       deployment = {
@@ -157,8 +158,8 @@ in {
   
   dawn = {
     imports = [
-      ./hosts/prynthian/dawn/configuration.nix
-      ./hosts/prynthian/dawn/network.nix
+      ./systems/prynthian/dawn/configuration.nix
+      ./systems/prynthian/dawn/network.nix
     ];
     config = {
       deployment = {
@@ -171,8 +172,8 @@ in {
   
   day = {
     imports = [
-      ./hosts/prynthian/day/configuration.nix
-      ./hosts/prynthian/day/network.nix
+      ./systems/prynthian/day/configuration.nix
+      ./systems/prynthian/day/network.nix
     ];
     config = {
       deployment = {
@@ -185,9 +186,9 @@ in {
   
   night = {
     imports = [
-      ./hosts/prynthian/night/configuration.nix
-      ./hosts/prynthian/night/disk.nix
-      ./hosts/prynthian/night/network.nix
+      ./systems/prynthian/night/configuration.nix
+      ./systems/prynthian/night/disk.nix
+      ./systems/prynthian/night/network.nix
     ];
     config = {
       deployment = {
@@ -201,9 +202,9 @@ in {
   ### NFLIX - Hosts and containers supporting nflix.lol
   dlrr = {
     imports = [
-      ./hosts/nflix/dlrr/configuration.nix
-      ./hosts/nflix/dlrr/network.nix
-      ./hosts/nflix/dlrr/vpn.nix
+      ./systems/nflix/dlrr/configuration.nix
+      ./systems/nflix/dlrr/network.nix
+      ./systems/nflix/dlrr/vpn.nix
     ];
     config = {
       cauldron.profiles = [ "server" "kvm" ];

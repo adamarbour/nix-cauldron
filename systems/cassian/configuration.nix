@@ -21,10 +21,12 @@
         tailscale.enable = true;
         wireguard.tunnels = {
           "arbour-cloud" = {
-            addresses = [ "172.31.7.102/24" "2001:db8:ac::102/64"];
+            publicKey = "/wYcBIwBvnPbVJqSN7o/EJIazS6lc9KaVnzjtl6Vc3s=";
             privateKey = { kind = "sops"; path = "wg/cassian.key"; };
+            addresses = [ "172.31.7.102/32" "2001:db8:ac::102/128"];
             routes = [
               { Destination = "172.31.7.0/24"; }
+              { Destination = "2001:db8:ac::/64"; }
             ];
           };
         };
