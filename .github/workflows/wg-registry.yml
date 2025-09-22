@@ -23,7 +23,7 @@ jobs:
           nix_path: nixpkgs=channel:nixos-unstable
           
       - name: Install Colmena
-        run: nix-env -if https://github.com/zhaofengli/colmena/tarball/main
+        run: nix-env -iA nixpkgs.colmena
         
       - name: Evaluate hive -> wg-registry.json
         run: |
@@ -38,6 +38,6 @@ jobs:
           fi
           git config user.name "wg-registry-bot"
           git config user.email "wg-registry-bot@users.noreply.github.com"
-          git add hosts/wg-registry.json
+          git add systems/wg-registry.json
           git commit -m "chore(wg): update peer registry"
           git push
