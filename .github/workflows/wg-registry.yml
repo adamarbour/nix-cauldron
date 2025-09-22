@@ -20,15 +20,19 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
           
-      - name: Install Colmena
-        run: nix-env -iA nixpkgs.colmena
+      - name: Use nix-community Cachix
+        uses: cachix/cachix-action@v14
+        with:
+          name: nix-community
         
-      - name: Evaluate hive -> wg-registry.json
+      - name: Evaluate hive → wg-registry.json
         run: |
           mkdir -p systems
-          colmena eval scripts/wg-registry.nix > systems/wg-registry.json
+          nix run nixpkgs#colmena -- eval scripts/wg-registry.nix > systems/wg-registry.json
+
           
       - name: Commit & push registry (if changed)
         run: |
