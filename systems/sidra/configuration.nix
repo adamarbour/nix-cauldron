@@ -30,6 +30,7 @@
             addresses = [ "172.31.7.254/32" "2001:db8:ac::254/128" ];
             openFirewall = true;
             enableIPForward = true;
+            extraAllowedIPs = [ "172.31.7.0/24" "2001:db8:ac::/26" ];
           };
         };
       };
