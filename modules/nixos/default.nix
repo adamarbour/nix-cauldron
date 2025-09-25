@@ -1,4 +1,6 @@
 {
+	_class = "nixos";
+	
   imports = [
     ./boot
     ./environment

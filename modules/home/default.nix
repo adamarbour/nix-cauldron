@@ -1,4 +1,6 @@
 {
+	_class = "homeManager";
+	
   imports = [
     ./environment
     ./options
