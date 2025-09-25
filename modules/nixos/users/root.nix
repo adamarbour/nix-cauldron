@@ -1,4 +1,4 @@
-{ lib, pkg, config, ... }:
+{ lib, pkgs, config, ... }:
 let
   inherit (lib) mkIf mkDefault;
 in {  
