@@ -1,18 +1,15 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, sources, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
   profiles = config.cauldron.profiles;
+  mac-style-load = pkgs.callPackage "${sources.nix-mac-plymouth}/package.nix" {};
 in {
   
   config = mkIf (lib.elem "graphical" profiles) {
     boot.plymouth = {
       enable = true;
-      theme = "liquid";
-      themePackages = [
-        (pkgs.adi1090x-plymouth-themes.override {
-          selected_themes = [ "liquid" "rog_2" ];
-        })
-      ];
+      theme = "mac-style";
+      themePackages = [ mac-style-load ];
     };
   };
 }

@@ -158,6 +158,19 @@
       "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/v0.6.0",
       "hash": "0s3mpb28rcmma29vv884fi3as926bfszhn7v8n74bpnp5qg5a1c8"
     },
+    "nix-mac-plymouth": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "SergioRibera",
+        "repo": "s4rchiso-plymouth-theme"
+      },
+      "branch": "nix",
+      "submodules": false,
+      "revision": "2f782f4b68ce1c00cef3fde6970d7b4241bb97d4",
+      "url": "https://github.com/SergioRibera/s4rchiso-plymouth-theme/archive/2f782f4b68ce1c00cef3fde6970d7b4241bb97d4.tar.gz",
+      "hash": "11b744jjps50h3pq8gr7drla218ns8awh24007wma0597fzm0fvf"
+    },
     "nixpkgs": {
       "type": "Git",
       "repository": {
