@@ -11,10 +11,12 @@ let
   anyHome = conf: cond: let
   		list = map (user: getAttrFromPath [ "home-manager" "users" user ] conf) conf.cauldron.host.users;
   		in any cond list;
+  		
 in {
   inherit
   		# Hardware
   		isx86Linux
+  		
   		# Validators
     hasProfile
     ifTheyExist
