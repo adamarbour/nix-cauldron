@@ -33,8 +33,8 @@ in {
       time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "work" ];
-        targetHost = "10.50.16.3";
-        targetUser = "aarbour";
+        allowLocalDeployment = true;
+        targetHost = null;
       };
     };
   };
