@@ -18,9 +18,10 @@ in {
     extraSpecialArgs = {
       inherit sources;
       cauldron = lib.cauldron;
-      osConfig = config;
+      osConfig = config;	# Pass in the host config for reference in hm
     };
     sharedModules = [
+    		# Pass in the parent lib to hm so it can be used in hm modules
       ({ lib, cauldron, ... }:
         { _module.args.lib = lib.extend (final: prev: {
           cauldron = cauldron;
