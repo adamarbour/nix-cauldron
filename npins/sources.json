@@ -55,6 +55,19 @@
       "url": "https://github.com/nferhat/fht-compositor/archive/1b257432d6c6b1d987cc4c4005d709dff49c4d4f.tar.gz",
       "hash": "085x3b0kyvfcn5cwsz7rfidlflzbirdacbzxb0hjmi1dyd3fdb6s"
     },
+    "fht-share-picker": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nferhat",
+        "repo": "fht-share-picker"
+      },
+      "branch": "gtk-rewrite",
+      "submodules": false,
+      "revision": "896322e1e9c76e1e974ae9ce8c107f9a358fe19d",
+      "url": "https://github.com/nferhat/fht-share-picker/archive/896322e1e9c76e1e974ae9ce8c107f9a358fe19d.tar.gz",
+      "hash": "009vlrppm1d47wv4nhs23akzbll3n6xdbvq5n8n9qs29vvyjvjws"
+    },
     "home-manager": {
       "type": "Git",
       "repository": {
@@ -96,6 +109,22 @@
       "revision": "f0212638a2ec787a7841882f4477d40ae24f0a5d",
       "url": "https://api.github.com/repos/nix-community/lanzaboote/tarball/v0.4.2",
       "hash": "0xc1wawnb0297h5khxblmf9pd1fry950xkcm7mwlck19s2906h80"
+    },
+    "mangowc": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "DreamMaoMao",
+        "repo": "mangowc"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "0.8.9",
+      "revision": "eb0395a48d959326638eb64b098742c998efac09",
+      "url": "https://api.github.com/repos/DreamMaoMao/mangowc/tarball/0.8.9",
+      "hash": "1prrv77g4lm88ss4zb3s3f349xs2di0imi4k5sbnp7qg44ix96wn"
     },
     "nix-flatpak": {
       "type": "GitRelease",

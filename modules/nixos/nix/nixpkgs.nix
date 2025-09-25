@@ -11,6 +11,8 @@ in {
           config.allowUnfree = true;
         };
       })
+      (import ../../../overlays/mangowc.nix)
+      (import ../../../overlays/fht-compositor.nix)
     ];
     config = {
       allowUnfree = true;
