@@ -23,7 +23,7 @@
         device = "/dev/nvme0n1";
         impermanence = {
           enable = true;
-          rootSize = "1G";
+          rootSize = "2G";
         };
       };
       network = {
