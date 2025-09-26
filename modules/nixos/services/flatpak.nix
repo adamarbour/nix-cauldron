@@ -25,9 +25,7 @@ in {
     environment.sessionVariables.XDG_DATA_DIRS = [ "/var/lib/flatpak/exports/share" ];
     
     cauldron.host.impermanence.extra = mkIf (impermanence.enable) {
-			dirs = [
-				"/var/lib/flatpak"
-			];
+			dirs = [ "/var/lib/flatpak" ];
 		};
   };
 }
