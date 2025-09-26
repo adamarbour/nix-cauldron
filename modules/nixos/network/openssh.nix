@@ -2,7 +2,9 @@
 let
   inherit (lib) mkIf mkMerge mkDefault;
   impermanence = config.cauldron.host.disk.impermanence;
-  persistRoot = if (impermanence.enable) then config.cauldron.host.impermanence.root else "";
+  persistRoot = if (impermanence.enable) then
+  		config.cauldron.host.impermanence.root
+  		else "";
   
   profiles = config.cauldron.profiles;
 in {

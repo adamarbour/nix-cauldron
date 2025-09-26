@@ -1,7 +1,10 @@
-{ lib, ... }:
+{ lib, config, ... }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib) mkIf mkDefault;
+  inherit (lib.cauldron) hasProfile;
 in {
-  # enable smartd monitoring
-  services.smartd.enable = mkDefault true;
+	config = mkIf (!hasProfile config "container") {
+  		# enable smartd monitoring
+  		services.smartd.enable = mkDefault true;
+	};
 }
