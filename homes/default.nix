@@ -11,7 +11,7 @@ in {
     useGlobalPkgs = true;
     backupFileExtension = "old";
     
-    users = genAttrs config.cauldron.host.users (name: {
+    users = genAttrs config.cauldron.system.users (name: {
       imports = [ ./${name} ];
     });
     

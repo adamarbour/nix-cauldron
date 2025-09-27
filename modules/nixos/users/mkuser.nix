@@ -4,7 +4,7 @@ let
   inherit (lib.cauldron) ifTheyExist;
   
   secretsRepo = sources.secrets;
-  userList = config.cauldron.host.users;
+  userList = config.cauldron.system.users;
 in {
   config = {
     

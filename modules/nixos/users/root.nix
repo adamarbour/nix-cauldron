@@ -7,7 +7,7 @@ in {
     users.users.root = mkMerge [
     		{ shell = pkgs.bashInteractive; }
     		(mkIf (secrets.enable) {
-    			hashedPasswordFile = config.users.users.${config.cauldron.host.mainUser}.hashedPasswordFile;
+    			hashedPasswordFile = config.users.users.${config.cauldron.system.mainUser}.hashedPasswordFile;
     		})
     		(mkIf (!secrets.enable) {
     			# Initial throwaway password: "nixos"

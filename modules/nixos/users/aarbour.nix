@@ -3,7 +3,7 @@ let
   inherit (lib) elem mkIf mkDefault mkMerge;
   secrets = config.cauldron.secrets;
 in {
-  config = mkIf (elem "aarbour" config.cauldron.host.users) {
+  config = mkIf (elem "aarbour" config.cauldron.system.users) {
     users.users.aarbour = mkMerge [
     		{
     			openssh.authorizedKeys.keyFiles = [

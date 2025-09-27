@@ -9,7 +9,7 @@ let
   hasProfile = config: profile: builtins.elem profile (config.cauldron.profiles or []);
   ifTheyExist = config: groups: filter (group: hasAttr group config.users.groups) groups;
   anyHome = conf: cond: let
-  		list = map (user: getAttrFromPath [ "home-manager" "users" user ] conf) conf.cauldron.host.users;
+  		list = map (user: getAttrFromPath [ "home-manager" "users" user ] conf) conf.cauldron.system.users;
   		in any cond list;
   		
 in {

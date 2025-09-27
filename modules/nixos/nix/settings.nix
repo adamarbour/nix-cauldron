@@ -1,6 +1,7 @@
 { pkgs, config, ... }:
+let
   primeUser = config.cauldron.system.mainUser;
-{
+in {
   nix.settings = {
     sandbox = pkgs.stdenv.hostPlatform.isLinux;
     allowed-users = [ "@wheel" ];
