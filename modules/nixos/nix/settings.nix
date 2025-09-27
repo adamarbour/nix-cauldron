@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
+  primeUser = config.cauldron.system.mainUser;
 {
   nix.settings = {
     sandbox = pkgs.stdenv.hostPlatform.isLinux;
     allowed-users = [ "@wheel" ];
-    trusted-users = [ "root" "aarbour" ];
+    trusted-users = [ "root" "${primeUser}" ];
     
     auto-optimise-store = true;
     keep-derivations = true;
