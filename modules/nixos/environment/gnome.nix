@@ -1,9 +1,9 @@
 { lib, pkgs, config, ...}:
 let
   inherit (lib) mkIf mkForce;
-  profiles = config.cauldron.profiles;
+  inherit (lib.cauldron) hasProfile;
 in {
-  config = mkIf (lib.elem "graphical" profiles) {
+  config = mkIf (hasProfile config "graphical") {
     services = {
       udev.packages = [ pkgs.gnome-settings-daemon ];
       gnome = {
@@ -11,6 +11,9 @@ in {
         gnome-keyring.enable = true;
         gnome-remote-desktop.enable = mkForce false;
       };
+    };
+    cauldron.packages = {
+      inherit (pkgs) gnome-keyring libsecret;
     };
   };
 }

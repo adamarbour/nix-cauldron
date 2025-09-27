@@ -1,9 +1,9 @@
 { lib, pkgs, config, ... }:
 let
   inherit (lib) mkIf;
-  profiles = config.cauldron.profiles;
+  inherit (lib.cauldron) hasProfile;
 in {
-  config = mkIf (lib.elem "graphical" profiles) {
+  config = mkIf (hasProfile config "graphical") {
     users.groups.netdev = {};
     services.dbus = {
       enable = true;

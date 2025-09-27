@@ -1,7 +1,7 @@
 { lib, config, ... }:
 let
   inherit (lib) mkIf mkMerge genAttrs;
-  profiles = config.cauldron.profiles;
+  inherit (lib.cauldron) hasProfile;
   
   services = [
     "login"
@@ -9,7 +9,7 @@ let
     "tuigreet"
   ];
   mkService = {
-    enableGnomeKeyring = true;
+    enableGnomeKeyring = config.services.gnome.gnome-keyring.enable;
   };
 in {
   security.pam = mkMerge [
@@ -38,7 +38,7 @@ in {
       };
     }
     
-    (mkIf (lib.elem "graphical" profiles) {
+    (mkIf (hasProfile config "graphical") {
       services = genAttrs services (_: mkService);
     })
   ];

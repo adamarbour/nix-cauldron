@@ -1,9 +1,9 @@
 { lib, pkgs, config, ...}:
 let
   inherit (lib) mkIf;
-  profiles = config.cauldron.profiles;
+  inherit (lib.cauldron) hasProfile;
 in {
-  config = mkIf (lib.elem "server" profiles) {
+  config = mkIf (hasProfile config "server") {
     cauldron.packages = {
     		inherit (pkgs) iperf3 ethtool;
     };
