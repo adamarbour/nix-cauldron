@@ -1,7 +1,7 @@
 { system ? builtins.currentSystem }:
 let
   sources = import ./npins;
-  pkgs = import sources.nixpkgs { inherit system; config = {}; overlays = []; };
+  pkgs = import sources.nixpkgs { inherit system; config = {}; overlays = [ (import ./overlays/unstable.nix) ]; };
   colmena = pkgs.callPackage "${sources.colmena}/package.nix" {};
 in pkgs.mkShellNoCC {
   NIX_CONFIG = "extra-experimental-features = nix-command flakes";
@@ -9,7 +9,7 @@ in pkgs.mkShellNoCC {
   
   packages = with pkgs; [
     age
-    codex
+    unstable.codex
     colmena
     disko
     git
