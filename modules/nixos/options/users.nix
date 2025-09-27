@@ -2,7 +2,7 @@
 let
   inherit (lib) types optional mkOption;
 in {
-  options.cauldron.host = {
+  options.cauldron.system = {
     mainUser = mkOption {
       type = types.enum config.cauldron.host.users;
       default = builtins.elemAt config.cauldron.host.users 0;
