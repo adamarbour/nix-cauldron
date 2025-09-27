@@ -28,6 +28,7 @@
               { Destination = "172.31.7.0/24"; }
               { Destination = "2001:db8:ac::/64"; }
             ];
+            extraAllowedIPs = [ "172.31.7.0/24" "2001:db8:ac::/26" ];
           };
         };
       };

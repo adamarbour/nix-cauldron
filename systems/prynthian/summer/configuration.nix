@@ -23,7 +23,6 @@
           rootSize = "1G";
         };
       };
-      feature.mlnx-ofed = true;
     };
     secrets.enable = false;
   };
