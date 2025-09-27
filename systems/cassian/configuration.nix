@@ -18,19 +18,6 @@
       };
       network = {
         wireless.backend = "wpa_supplicant";
-        tailscale.enable = true;
-        wireguard.tunnels = {
-          "arbour-cloud" = {
-            publicKey = "/wYcBIwBvnPbVJqSN7o/EJIazS6lc9KaVnzjtl6Vc3s=";
-            privateKey = { kind = "sops"; path = "wg/cassian.key"; };
-            addresses = [ "172.31.7.102/32" "2001:db8:ac::102/128"];
-            routes = [
-              { Destination = "172.31.7.0/24"; }
-              { Destination = "2001:db8:ac::/64"; }
-            ];
-            extraAllowedIPs = [ "172.31.7.0/24" "2001:db8:ac::/26" ];
-          };
-        };
       };
       feature = {
         crossbuild = {
