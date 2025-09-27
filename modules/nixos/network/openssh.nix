@@ -36,7 +36,6 @@ in {
           PermitEmptyPasswords = false;
           PermitTunnel = false;
           UseDns = false;
-          UsePAM = false;
           ChallengeResponseAuthentication = "no";
           KbdInteractiveAuthentication = false;
           X11Forwarding = config.services.xserver.enable;
@@ -83,7 +82,6 @@ in {
             type = "rsa";
           }
           {
-            bits = 4096;
             path = "${persistRoot}/etc/ssh/ssh_host_ed25519_key";
             type = "ed25519";
           }

@@ -1,15 +1,13 @@
 { lib, pkgs, config, sources, ... }:
 let
   inherit (lib) mkEnableOption mkIf;
-  profiles = config.cauldron.profiles;
-  mac-style-load = pkgs.callPackage "${sources.nix-mac-plymouth}/package.nix" {};
+  inherit (lib.cauldron) hasProfile;
 in {
   
-  config = mkIf (lib.elem "graphical" profiles) {
+  config = mkIf (hasProfile config "graphical") {
     boot.plymouth = {
       enable = true;
-      theme = "mac-style";
-      themePackages = [ mac-style-load ];
+      theme = "bgrt";
     };
   };
 }
