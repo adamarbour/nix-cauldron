@@ -65,7 +65,7 @@ in {
     };
     
     mode = mkOption {
-      type = types.enum [ "auto" "persistent" "volitile" "ramdisk" ];
+      type = types.enum [ "auto" "persistent" "volatile" "ramdisk" ];
       default = "auto";
       description = "How to store the journal; auto represents impermanence and profile defaults.";
     };
