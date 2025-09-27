@@ -11,7 +11,8 @@ in {
       implementation = "broker";
       packages = with pkgs; [
         dconf
-        gcr
+        gcr_4
+        gnome-keyring
         udisks2
       ];
     };
