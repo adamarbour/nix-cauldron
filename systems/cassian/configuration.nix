@@ -32,7 +32,15 @@
         winbox = true;
       };
     };
-    secrets.enable = true;
+    secrets = {
+      enable = true;
+      items = {
+        "wg-key" = {
+          sopsFile = "trove/wg/cassian.key";
+          format = "binary";
+        };
+      };
+    };
   };
 
   # Enable the GNOME Desktop Environment.
