@@ -1,5 +1,8 @@
+{ config, ... }:
 {
   sops.secrets = {
-    example_key = {};
+    age_key = {
+      path = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
+    };
   };
 }
