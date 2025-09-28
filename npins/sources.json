@@ -13,6 +13,19 @@
       "url": "https://github.com/aylur/astal/archive/344a6dce56437a190b99e516a6cab8332cccf19e.tar.gz",
       "hash": "1ai0p51jglysdyv8fm06sliv5w7fjsrrcmfqdadr8qqxpjpyy9q5"
     },
+    "chaotic-nyx": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "chaotic-cx",
+        "repo": "nyx"
+      },
+      "branch": "nyxpkgs-unstable",
+      "submodules": false,
+      "revision": "39a646acc74e720d337edb57cf8473e96f6164ef",
+      "url": "https://github.com/chaotic-cx/nyx/archive/39a646acc74e720d337edb57cf8473e96f6164ef.tar.gz",
+      "hash": "0cfay31kxj919wmiyysvcd7d47avd71q55g1zashw5q88bf9jbz3"
+    },
     "colmena": {
       "type": "Git",
       "repository": {
@@ -93,9 +106,9 @@
       },
       "branch": "release-25.05",
       "submodules": false,
-      "revision": "f21d9167782c086a33ad53e2311854a8f13c281e",
-      "url": "https://github.com/nix-community/home-manager/archive/f21d9167782c086a33ad53e2311854a8f13c281e.tar.gz",
-      "hash": "02j4a4df9z2zk95d985vcwb5i4vdriyrkx61ah9xwqyqjciw98rb"
+      "revision": "3b955f5f0a942f9f60cdc9cacb7844335d0f21c3",
+      "url": "https://github.com/nix-community/home-manager/archive/3b955f5f0a942f9f60cdc9cacb7844335d0f21c3.tar.gz",
+      "hash": "0q3lv288xlzxczh6lc5lcw0zj9qskvjw3pzsrgvdh8rl8ibyq75s"
     },
     "impermanence": {
       "type": "Git",
@@ -167,9 +180,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "9a094440e02a699be5c57453a092a8baf569bdad",
-      "url": "https://github.com/nixos/nixpkgs/archive/9a094440e02a699be5c57453a092a8baf569bdad.tar.gz",
-      "hash": "1ywibl6lsg4zqx7rbgvvgh3h56sr25p4dfris9yl51vsi7k4m7sn"
+      "revision": "25e53aa156d47bad5082ff7618f5feb1f5e02d01",
+      "url": "https://github.com/nixos/nixpkgs/archive/25e53aa156d47bad5082ff7618f5feb1f5e02d01.tar.gz",
+      "hash": "1zb1hzpzs0i2cx62jv4ck0s5gcfj27fxpvdsqzicj7k8049sdi8p"
     },
     "nixpkgs-unstable": {
       "type": "Git",
@@ -180,22 +193,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "c23193b943c6c689d70ee98ce3128239ed9e32d1",
-      "url": "https://github.com/nixos/nixpkgs/archive/c23193b943c6c689d70ee98ce3128239ed9e32d1.tar.gz",
-      "hash": "0vgk8mrprrh6w7zw2id3hc858kqw5pwdc52ma2f95rz36gchxcc4"
-    },
-    "nixvim": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "adamarbour",
-        "repo": "bob-nixvim"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "2210b1a99a5b7a08d97d249d66df642b2e153724",
-      "url": "https://github.com/adamarbour/bob-nixvim/archive/2210b1a99a5b7a08d97d249d66df642b2e153724.tar.gz",
-      "hash": "0jzvpghx37jvm9xcx8m73dpkwsm31xj6hgd5xdljlr874if7rj1f"
+      "revision": "e643668fd71b949c53f8626614b21ff71a07379d",
+      "url": "https://github.com/nixos/nixpkgs/archive/e643668fd71b949c53f8626614b21ff71a07379d.tar.gz",
+      "hash": "0yjzp3sdaswi5vh85z3nq4ndkvcx0vfahjvd695lxa70i95f939m"
     },
     "noshell": {
       "type": "Git",
@@ -232,9 +232,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "f77d4cfa075c3de66fc9976b80e0c4fc69e2c139",
-      "url": "https://github.com/Mic92/sops-nix/archive/f77d4cfa075c3de66fc9976b80e0c4fc69e2c139.tar.gz",
-      "hash": "0iv71lw7wsv9wb9hcfi57yffkgn3v138fsyyamqlwi1snsaz128x"
+      "revision": "e0fdaea3c31646e252a60b42d0ed8eafdb289762",
+      "url": "https://github.com/Mic92/sops-nix/archive/e0fdaea3c31646e252a60b42d0ed8eafdb289762.tar.gz",
+      "hash": "1rj341cy0na751bpp0zs7rvw7y5ff9hxs8izi2bmicdhbv6pqwrg"
     }
   },
   "version": 5
