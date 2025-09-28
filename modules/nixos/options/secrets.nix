@@ -10,7 +10,7 @@ let
     options = {
       # If unset, falls back to cfg.defaultFile
       sopsFile = mkOption {
-        type = types.nullOr types.path;
+        type = types.nullOr (types.either types.path types.str);
         default = null;
         description = "Optional SOPS file to read this secret from.";
       };
@@ -48,14 +48,21 @@ let
   });
 in {
   options.cauldron.secrets = {
-     enable = mkEnableOption "Enable secrets ... shhhh";
+    enable = mkEnableOption "Enable secrets ... shhhh";
      
-     # Override the default SOPS file used when an item doesn't specify sopsFile
-     defaultFile = mkOption {
+    # Root of your secrets repo; everything resolves relative to this.
+    root = mkOption {
       type = types.path;
-      default = "${secretsRepo}/trove/default.yaml";
-      description = "Default SOPS file for secrets without an explicit sopsFile";
-     };
+      default = sources.secrets;
+      description = "Root directory for all relative secret file paths.";
+    };
+     
+    # Override the default SOPS file used when an item doesn't specify sopsFile
+    defaultFile = mkOption {
+      type = types.path;
+      default = "trove/default.yaml";
+      description = "Default SOPS file for secrets without an explicit sopsFile (relative to secrets repo)";
+    };
      
      # Host specific secret definitions
      items = mkOption {
@@ -63,14 +70,14 @@ in {
       default = {};
       example = {
         "db/password" = {
-          key = "services.postgres.password";
+          key = "key.in.defaultFile";
           format = "yaml";
           mode = "0400";
         };
         "aarbour/github-token" = {
-          sopsFile = "${secretsRepo}/trove/users/aarbour.yaml";
-          owner = "aarbour"; group = "users"; mode = "0400";
-          path = "/home/aarbour/.config/secrets/github-token";
+          sopsFile = "relative/to/secretsRepo.yaml";
+          owner = "USER"; group = "users"; mode = "0400";
+          path = "/home/USER/.config/secrets/github-token";
         };
       };
       description = ''

@@ -1,17 +1,29 @@
 { lib, pkgs, config, sources, ... }:
 let
-  inherit (lib) unique mkIf mapAttrs' mapAttrsToList nameValuePair optionalAttrs;
+  inherit (lib) unique mkIf mapAttrs' mapAttrsToList nameValuePair optionalAttrs hasPrefix;
   
   impermanence = config.cauldron.host.disk.impermanence;
   persistRoot = if (impermanence.enable) then config.cauldron.host.impermanence.root else "";
   
+  secretsRepo = sources.secrets;
   cfg = config.cauldron.secrets;
+  
+  # Accept either a path or a relative string; resolve to a path under cfg.root
+  resolvePath =
+    p:
+      if p == null then null else
+      if builtins.isPath p then p else
+      let s = toString p; in
+        if hasPrefix "/" s
+        then builtins.toPath s
+        else builtins.toPath "${cfg.root}/${s}";
   
   # Helper to render sops.secrets entries
   renderSecret = name: opts:
+    let resolved = resolvePath (opts.sopsFile or cfg.defaultFile); in
     nameValuePair name (lib.filterAttrs (_: v: v != null) ({
       # fall back to the module's default file if not set per-item
-      sopsFile = opts.sopsFile or cfg.defaultFile;
+      sopsFile = resolved;
       owner    = opts.owner;
       group    = opts.group;
       mode     = opts.mode;
@@ -25,7 +37,6 @@ let
   
   mkTmpfilesRule = v:
     let dir = builtins.dirOf v.path; in
-    # Use 0750 by default; adjust if you need broader read access
     "d ${dir} 0750 ${v.owner} ${v.group} - -";
 in {
   imports = [ (sources.sops-nix + "/modules/sops") ];
