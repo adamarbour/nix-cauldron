@@ -20,7 +20,7 @@ in {
     
     hardware = {
       nvidia = {
-        # use the latest and greatest nvidia drivers
+        # use the latest and greatest (stable) nvidia drivers
         package = config.boot.kernelPackages.nvidiaPackages.stable;
 
         powerManagement = {
