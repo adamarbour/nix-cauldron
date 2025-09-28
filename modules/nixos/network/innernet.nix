@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }:
 let
   inherit (lib) types mkIf mkOption mkEnableOption mapAttrsToList;
-  cfg = config.cauldron.network.innernet;
+  cfg = config.cauldron.services.innernet;
   
   innernet-server-db-path = "/var/lib/innernet-server";
   innernet-server-etc-path = "/etc/innernet-server";
@@ -127,8 +127,25 @@ let
         };
       };
     });
+    
+  writeClientCfg = cfg:
+    pkgs.writeShellScript "innernet-write-client-cfg-${cfg.settings.interface.networkName}" ''
+      umask 077
+      mkdir -p ${innernet-client-etc-path}
+      chmod 0700 ${innernet-client-etc-path} ## in case it was already there
+      cat<<EOF>${innernet-client-etc-path}/${cfg.settings.interface.networkName}.conf
+      [interface]
+      network-name = "${cfg.settings.interface.networkName}"
+      address = "${cfg.settings.interface.address}"
+      private-key = "$(cat ${cfg.settings.interface.privateKeyFile})"
+      
+      [server]
+      public-key = "${cfg.settings.server.publicKey}"
+      external-endpoint = "${cfg.settings.server.externalEndpoint}"
+      internal-endpoint = "${cfg.settings.server.internalEndpoint}"
+    '';
 in {
-  options.cauldron.network.innernet = {
+  options.cauldron.services.innernet = {
     package = mkOption {
       type = types.package;
       default = pkgs.innernet;
@@ -284,7 +301,20 @@ in {
             ExecStart = "${cfg.package}/bin/innernet-server serve ${server.settings.networkName}";
           };
         };
-      }) enabledServerCfgs));
-      
+      }) enabledServerCfgs))
+      // (builtins.listToAttrs (map (client: {
+        name = "innernet-client-${client.settings.interface.networkName}";
+        value = {
+          after = [ "network-online.target" "nss-lookup.target" ];
+          wantedBy = [ "multi-user.target" ];
+          path = [ pkgs.iproute2 ];
+          environment = { RUST_LOG = "info"; };
+          serviceConfig = {
+            Restart = "always";
+            ExecStartPre = writeClientCfg client;
+            ExecStart = "${cfg.package}/bin/innernet up -d --no-write-hosts --interval ${toString client.settings.interface.fetchInterval} ${client.settings.interface.networkName}";
+          };
+        };
+      }) enabledClientCfgs));
   };
 }
