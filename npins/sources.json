@@ -13,19 +13,6 @@
       "url": "https://github.com/aylur/astal/archive/344a6dce56437a190b99e516a6cab8332cccf19e.tar.gz",
       "hash": "1ai0p51jglysdyv8fm06sliv5w7fjsrrcmfqdadr8qqxpjpyy9q5"
     },
-    "bore": {
-      "type": "Git",
-      "repository": {
-        "type": "GitHub",
-        "owner": "firelzrd",
-        "repo": "bore-scheduler"
-      },
-      "branch": "main",
-      "submodules": false,
-      "revision": "1921b881b4c7c859514a1dbab93af8035fd4e245",
-      "url": "https://github.com/firelzrd/bore-scheduler/archive/1921b881b4c7c859514a1dbab93af8035fd4e245.tar.gz",
-      "hash": "0z82c2hli8ka3lkp7qlfp5jkx4xr2qdrp50saf02nhx1gma4rgxr"
-    },
     "chaotic-nyx": {
       "type": "Git",
       "repository": {
