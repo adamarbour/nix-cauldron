@@ -295,8 +295,8 @@ in {
             Restart = "always";
             ExecStartPre = pkgs.writeShellScript "innernet-systemd-server-pre-${server.settings.networkName}" ''
               ${addNetwork server.settings}
-              ${builtins.concatStringSep "\n" (map addCidr (mapAttrsToList (_: v: v // { inherit (server.settings) networkName; }) server.settings.cidrs))}
-              ${builtins.concatStringSep "\n" (map addPeer (mapAttrsToList (_: v: v // { inherit (server.settings) networkName; }) server.settings.peers))}
+              ${builtins.concatStringsSep "\n" (map addCidr (mapAttrsToList (_: v: v // { inherit (server.settings) networkName; }) server.settings.cidrs))}
+              ${builtins.concatStringsSep "\n" (map addPeer (mapAttrsToList (_: v: v // { inherit (server.settings) networkName; }) server.settings.peers))}
             '';
             ExecStart = "${cfg.package}/bin/innernet-server serve ${server.settings.networkName}";
           };
