@@ -39,7 +39,7 @@ let
       ${cfg.package}/bin/innernet-server add-cidr \
         --name "${name}" \
         --cidr "${cidr}" \
-        --parent "${parent} \
+        --parent "${parent}" \
         --yes ${networkName} >/dev/null
     '';
     
