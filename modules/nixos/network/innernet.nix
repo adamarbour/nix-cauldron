@@ -143,6 +143,7 @@ let
       public-key = "${cfg.settings.server.publicKey}"
       external-endpoint = "${cfg.settings.server.externalEndpoint}"
       internal-endpoint = "${cfg.settings.server.internalEndpoint}"
+      EOF
     '';
 in {
   options.cauldron.services.innernet = {
