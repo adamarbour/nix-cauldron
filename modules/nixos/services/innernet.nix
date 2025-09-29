@@ -1,6 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) types mkIf mkOption mkEnableOption mapAttrsToList;
+  inherit (lib) types mkIf mkForce mkOption mkEnableOption mapAttrsToList;
   cfg = config.cauldron.services.innernet;
   
   innernet-server-db-path = "/var/lib/innernet-server";
@@ -182,7 +182,7 @@ in {
                   privateKeyFile = mkOption {
                     type = types.path;
                     description = "The path to the private key file";
-                    example = "/run/privat-key";
+                    example = "/run/private-key";
                   };
                 };
                 server = {
@@ -276,12 +276,18 @@ in {
   };
   
   config = mkIf (numEnabledCfgs > 0) {
-    environment.systemPackages = [ cfg.package ];    
+    environment.systemPackages = [ cfg.package pkgs.wireguard-tools ];    
     networking.wireguard.enable = true;
     networking.firewall.allowedTCPPorts = map (server: server.settings.listenPort)
       (builtins.filter (server: server.settings.openFirewall) enabledServerCfgs);
     networking.firewall.allowedUDPPorts = map (server: server.settings.listenPort)
       (builtins.filter (server: server.settings.openFirewall) enabledServerCfgs);
+      
+    boot.kernel.sysctl = mkForce {
+      "net.ipv4.ip_forward" = 1;
+      "net.ipv6.conf.all.forwarding" = 1;
+    };
+    networking.firewall.checkReversePath = mkForce "loose";
       
     systemd.services = 
       # SERVERS
