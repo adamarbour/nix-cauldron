@@ -2,13 +2,12 @@
 {
   cauldron = {
     profiles = [
+      "gaming"
       "desktop"
       "graphical"
-      "gaming"
     ];
     host = {
       boot = {
-        kernel = pkgs.linuxPackages_xanmod_stable;
         loader = "systemd";
         silentBoot = true;
       };
@@ -28,29 +27,37 @@
       };
       network = {
         wireless.backend = "wpa_supplicant";
-        tailscale.enable = true; 
-        wireguard.tunnels = {
-          "arbour-cloud" = {
-            publicKey = "zFMgPfln0vDOWZkSWDOk/SNt+J1hn1pbKHOVjDrMNhU=";
-            privateKey = { kind = "sops"; path = "wg/lucien.key"; };
-            addresses = [ "172.31.7.103/32" "2001:db8:ac::103/128"];
-            routes = [
-              { Destination = "172.31.7.0/24"; }
-              { Destination = "2001:db8:ac::0/64"; }
-            ];
-          };
-        };
       };
       impermanence = {
         root = "/persist";
       };
     };
-    secrets.enable = true;
+    services = {
+      innernet = {
+        client.arbour-cloud = {
+          enable = true;
+          settings = {
+            interface = { address = "172.31.1.212/24"; privateKeyFile = "/run/secrets/wg-key"; };
+            server = { 
+              publicKey = "jJZSbRd/g4hKLSoNkyT0p+kFNVJOA/UTaAXS4ikmT3s=";
+              externalEndpoint = "40.233.13.66:51820";
+              internalEndpoint = "172.31.0.1:51820";
+            };
+          };
+        };
+      };
+    };
+     secrets = {
+      enable = true;
+      items = {
+        "wg-key" = {
+          sopsFile = "trove/wg/lucien.key";
+          format = "binary";
+        };
+      };
+    };
   };
   
   # Enable the GNOME Desktop Environment.
   services.xserver.desktopManager.gnome.enable = true;
-  
-  ### DEVICE SPECIFIC CONFIGURATION
-  services.flatpak.enable = false;
 }

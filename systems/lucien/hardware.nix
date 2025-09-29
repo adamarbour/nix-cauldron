@@ -79,8 +79,9 @@ in {
     description = "Intel Undervolt Service";
     wantedBy = [ "multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
     after = [ "multi-user.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" ];
+    path = [ pkgs.msr-tools ];
     serviceConfig = {
-      ExecStartPre="${pkgs.coreutils}/bin/sleep 60";
+      ExecStartPre="${pkgs.coreutils}/bin/sleep 10";
       ExecStart = ''
         ${pkgs.intel-undervolt}/bin/intel-undervolt apply
       '';
