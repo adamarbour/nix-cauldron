@@ -32,6 +32,21 @@
         winbox = true;
       };
     };
+    services = {
+      innernet = {
+        client.arbour-cloud = {
+          enable = true;
+          settings = {
+            interface = { address = "172.31.1.213/24"; privateKeyFile = "/run/secrets/wg-key"; };
+            server = { 
+              publicKey = "jJZSbRd/g4hKLSoNkyT0p+kFNVJOA/UTaAXS4ikmT3s=";
+              externalEndpoint = "40.233.13.66:51820";
+              internalEndpoint = "172.31.0.1:51820";
+            };
+          };
+        };
+      };
+    };
     secrets = {
       enable = true;
       items = {
