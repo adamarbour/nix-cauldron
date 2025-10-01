@@ -119,7 +119,7 @@ in {
       settings = lib.recursiveUpdate {
         pki = {}; # upstream fills paths
         lighthouse = optionalAttrs isLH { interval = 60; };
-        punhcy = { punch = cfg.punch; respond = cfg.punch; };
+        punchy = { punch = cfg.punch; respond = cfg.punch; };
         tun = {
           cidr = cfg.cidr;
           mtu = cfg.mtu;
