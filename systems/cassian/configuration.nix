@@ -33,18 +33,22 @@
       };
     };
     services = {
-      innernet = {
-        client.arbour-cloud = {
-          enable = true;
-          settings = {
-            interface = { address = "172.31.1.213/24"; privateKeyFile = "/run/secrets/wg-key"; };
-            server = { 
-              publicKey = "jJZSbRd/g4hKLSoNkyT0p+kFNVJOA/UTaAXS4ikmT3s=";
-              externalEndpoint = "40.233.13.66:51820";
-              internalEndpoint = "172.31.0.1:51820";
-            };
-          };
+      nebula = {
+        enable = true;
+        name = "cloud";
+        hostname = "cassian";
+        cidr = "10.24.13.100/24";
+        lighthouses = [ "10.24.13.254" ];
+        staticHostMap = {
+          "10.24.13.254" = [ "40.233.13.66:4242" ];
         };
+        groups = [ "admin" ];
+        secrets = {
+          ca = "/run/secrets/nebula_ca/ca";
+          cert = "/run/secrets/nebula/crt";
+          key = "/run/secrets/nebula/key";
+        };
+        allowAll = true;
       };
     };
     secrets = {
@@ -53,6 +57,20 @@
         "wg-key" = {
           sopsFile = "trove/wg/cassian.key";
           format = "binary";
+        };
+        "nebula_ca/ca" = {
+          key = "nebula_ca/cert";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/crt" = {
+          sopsFile = "trove/hosts/cassian.yaml";
+          key = "nebula/crt";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/key" = {
+          sopsFile = "trove/hosts/cassian.yaml";
+          key = "nebula/key";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
         };
       };
     };
