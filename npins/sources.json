@@ -219,9 +219,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3b7dae95f458c7c004c1838c719984be8bd5bf2c",
-      "url": "https://github.com/adamarbour/secrets/archive/3b7dae95f458c7c004c1838c719984be8bd5bf2c.tar.gz",
-      "hash": "0ci7zlgsf9cyws7dyjw4r7fcqz0qrkqqq8gip7sjndnqb47mm5d3"
+      "revision": "c306de93cd8a515eda2c6866d673caf8571f388e",
+      "url": "https://github.com/adamarbour/secrets/archive/c306de93cd8a515eda2c6866d673caf8571f388e.tar.gz",
+      "hash": "01mdb1irjjwlmzk8ir451sk5dmxd5d698x5s0jv9rwhdlz85slpp"
     },
     "sops-nix": {
       "type": "Git",

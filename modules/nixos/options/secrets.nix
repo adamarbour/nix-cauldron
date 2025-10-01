@@ -11,7 +11,7 @@ let
       # If unset, falls back to cfg.defaultFile
       sopsFile = mkOption {
         type = types.nullOr (types.either types.path types.str);
-        default = null;
+        default = "trove/default.yaml";
         description = "Optional SOPS file to read this secret from.";
       };
 
@@ -36,7 +36,7 @@ let
       # sops-nix format: one of "binary" "yaml" "json" "dotenv"
       format = mkOption {
         type = types.enum [ "binary" "yaml" "json" "dotenv" ];
-        default = "binary";
+        default = "yaml";
       };
 
       # Optional units to restart when this secret changes
