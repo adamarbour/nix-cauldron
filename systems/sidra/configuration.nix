@@ -21,38 +21,56 @@
         swap.enable = true;
       };
     };
+    
     services = {
       cloud-init= {
         enable = true;
         dataSources = [ "Oracle" ];
       };
-      innernet = {
-        server.arbour-cloud = {
-          enable = true;
-          settings = {
-            openFirewall = true;
-            cidr = "172.31.0.0/16";
-            listenPort = 51820;
-            privateKeyFile = "/run/secrets/wg-key";
-            publicKey = "jJZSbRd/g4hKLSoNkyT0p+kFNVJOA/UTaAXS4ikmT3s=";
-            externalEndpoint = "40.233.13.66:51820";
-            cidrs = {
-              home = { cidr = "172.31.1.0/24"; parent = "arbour-cloud"; };
-              prynthian = { cidr = "172.31.7.0/24"; parent = "arbour-cloud"; };
-            };
-            peers = {
-              cassian = { ip = "172.31.1.213"; cidr = "home"; publicKey = "/wYcBIwBvnPbVJqSN7o/EJIazS6lc9KaVnzjtl6Vc3s="; isAdmin = true; };
-            };
-          };
+      nebula = {
+        enable = true;
+        name = "cloud";
+        hostname = "sidra";
+        cidr = "10.24.13.254/24";
+        isLighthouse = true;
+        lighthouses = [];
+        staticHostMap = {
+          "10.24.13.254" = [ "40.233.13.66:4242" ];
         };
+        groups = [ "home" "work" "lab" "nflix" ];
+        secrets = {
+          ca = "/run/secrets/nebula_ca/ca";
+          cert = "/run/secrets/nebula/crt";
+          key = "/run/secrets/nebula/key";
+        };
+        allowAll = true;
       };
     };
+    
     secrets = {
       enable = true;
       items = {
         "wg-key" = {
           sopsFile = "trove/wg/sidra.key";
           format = "binary";
+        };
+        "nebula_ca/ca" = {
+          key = "nebula_ca/cert";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula_ca/key" = {
+          key = "nebula_ca/key";
+          owner = "root"; group = "root"; mode = "0400";
+        };
+        "nebula/crt" = {
+          sopsFile = "trove/hosts/sidra.yaml";
+          key = "nebula/crt";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/key" = {
+          sopsFile = "trove/hosts/sidra.yaml";
+          key = "nebula/key";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
         };
       };
     };
