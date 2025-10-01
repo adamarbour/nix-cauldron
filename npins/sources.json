@@ -171,6 +171,19 @@
       "url": "https://api.github.com/repos/gmodena/nix-flatpak/tarball/v0.6.0",
       "hash": "0s3mpb28rcmma29vv884fi3as926bfszhn7v8n74bpnp5qg5a1c8"
     },
+    "nix-topology": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "oddlama",
+        "repo": "nix-topology"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "6a536c4b686ee4bcf07a7b0f8b823584560e2633",
+      "url": "https://github.com/oddlama/nix-topology/archive/6a536c4b686ee4bcf07a7b0f8b823584560e2633.tar.gz",
+      "hash": "1c54fh0db7hkf9krf4mc2i83448vdbb5nqzwhm25shmc3r5g4i1z"
+    },
     "nixpkgs": {
       "type": "Git",
       "repository": {

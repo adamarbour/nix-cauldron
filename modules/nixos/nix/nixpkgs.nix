@@ -7,6 +7,7 @@ in {
     hostPlatform = mkDefault "x86_64-linux";
     overlays = [
       (import ../../../overlays/unstable.nix)
+      (import ../../../overlays/nix-topology.nix)
       (import ../../../overlays/mangowc.nix)
       (import ../../../overlays/fht-compositor.nix)
     ];
