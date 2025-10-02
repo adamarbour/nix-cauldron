@@ -1,7 +1,13 @@
 { system ? builtins.currentSystem }:
 let
   sources = import ./npins;
-  pkgs = import sources.nixpkgs { inherit system; config = {}; overlays = [ (import ./overlays/unstable.nix) ]; };
+  pkgs = import sources.nixpkgs {
+    inherit system;
+    config.allowUnfree = true;
+    overlays = [
+      (import ./overlays/unstable.nix)
+    ];
+  };
   colmena = pkgs.callPackage "${sources.colmena}/package.nix" {};
 in pkgs.mkShellNoCC {
   NIX_CONFIG = "extra-experimental-features = nix-command flakes";

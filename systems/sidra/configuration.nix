@@ -33,7 +33,7 @@
         isLighthouse = true;
         lighthouses = [];
         staticHostMap = {
-          "10.24.13.254" = [ "40.233.13.66:4242" ];
+          "10.24.13.254" = [ "139.177.101.39:4242" ];
         };
         groups = [ "home" "work" "lab" "nflix" ];
         secrets = {
@@ -44,13 +44,13 @@
         allowAll = true;
       };
       innernet = {
-        enable = false;
+        enable = true;
         role = "server";
         networkName = "arbour-cloud";
         server.listenPort = 51820;
         server.openFirewall = true;
         server.bootstrap = {
-          enable = true;
+          enable = false;
           rootCIDR = "172.31.0.0/16";
           extraCIDRs = [
             { name = "admin"; cidr = "172.31.7.0/24"; }
