@@ -93,7 +93,7 @@ in {
       nixpkgs.hostPlatform = "aarch64-linux";
       deployment = {
         tags = [ "cloud" ];
-        targetHost = "40.233.13.66"; # public
+        targetHost = "139.177.101.39"; # public
         targetUser = "aarbour";
       };
     };

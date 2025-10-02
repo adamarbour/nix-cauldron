@@ -7,16 +7,14 @@
     ];
     
     host = {
-      boot = {
-        loader = "systemd";
-      };
+      boot.loader = "systemd";
       disk = {
         enable = true;
         rootFs = "ext4";
         device = "/dev/sda";
         impermanence = {
           enable = true;
-          rootSize = "1G";
+          rootSize = "2G";
         };
         swap.enable = true;
       };
@@ -45,6 +43,24 @@
         };
         allowAll = true;
       };
+      innernet = {
+        enable = false;
+        role = "server";
+        networkName = "arbour-cloud";
+        server.listenPort = 51820;
+        server.openFirewall = true;
+        server.bootstrap = {
+          enable = true;
+          rootCIDR = "172.31.0.0/16";
+          extraCIDRs = [
+            { name = "admin"; cidr = "172.31.7.0/24"; }
+            { name = "prynthian"; cidr = "172.31.24.0/24"; }
+            { name = "nflix"; cidr = "172.31.13.0/24"; }
+          ];
+          adminPeerName = "admin";
+          invitationDir = "/var/lib/innernet/invites";
+        };
+      };
     };
     
     secrets = {
@@ -71,7 +87,7 @@
           sopsFile = "trove/hosts/sidra.yaml";
           key = "nebula/key";
           owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
-        };
+       };
       };
     };
   };
