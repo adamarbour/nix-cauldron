@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }:
 let
-  inherit (lib) types mkIf mkEnableOption mkOption;
-  netName = cfg.name;
+  inherit (lib) types mkIf mkMerge mkEnableOption mkOption;
+  netName = "innernet." + cfg.name;
   
   cfg = config.cauldron.services.innernet;
 in {
@@ -64,10 +64,26 @@ in {
         default = true;
         description = "Start client at boot (after network-online.target).";
       };
+      configDir = mkOption {
+        type = path;
+        default = "/etc/innernet";
+        description = "Directory for client configs (invitation TOML installs land here).";
+      };
+      stateDir = mkOption {
+        type = path;
+        default = "/var/lib/innernet";
+        description = "Server state directory (SQLite DB, keys, etc.).";
+      };
       fetchOnReload = mkOption {
         type = bool;
         default = true;
         description = "systemctl reload will `innernet fetch <if>` to refresh peers.";
+      };
+      fetchInterval = mkOption {
+        type = int;
+        default = 25;
+        example = "25";
+        description = "How often to refresh peers from server";
       };
     };
   };
@@ -79,9 +95,13 @@ in {
     };
     
     environment.systemPackages = [ cfg.package pkgs.wireguard-tools ];
-    systemd.tmpfiles.rules = mkIf cfg.server.enable [
-      "d ${cfg.server.configDir} 0755 root root -"
-      "d ${cfg.server.stateDir}  0700 root root -"
+    systemd.tmpfiles.rules = []
+    ++ lib.optionals (cfg.server.enable) [
+      "d ${cfg.server.configDir} 0400 root root -"
+      "d ${cfg.server.stateDir}  0400 root root -"
+    ] ++ lib.optionals (cfg.client.enable) [
+      "d ${cfg.client.configDir} 0400 root root -"
+      "d ${cfg.client.stateDir}  0400 root root -"
     ];
     
     networking.wireguard.enable = true;
@@ -118,8 +138,7 @@ in {
         '';
         ExecStart = ''
           ${lib.getExe' cfg.package "innernet-server"} \
-            --config-dir ${cfg.server.configDir} \
-            --data-dir ${cfg.server.stateDir} \
+            --config-dir ${cfg.server.configDir} --data-dir ${cfg.server.stateDir} \
             serve ${netName}
         '';
         Restart = "on-failure";
@@ -134,17 +153,25 @@ in {
       wantedBy = lib.optionals cfg.client.autoStart [ "multi-user.target" ];
       after = [ "network-online.target" ];
       requires = [ "network-online.target" ];
-      environment = {
-        XDG_CONFIG_HOME = cfg.configDir; # innernet reads configs from here
-      };
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart = "${lib.getExe cfg.package} up ${netName}";
-        ExecStop = "${lib.getExe cfg.package} down ${netName}";
-        ExecReload = mkIf cfg.client.fetchOnReload "${lib.getExe cfg.package} fetch ${netName}";
+        ExecStart = ''
+          ${lib.getExe cfg.package} \
+            --config-dir ${cfg.client.configDir} --data-dir ${cfg.client.stateDir} \
+            up -d --no-write-hosts --interval ${cfg.client.fetchInterval} ${netName}
+        '';
+        ExecStop = ''
+          ${lib.getExe cfg.package} \
+            --config-dir ${cfg.client.configDir} --data-dir ${cfg.client.stateDir} \
+            down ${netName}
+        '';
+        ExecReload = mkIf cfg.client.fetchOnReload ''
+          ${lib.getExe cfg.package} \
+            --config-dir ${cfg.client.configDir} --data-dir ${cfg.client.stateDir} \
+            fetch --no-write-hosts ${netName}
+        '';
         Restart = "on-failure";
-        RuntimeDirectory = "innernet-${netName}";
         CapabilityBoundingSet = "CAP_NET_ADMIN";
         AmbientCapabilities = "CAP_NET_ADMIN";
       };
