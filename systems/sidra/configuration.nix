@@ -33,7 +33,7 @@
         isLighthouse = true;
         lighthouses = [];
         staticHostMap = {
-          "10.24.13.254" = [ "139.177.101.39:4242" ];
+          "10.24.13.254" = [ "157.137.184.33:4242" ];
         };
         groups = [ "home" "work" "lab" "nflix" ];
         secrets = {
@@ -44,21 +44,14 @@
         allowAll = true;
       };
       innernet = {
-        enable = true;
-        role = "server";
-        networkName = "arbour-cloud";
-        server.listenPort = 51820;
-        server.openFirewall = true;
-        server.bootstrap = {
-          enable = false;
-          rootCIDR = "172.31.0.0/16";
-          extraCIDRs = [
-            { name = "admin"; cidr = "172.31.7.0/24"; }
-            { name = "prynthian"; cidr = "172.31.24.0/24"; }
-            { name = "nflix"; cidr = "172.31.13.0/24"; }
-          ];
-          adminPeerName = "admin";
-          invitationDir = "/var/lib/innernet/invites";
+        name = "cloud";
+        publicKey = "/wYcBIwBvnPbVJqSN7o/EJIazS6lc9KaVnzjtl6Vc3s=";
+        privateKeyFile = "/run/secrets/wg-key";
+        server = {
+          enable = true;
+          listenPort = 51820;
+          cidr = "172.31.7.0/24";
+          publicEndpoint = "157.137.184.33:51820";
         };
       };
     };
