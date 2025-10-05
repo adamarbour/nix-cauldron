@@ -92,6 +92,7 @@ in {
     config = {
       nixpkgs.hostPlatform = "aarch64-linux";
       deployment = {
+        buildOnTarget = true;
         tags = [ "cloud" ];
         targetHost = "157.137.184.33"; # public
         targetUser = "aarbour";

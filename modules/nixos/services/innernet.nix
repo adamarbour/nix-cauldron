@@ -1,7 +1,7 @@
 { lib, pkgs, config, ... }:
 let
   inherit (lib) types mkIf mkMerge mkEnableOption mkOption;
-  netName = "innernet." + cfg.name;
+  netName = cfg.name;
   
   cfg = config.cauldron.services.innernet;
 in {
@@ -97,11 +97,11 @@ in {
     environment.systemPackages = [ cfg.package pkgs.wireguard-tools ];
     systemd.tmpfiles.rules = []
     ++ lib.optionals (cfg.server.enable) [
-      "d ${cfg.server.configDir} 0400 root root -"
-      "d ${cfg.server.stateDir}  0400 root root -"
+      "d ${cfg.server.configDir} 0700 root root -"
+      "d ${cfg.server.stateDir}  0700 root root -"
     ] ++ lib.optionals (cfg.client.enable) [
-      "d ${cfg.client.configDir} 0400 root root -"
-      "d ${cfg.client.stateDir}  0400 root root -"
+      "d ${cfg.client.configDir} 0700 root root -"
+      "d ${cfg.client.stateDir}  0700 root root -"
     ];
     
     networking.wireguard.enable = true;
@@ -176,7 +176,5 @@ in {
         AmbientCapabilities = "CAP_NET_ADMIN";
       };
     };
-    
-        
   };
 }

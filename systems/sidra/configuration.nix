@@ -33,7 +33,7 @@
         isLighthouse = true;
         lighthouses = [];
         staticHostMap = {
-          "10.24.13.254" = [ "157.137.184.33:4242" ];
+          "10.24.13.254" = [ "wg.arbour.cloud:4242" ];
         };
         groups = [ "home" "work" "lab" "nflix" ];
         secrets = {
@@ -51,8 +51,13 @@
           enable = true;
           listenPort = 51820;
           cidr = "172.31.7.0/24";
-          publicEndpoint = "157.137.184.33:51820";
+          publicEndpoint = "wg.arbour.cloud:51820";
         };
+      };
+      headscale = {
+        enable = true;
+        domain = "hs.arbour.cloud";
+        adminEmail = "admin@arbour.cloud";
       };
     };
     
