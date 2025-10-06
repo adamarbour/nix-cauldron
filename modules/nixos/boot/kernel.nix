@@ -5,9 +5,9 @@ let
   cfg = config.cauldron.host.boot;
   
   defaultKernel = if (hasProfile config "gaming") then pkgs.linuxPackages_xanmod_latest
-    else if (hasProfile config "workstation") then pkgs.linuxPackages_latest_hardened
+    else if (hasProfile config "workstation") then pkgs.linuxPackages_zen
     else if (hasProfile config "server") then pkgs.linuxPackages_hardened
-    else if (hasProfile config "graphical") then pkgs.linuxPackages_xanmod
+    else if (hasProfile config "graphical") then pkgs.linuxPackages_latest
     else pkgs.linuxPackages_latest;
     
 in {
