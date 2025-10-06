@@ -33,6 +33,7 @@
       };
     };
     services = {
+      tailscale.enable = true;
       nebula = {
         enable = true;
         name = "cloud";
@@ -40,7 +41,7 @@
         cidr = "10.24.13.100/24";
         lighthouses = [ "10.24.13.254" ];
         staticHostMap = {
-          "10.24.13.254" = [ "139.177.101.39:4242" ];
+          "10.24.13.254" = [ "157.137.184.33:4242" ];
         };
         groups = [ "admin" ];
         secrets = {
