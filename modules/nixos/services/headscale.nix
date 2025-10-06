@@ -6,6 +6,11 @@ let
 in {
   options.cauldron.services.headscale = with types; {
     enable = mkEnableOption "Enable Headscale server and Headplane UI";
+    searchDomain = mkOption {
+      type = str;
+      example = "<internal>.example.com";
+      description = "Domain name for internal searches.";
+    };
     domain = mkOption {
       type = str;
       example = "headscale.example.com";
@@ -31,15 +36,15 @@ in {
       port = 8080;
       
       settings = {
-        server_url = "https://${cfg.domain}:443";
+        server_url = "https://${cfg.domain}";
         logtail.enabled = false;
-        listen_addr = "0.0.0.0:8080";
-        grpc_listen_addr = "0.0.0.0:50443";
+        listen_addr = "127.0.0.1:8080";
+        grpc_listen_addr = "127.0.0.1:50443";
         private_key_path = "/var/lib/headscale/private.key";
         noise.private_key_path = "/var/lib/headscale/noise_private.key";
         dns = {
           override_local_dns = true;
-          base_domain = "internal.${cfg.domain}";
+          base_domain = "internal.${cfg.searchDomain}";
           magic_dns = true;
           nameservers.global = [
             "9.9.9.9"
@@ -68,7 +73,7 @@ in {
       virtualHosts = {
         "${cfg.domain}" = {
           extraConfig = ''
-            reverse_proxy localhost:${toString config.services.headscale.port}
+            reverse_proxy 127.0.0.1:${toString config.services.headscale.port}
           '';
         };
       };
