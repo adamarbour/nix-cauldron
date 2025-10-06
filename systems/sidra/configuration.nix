@@ -57,6 +57,7 @@
       headscale = {
         enable = true;
         domain = "hs.arbour.cloud";
+        searchDomain = "arbour.cloud";
         adminEmail = "admin@arbour.cloud";
       };
     };
