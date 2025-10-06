@@ -2,13 +2,6 @@
 let
   inherit (lib) mkDefault;
 in {
-  hardware = {
-    nvidia.prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
-  };
-
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/0009c1f4-af2c-406a-8537-62f55c960b2f";
     fsType = "ext4";

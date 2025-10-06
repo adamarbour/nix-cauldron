@@ -5,16 +5,16 @@
       "graphical"
       "laptop"
       "workstation"
-      "gaming"
     ];
     host = {
       boot = {
         loader = "secure";
+        addKernelParams = [ "intel_iommu=on" "iommu=pt" "vfio-pci.ids=10de:28ba" ];
         silentBoot = true;
       };
       hardware = {
         cpu = "intel";
-        gpu = "hybrid";
+        gpu = "intel";
       };
       network = {
         wireless.backend = "wpa_supplicant";
