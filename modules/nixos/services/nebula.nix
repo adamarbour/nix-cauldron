@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, pkgs, config, ... }:
 let
   inherit (lib) types mkIf mkOption mkEnableOption optionalAttrs;
   cfg = config.cauldron.services.nebula;
@@ -97,6 +97,10 @@ in {
   };
 
   config = mkIf cfg.enable {
+    environment.systemPackages = [
+      pkgs.nebula
+    ];
+    
     services.nebula.networks.${netName} = {
       ca = cfg.secrets.ca;
       cert = cfg.secrets.cert;
