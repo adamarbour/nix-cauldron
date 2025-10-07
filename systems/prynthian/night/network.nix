@@ -37,19 +37,17 @@ in {
       matchConfig.Name = "${uplink}.10";
       networkConfig.DHCP = "no";
       addresses = [ { Address = "172.31.10.7/24"; } ];
-      routes = [ { Gateway = "172.31.10.254"; } ];
+      routes = [ { Destination = "0.0.0.0/0"; Gateway = "172.31.10.254"; Metric = 100; } ];
     };
     "20-${uplink}.20" = {
       matchConfig.Name = "${uplink}.20";
       networkConfig.DHCP = "no";
       addresses = [ { Address = "172.31.20.7/24"; } ];
-      routes = [ { Gateway = "172.31.20.254"; } ];
     };
     "20-${uplink}.30" = {
       matchConfig.Name = "${uplink}.30";
       networkConfig.DHCP = "no";
       addresses = [ { Address = "172.31.30.7/24"; } ];
-      routes = [ { Gateway = "172.31.30.254"; } ];
     };
     "21-${uplink}.40" = {
       matchConfig.Name = "${uplink}.40";
@@ -59,6 +57,7 @@ in {
     "22-br40" = {
       matchConfig.Name = "br40";
       networkConfig.DHCP = "ipv4";
+      dhcpV4Config.UseRoutes = false;
       bridgeVLANs = [ { VLAN = 40; } ];
     };
   };

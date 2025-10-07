@@ -194,8 +194,8 @@ in {
     config = {
       deployment = {
         tags = [ "prynthian" "all" ];
-        targetHost = null;
-        targetUser = null;
+        targetHost = "10.50.16.25";
+        targetUser = "aarbour";
       };
     };
   };

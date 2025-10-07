@@ -28,9 +28,9 @@
     services = {
       tailscale.enable = true;
       nebula = {
-        enable = false;
+        enable = true;
         name = "cloud";
-        hostname = "cassian";
+        hostname = "night";
         cidr = "10.24.13.7/24";
         lighthouses = [ "10.24.13.254" ];
         staticHostMap = {
