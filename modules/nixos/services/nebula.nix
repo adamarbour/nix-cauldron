@@ -110,6 +110,7 @@ in {
       lighthouses = cfg.lighthouses;
       staticHostMap = cfg.staticHostMap;
       
+      listen.host = "0.0.0.0";
       listen.port = listenPort;
       
       firewall = if cfg.allowAll then {
@@ -121,6 +122,7 @@ in {
       };
       
       settings = lib.recursiveUpdate {
+        preferred_ranges = [ "0.0.0.0/0" ];
         pki = {}; # upstream fills paths
         lighthouse = optionalAttrs isLH { interval = 60; };
         punchy = { punch = cfg.punch; respond = cfg.punch; };
