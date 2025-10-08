@@ -94,7 +94,8 @@ in {
       deployment = {
         buildOnTarget = true;
         tags = [ "cloud" ];
-        targetHost = "157.137.184.33"; # public
+#        targetHost = "157.137.184.33";  # public
+        targetHost = "10.24.13.254";    # nebula
         targetUser = "aarbour";
       };
     };
@@ -194,7 +195,7 @@ in {
     config = {
       deployment = {
         tags = [ "prynthian" "all" ];
-        targetHost = "10.50.16.25";
+        targetHost = "10.24.13.7";  # nebula
         targetUser = "aarbour";
       };
     };
