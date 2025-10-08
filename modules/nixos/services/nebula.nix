@@ -107,7 +107,9 @@ in {
       key = cfg.secrets.key;
       
       isLighthouse = isLH;
+      isRelay = isLH;
       lighthouses = cfg.lighthouses;
+      relays = cfg.lighthouses; # TODO: Make this configurable or optional
       staticHostMap = cfg.staticHostMap;
       
       listen.host = "0.0.0.0";
@@ -124,7 +126,17 @@ in {
       settings = lib.recursiveUpdate {
         preferred_ranges = [ "0.0.0.0/0" ];
         pki = {}; # upstream fills paths
-        lighthouse = optionalAttrs isLH { interval = 60; };
+        lighthouse = optionalAttrs isLH { 
+          interval = 60;
+          local_allow_list = {
+            "0.0.0.0/0" = true;
+            "fd00::/8" = false;
+          };
+          remote_allow_list = {
+            "0.0.0.0/0" = true;
+            "fd00::/8" = false;
+          };
+        };
         punchy = { punch = cfg.punch; respond = cfg.punch; };
         tun = {
           cidr = cfg.cidr;
@@ -133,6 +145,10 @@ in {
         metadata = {
           name = cfg.hostname;
           groups = cfg.groups;
+        };
+        static_map = {
+          network = "ip4";
+          lookup_timeout = "250ms";
         };
       } cfg.extraSettings;
     };

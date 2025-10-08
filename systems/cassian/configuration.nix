@@ -41,9 +41,9 @@
         cidr = "10.24.13.100/24";
         lighthouses = [ "10.24.13.254" ];
         staticHostMap = {
-          "10.24.13.254" = [ "157.137.184.33:4242" ];
+          "10.24.13.254" = [ "157.137.184.33:4242" "wg.arbour.cloud:4242" ];
         };
-        groups = [ "admin" ];
+        groups = [ "prynthian" "admin" ];
         secrets = {
           ca = "/run/secrets/nebula_ca/ca";
           cert = "/run/secrets/nebula/crt";

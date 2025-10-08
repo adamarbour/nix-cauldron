@@ -33,7 +33,7 @@
         isLighthouse = true;
         lighthouses = [];
         staticHostMap = {
-          "10.24.13.254" = [ "wg.arbour.cloud:4242" ];
+          "10.24.13.254" = [ "157.137.184.33:4242" "wg.arbour.cloud:4242" ];
         };
         groups = [ "home" "work" "lab" "nflix" ];
         secrets = {
