@@ -36,7 +36,7 @@
         staticHostMap = {
           "10.24.13.254" = [ "157.137.184.33:4242" "wg.arbour.cloud:4242" ];
         };
-        groups = [ "prynthian" ];
+        groups = [ "lab" ];
         secrets = {
           ca = "/run/secrets/nebula_ca/ca";
           cert = "/run/secrets/nebula/crt";

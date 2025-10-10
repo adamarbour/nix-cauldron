@@ -6,6 +6,7 @@
       "desktop"
       "graphical"
     ];
+    
     host = {
       boot = {
         loader = "systemd";
@@ -32,27 +33,48 @@
         root = "/persist";
       };
     };
+    
     services = {
-      innernet = {
-        client.arbour-cloud = {
-          enable = true;
-          settings = {
-            interface = { address = "172.31.1.212/24"; privateKeyFile = "/run/secrets/wg-key"; };
-            server = { 
-              publicKey = "jJZSbRd/g4hKLSoNkyT0p+kFNVJOA/UTaAXS4ikmT3s=";
-              externalEndpoint = "40.233.13.66:51820";
-              internalEndpoint = "172.31.0.1:51820";
-            };
-          };
+      tailscale.enable = true;
+      nebula = {
+        enable = true;
+        name = "cloud";
+        hostname = "lucien";
+        cidr = "10.24.13.212/24";
+        lighthouses = [ "10.24.13.254" ];
+        staticHostMap = {
+          "10.24.13.254" = [ "157.137.184.33:4242" "wg.arbour.cloud:4242" ];
         };
+        groups = [ "home" ];
+        secrets = {
+          ca = "/run/secrets/nebula_ca/ca";
+          cert = "/run/secrets/nebula/crt";
+          key = "/run/secrets/nebula/key";
+        };
+        allowAll = true;
       };
     };
-     secrets = {
+    
+    secrets = {
       enable = true;
       items = {
         "wg-key" = {
           sopsFile = "trove/wg/lucien.key";
           format = "binary";
+        };
+        "nebula_ca/ca" = {
+          key = "nebula_ca/cert";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/crt" = {
+          sopsFile = "trove/hosts/lucien.yaml";
+          key = "nebula/crt";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/key" = {
+          sopsFile = "trove/hosts/lucien.yaml";
+          key = "nebula/key";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
         };
       };
     };
