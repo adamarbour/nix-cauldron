@@ -248,6 +248,19 @@
       "revision": "9fcfabe085281dd793589bdc770a2e577a3caa5d",
       "url": "https://github.com/Mic92/sops-nix/archive/9fcfabe085281dd793589bdc770a2e577a3caa5d.tar.gz",
       "hash": "05amj1vnrjpwj1q9spmn4anp960d5nhcickd1jcifdd2lbc05m3z"
+    },
+    "stylix": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nix-community",
+        "repo": "stylix"
+      },
+      "branch": "release-25.05",
+      "submodules": false,
+      "revision": "4d065856e936fc6a99ba55d39ac2df9ded6bedbe",
+      "url": "https://github.com/nix-community/stylix/archive/4d065856e936fc6a99ba55d39ac2df9ded6bedbe.tar.gz",
+      "hash": "0f9qqcn6f4qnh0bqi418ln8y77hnxcsp8lyh67i9p3i9bzamliyl"
     }
   },
   "version": 5
