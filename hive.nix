@@ -39,6 +39,21 @@ in {
     };
   };
   
+  rhys = {
+    imports = [
+      ./systems/rhys/configuration.nix
+      ./systems/rhys/hardware.nix
+    ];
+    config = {
+      time.timeZone = "America/Chicago";
+      deployment = {
+        tags = [ "gaming" "all" ];
+        targetHost = "10.50.16.29";
+        targetUser = "aarbour";
+      };
+    };
+  };
+  
   cassian = {
     imports = [
       ./systems/cassian/configuration.nix
@@ -79,7 +94,7 @@ in {
       time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "gaming" "all" ];
-        targetHost = "10.50.16.31";
+        targetHost = "10.24.13.111";
         targetUser = "aarbour";
       };
     };
