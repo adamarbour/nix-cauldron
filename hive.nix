@@ -139,8 +139,8 @@ in {
     config = {
       deployment = {
         tags = [ "prynthian" "all" ];
-        targetHost = null;
-        targetUser = null;
+        targetHost = "10.24.13.2";  # nebula
+        targetUser = "aarbour";
       };
     };
   };
