@@ -23,7 +23,7 @@
         enable = true;
         name = "cloud";
         hostname = "dawn.prynthian";
-        cidr = "10.24.13.6/24";
+        cidr = "10.24.13.5/24";
         lighthouses = [ "10.24.13.254" ];
         staticHostMap = {
           "10.24.13.254" = [ "157.137.184.33:4242" "wg.arbour.cloud:4242" ];

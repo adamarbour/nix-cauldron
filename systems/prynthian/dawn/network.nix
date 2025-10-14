@@ -36,18 +36,18 @@ in {
     "20-${uplink}.10" = {
       matchConfig.Name = "${uplink}.10";
       networkConfig.DHCP = "no";
-      addresses = [ { Address = "172.31.10.6/24"; } ];
+      addresses = [ { Address = "172.31.10.5/24"; } ];
       routes = [ { Destination = "0.0.0.0/0"; Gateway = "172.31.10.254"; Metric = 100; } ];
     };
     "20-${uplink}.20" = {
       matchConfig.Name = "${uplink}.20";
       networkConfig.DHCP = "no";
-      addresses = [ { Address = "172.31.20.6/24"; } ];
+      addresses = [ { Address = "172.31.20.5/24"; } ];
     };
     "20-${uplink}.30" = {
       matchConfig.Name = "${uplink}.30";
       networkConfig.DHCP = "no";
-      addresses = [ { Address = "172.31.30.6/24"; } ];
+      addresses = [ { Address = "172.31.30.5/24"; } ];
     };
     "21-${uplink}.40" = {
       matchConfig.Name = "${uplink}.40";
