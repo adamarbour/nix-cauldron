@@ -1,18 +1,11 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   cauldron = {
-    profiles = [
-      "server"
-    ];
+    profiles = [ "server" ];
+    
     host = {
-      boot = {
-        kernel = pkgs.linuxPackages;
-        loader = "systemd";
-      };
+      boot.loader = "systemd";
       hardware.cpu = "intel";
-      network = {
-        tailscale.enable = true;
-      };
       disk = {
         enable = true;
         rootFs = "ext4";
@@ -23,19 +16,46 @@
         };
       };
     };
-    secrets.enable = false;
+    
+    services = {
+      tailscale.enable = true;
+      nebula = {
+        enable = true;
+        name = "cloud";
+        hostname = "day.prynthian";
+        cidr = "10.24.13.6/24";
+        lighthouses = [ "10.24.13.254" ];
+        staticHostMap = {
+          "10.24.13.254" = [ "157.137.184.33:4242" "wg.arbour.cloud:4242" ];
+        };
+        groups = [ "lab" "prynthian" ];
+        secrets = {
+          ca = "/run/secrets/nebula_ca/ca";
+          cert = "/run/secrets/nebula/crt";
+          key = "/run/secrets/nebula/key";
+        };
+        allowAll = true;
+      };
+    };
+    
+    secrets = {
+      enable = true;
+      items = {
+        "nebula_ca/ca" = {
+          key = "nebula_ca/cert";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/crt" = {
+          sopsFile = "trove/hosts/day.yaml";
+          key = "nebula/crt";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/key" = {
+          sopsFile = "trove/hosts/day.yaml";
+          key = "nebula/key";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+       };
+      };
+    };
   };
-  
-  # Helpful for high-throughput storage...
-  boot.kernel.sysctl = {
-    "net.core.netdev_max_backlog" = 250000;
-    "net.core.rmem_max" = 268435456;
-    "net.core.wmem_max" = 268435456;
-    "net.ipv4.tcp_rmem" = "4096 87380 268435456";
-    "net.ipv4.tcp_wmem" = "4096 655536 268435456";
-  };
-  
-  environment.systemPackages = with pkgs; [
-    pciutils
-  ];
 }

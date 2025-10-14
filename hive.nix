@@ -153,8 +153,8 @@ in {
     config = {
       deployment = {
         tags = [ "prynthian" "all" ];
-        targetHost = null;
-        targetUser = null;
+        targetHost = "10.50.16.34";
+        targetUser = "aarbour";
       };
     };
   };
@@ -195,8 +195,8 @@ in {
     config = {
       deployment = {
         tags = [ "prynthian" "all" ];
-        targetHost = null;
-        targetUser = null;
+        targetHost = "10.50.16.34";
+        targetUser = "aarbour";
       };
     };
   };
