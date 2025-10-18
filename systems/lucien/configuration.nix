@@ -1,11 +1,7 @@
 { pkgs, ... }:
 {
   cauldron = {
-    profiles = [
-      "gaming"
-      "desktop"
-      "graphical"
-    ];
+    profiles = [ "gaming" "desktop" "graphical" ];
     
     host = {
       boot = {
