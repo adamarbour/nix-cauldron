@@ -31,6 +31,27 @@
         tpm = true;
       };
     };
+    
+    services = {
+      tailscale.enable = true;
+      nebula = {
+        enable = true;
+        name = "cloud";
+        hostname = "rhys";
+        cidr = "10.24.13.101/24";
+        lighthouses = [ "10.24.13.254" ];
+        staticHostMap = {
+          "10.24.13.254" = [ "157.137.184.33:4242" "wg.arbour.cloud:4242" ];
+        };
+        groups = [ "admin" ];
+        secrets = {
+          ca = "/run/secrets/nebula_ca/ca";
+          cert = "/run/secrets/nebula/crt";
+          key = "/run/secrets/nebula/key";
+        };
+        allowAll = true;
+      };
+    };
 
     secrets = {
       enable = true;
@@ -53,10 +74,8 @@
     };
   };
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.desktopManager.gnome.enable = true;
 
-  # Install firefox.
+  services.xserver.desktopManager.gnome.enable = true;
   programs.firefox.enable = true;
 
 }

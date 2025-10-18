@@ -48,7 +48,7 @@ in {
       time.timeZone = "America/Chicago";
       deployment = {
         tags = [ "gaming" "all" ];
-        targetHost = "10.50.16.29";
+        targetHost = "10.24.13.101";  # nebula
         targetUser = "aarbour";
       };
     };
