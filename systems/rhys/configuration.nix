@@ -5,7 +5,7 @@
     
     host = {
       boot = {
-        loader = "systemd";
+        loader = "secure";
         silentBoot = true;
       };
       hardware = {
