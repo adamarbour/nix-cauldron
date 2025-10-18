@@ -32,7 +32,25 @@
       };
     };
 
-    secrets.enable = false;
+    secrets = {
+      enable = true;
+      items = {
+        "nebula_ca/ca" = {
+          key = "nebula_ca/cert";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/crt" = {
+          sopsFile = "trove/hosts/rhys.yaml";
+          key = "nebula/crt";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+        "nebula/key" = {
+          sopsFile = "trove/hosts/rhys.yaml";
+          key = "nebula/key";
+          owner = "nebula-cloud"; group = "nebula-cloud"; mode = "0400";
+        };
+      };
+    };
   };
 
   # Enable the GNOME Desktop Environment.
