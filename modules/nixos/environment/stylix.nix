@@ -4,9 +4,9 @@ let
   inherit (lib.cauldron) hasProfile;
 in {
   imports = [ (import sources.stylix).nixosModules.stylix ];
-  config = mkIf (hasProfile "graphical" config) {
+  config = mkIf (hasProfile config "graphical") {
     stylix = {
-      enable = true;
+      enable = false;
     };
   };
 }

@@ -3,7 +3,7 @@ let
   inherit (lib) attrValues mkIf;
   inherit (lib.cauldron) hasProfile;
 in {
-  config = mkIf (hasProfile "graphical" config) {
+  config = mkIf (hasProfile config "graphical") {
     fonts.packages = attrValues {
       inherit (pkgs)
         corefonts

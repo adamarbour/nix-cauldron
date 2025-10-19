@@ -33,7 +33,7 @@ in {
     services.tailscale = {
       enable = true;
       permitCertUid = "root";
-      useRoutingFeatures = if (hasProfile "server" config) then "server" else "client";
+      useRoutingFeatures = if (hasProfile config "server") then "server" else "client";
       extraDaemonFlags = [ "--no-logs-no-support" ];
       extraSetFlags = [ "--accept-dns" "--operator=${config.cauldron.system.mainUser}" ] ++ cfg.extraFlags;
     };

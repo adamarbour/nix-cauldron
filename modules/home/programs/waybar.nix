@@ -5,12 +5,13 @@ let
 in {
   config = mkIf (hasProfile osConfig "graphical") {
     cauldron.packages = {
-      inherit (pkgs) vscodium;
+      inherit (pkgs) waybar;
     };
     
-    programs.vscode = {
-      enable = mkDefault true;
-      package = pkgs.vscodium;
+    programs.waybar = {
+      enable = mkDefault false;
+      package = pkgs.waybar;
+      systemd.enable = true;
     };
   };
 }
