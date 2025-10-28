@@ -6,5 +6,6 @@
     ./options
     ./programs
     ./security
+    ./services
   ];
 }
