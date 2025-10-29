@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "97fe47120dc9388210c96c482128f19343876a67",
-      "url": "https://github.com/aylur/astal/archive/97fe47120dc9388210c96c482128f19343876a67.tar.gz",
-      "hash": "1lwryw93yws29njbbczxsc3xf3qljqari3h9fswynaw5bk5klh4x"
+      "revision": "189bf73016c26d7d32729a913d6436cd7b1a0885",
+      "url": "https://github.com/aylur/astal/archive/189bf73016c26d7d32729a913d6436cd7b1a0885.tar.gz",
+      "hash": "1j4n8b87xzs8s91wn9dmqrzr2aiir8k2r5iasxmd3bx06bygfsjk"
     },
     "chaotic-nyx": {
       "type": "Git",
@@ -22,9 +22,9 @@
       },
       "branch": "nyxpkgs-unstable",
       "submodules": false,
-      "revision": "bad02bbca5b5c6d45539a0d740ad0e21b1ba9afc",
-      "url": "https://github.com/chaotic-cx/nyx/archive/bad02bbca5b5c6d45539a0d740ad0e21b1ba9afc.tar.gz",
-      "hash": "1rjqa1pa9ilxl6bnb7rn0klzkhprjqqw53wd27kgsc7h02b0id5h"
+      "revision": "25ef687b6a0a13e9d39c3949e7de05873f5571a9",
+      "url": "https://github.com/chaotic-cx/nyx/archive/25ef687b6a0a13e9d39c3949e7de05873f5571a9.tar.gz",
+      "hash": "0wq3ia4qqxng8rydq7c4pas1q1w6ifwhsippljlvfz99zhapg7gz"
     },
     "colmena": {
       "type": "Git",
@@ -64,9 +64,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "1b257432d6c6b1d987cc4c4005d709dff49c4d4f",
-      "url": "https://github.com/nferhat/fht-compositor/archive/1b257432d6c6b1d987cc4c4005d709dff49c4d4f.tar.gz",
-      "hash": "085x3b0kyvfcn5cwsz7rfidlflzbirdacbzxb0hjmi1dyd3fdb6s"
+      "revision": "0c8c7472d645ab3fa0696c421a0e0791ceead600",
+      "url": "https://github.com/nferhat/fht-compositor/archive/0c8c7472d645ab3fa0696c421a0e0791ceead600.tar.gz",
+      "hash": "1sbhs4q4krgq3ssnhq3wmhqrvqwc8yjsi571q59zj48crnqgiwdy"
     },
     "fht-share-picker": {
       "type": "Git",
@@ -77,9 +77,9 @@
       },
       "branch": "gtk-rewrite",
       "submodules": false,
-      "revision": "896322e1e9c76e1e974ae9ce8c107f9a358fe19d",
-      "url": "https://github.com/nferhat/fht-share-picker/archive/896322e1e9c76e1e974ae9ce8c107f9a358fe19d.tar.gz",
-      "hash": "009vlrppm1d47wv4nhs23akzbll3n6xdbvq5n8n9qs29vvyjvjws"
+      "revision": "a6ed304a9f40f9a088cec5479765616dd68dca73",
+      "url": "https://github.com/nferhat/fht-share-picker/archive/a6ed304a9f40f9a088cec5479765616dd68dca73.tar.gz",
+      "hash": "1n6ibbr8gsas5l7rxnzg320yw22q7pdyyrr266s3sdc1pixqjhb0"
     },
     "flake-compat": {
       "type": "GitRelease",
@@ -150,10 +150,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "0.9.1",
-      "revision": "54fff77249e6e07b7fa99d245d95f27f4c36ab81",
-      "url": "https://api.github.com/repos/DreamMaoMao/mangowc/tarball/0.9.1",
-      "hash": "14xb8csklv5hnck5vs41shjlskcsx1wcr5hyia67x723298dmkvp"
+      "version": "0.10.3",
+      "revision": "776738cc284721ab78585b3e3fb2e4ee3da149af",
+      "url": "https://api.github.com/repos/DreamMaoMao/mangowc/tarball/0.10.3",
+      "hash": "1bn3hx5rblhkcpqfwaprxsmyb442rbp1rg8x0gsmd8wdd52k9vd0"
     },
     "nix-flatpak": {
       "type": "GitRelease",
@@ -193,9 +193,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "5b5be50345d4113d04ba58c444348849f5585b4a",
-      "url": "https://github.com/nixos/nixpkgs/archive/5b5be50345d4113d04ba58c444348849f5585b4a.tar.gz",
-      "hash": "0pcnq88aj9zvln1ma1pp244z08cvdshvfb6w92pk5xgglpb4900l"
+      "revision": "78e34d1667d32d8a0ffc3eba4591ff256e80576e",
+      "url": "https://github.com/nixos/nixpkgs/archive/78e34d1667d32d8a0ffc3eba4591ff256e80576e.tar.gz",
+      "hash": "03zkw4rk7v2p2z43lfbig688i54a2822j45sfqdklr9rb0nqx3dx"
     },
     "nixpkgs-unstable": {
       "type": "Git",
@@ -206,9 +206,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
-      "url": "https://github.com/nixos/nixpkgs/archive/7df7ff7d8e00218376575f0acdcc5d66741351ee.tar.gz",
-      "hash": "02w5j06nl2gddh9ifz1647b8bilhzkqg9c93f14cl4k0kq9c8fl1"
+      "revision": "6a08e6bb4e46ff7fcbb53d409b253f6bad8a28ce",
+      "url": "https://github.com/nixos/nixpkgs/archive/6a08e6bb4e46ff7fcbb53d409b253f6bad8a28ce.tar.gz",
+      "hash": "0ixzzfdyrkm8mhfrgpdmq0bpfk5ypz63qnbxskj5xvfxvdca3ys3"
     },
     "noshell": {
       "type": "Git",
@@ -245,9 +245,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "9fcfabe085281dd793589bdc770a2e577a3caa5d",
-      "url": "https://github.com/Mic92/sops-nix/archive/9fcfabe085281dd793589bdc770a2e577a3caa5d.tar.gz",
-      "hash": "05amj1vnrjpwj1q9spmn4anp960d5nhcickd1jcifdd2lbc05m3z"
+      "revision": "5a7d18b5c55642df5c432aadb757140edfeb70b3",
+      "url": "https://github.com/Mic92/sops-nix/archive/5a7d18b5c55642df5c432aadb757140edfeb70b3.tar.gz",
+      "hash": "1dk0kjms9a6in9flaz4pxrlngxj235xivgwcy9bvw60yy3brxvbr"
     },
     "stylix": {
       "type": "Git",
@@ -258,9 +258,25 @@
       },
       "branch": "release-25.05",
       "submodules": false,
-      "revision": "4d065856e936fc6a99ba55d39ac2df9ded6bedbe",
-      "url": "https://github.com/nix-community/stylix/archive/4d065856e936fc6a99ba55d39ac2df9ded6bedbe.tar.gz",
-      "hash": "0f9qqcn6f4qnh0bqi418ln8y77hnxcsp8lyh67i9p3i9bzamliyl"
+      "revision": "1ec254101285777db13922303cc47ded06e10bb3",
+      "url": "https://github.com/nix-community/stylix/archive/1ec254101285777db13922303cc47ded06e10bb3.tar.gz",
+      "hash": "0khm3q6bgc785gcd99q5knipbyinygmb9sr2dw1s5gnlgiipx2b3"
+    },
+    "vicinae": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "vicinaehq",
+        "repo": "vicinae"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.15.6",
+      "revision": "13865b4c50b3069c27a6ea270abab6c7948c2b6e",
+      "url": "https://api.github.com/repos/vicinaehq/vicinae/tarball/v0.15.6",
+      "hash": "0p0vwhxlbsckac37mvwsw0vr9hxd43spqvz3fhmqyd0m1xk3gmw7"
     }
   },
   "version": 5
