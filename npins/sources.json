@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "189bf73016c26d7d32729a913d6436cd7b1a0885",
-      "url": "https://github.com/aylur/astal/archive/189bf73016c26d7d32729a913d6436cd7b1a0885.tar.gz",
-      "hash": "1j4n8b87xzs8s91wn9dmqrzr2aiir8k2r5iasxmd3bx06bygfsjk"
+      "revision": "5baeb660214bcafc9ae0b733a1bc84f5fa6078f4",
+      "url": "https://github.com/aylur/astal/archive/5baeb660214bcafc9ae0b733a1bc84f5fa6078f4.tar.gz",
+      "hash": "0ly1rk62cj92kly0cwz6a28hlxaz5i444gzpwi7r27cyslwyr73p"
     },
     "chaotic-nyx": {
       "type": "Git",
@@ -22,9 +22,9 @@
       },
       "branch": "nyxpkgs-unstable",
       "submodules": false,
-      "revision": "25ef687b6a0a13e9d39c3949e7de05873f5571a9",
-      "url": "https://github.com/chaotic-cx/nyx/archive/25ef687b6a0a13e9d39c3949e7de05873f5571a9.tar.gz",
-      "hash": "0wq3ia4qqxng8rydq7c4pas1q1w6ifwhsippljlvfz99zhapg7gz"
+      "revision": "f12f07936e0a4f892ba6505e774d4e651860e768",
+      "url": "https://github.com/chaotic-cx/nyx/archive/f12f07936e0a4f892ba6505e774d4e651860e768.tar.gz",
+      "hash": "0k6y5wxa7ccq1iw59d8dxam82d776a1r0yygfgavpi4mbrycld3c"
     },
     "colmena": {
       "type": "Git",
@@ -35,9 +35,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "5bf4ce6a24adba74a5184f4a9bef01d545a09473",
-      "url": "https://github.com/zhaofengli/colmena/archive/5bf4ce6a24adba74a5184f4a9bef01d545a09473.tar.gz",
-      "hash": "0kcwj2gf7232zzvqxjhsi6rrg4z14dfkvbwc79dy0w4acxpwz56a"
+      "revision": "349b035a5027f23d88eeb3bc41085d7ee29f18ed",
+      "url": "https://github.com/zhaofengli/colmena/archive/349b035a5027f23d88eeb3bc41085d7ee29f18ed.tar.gz",
+      "hash": "1x7wpj8cy6h7x0qygqa0i6qapw2flffcmq2m2li4ll7p4ggb4ms1"
     },
     "disko": {
       "type": "GitRelease",
@@ -64,9 +64,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "0c8c7472d645ab3fa0696c421a0e0791ceead600",
-      "url": "https://github.com/nferhat/fht-compositor/archive/0c8c7472d645ab3fa0696c421a0e0791ceead600.tar.gz",
-      "hash": "1sbhs4q4krgq3ssnhq3wmhqrvqwc8yjsi571q59zj48crnqgiwdy"
+      "revision": "3e52eba9b77120f7df1406da84d617adfb07078f",
+      "url": "https://github.com/nferhat/fht-compositor/archive/3e52eba9b77120f7df1406da84d617adfb07078f.tar.gz",
+      "hash": "1g37jrhfiyplln4v8kyyzk88dv68rvzgvi1kd2bcw5y7w0ajwlvn"
     },
     "fht-share-picker": {
       "type": "Git",
@@ -134,10 +134,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.4.2",
-      "revision": "f0212638a2ec787a7841882f4477d40ae24f0a5d",
-      "url": "https://api.github.com/repos/nix-community/lanzaboote/tarball/v0.4.2",
-      "hash": "0xc1wawnb0297h5khxblmf9pd1fry950xkcm7mwlck19s2906h80"
+      "version": "v0.4.3",
+      "revision": "65a4aa3d4dccf50f22c0190c7ee660de51c586f2",
+      "url": "https://api.github.com/repos/nix-community/lanzaboote/tarball/v0.4.3",
+      "hash": "016pgbh27zjwbzq1li1d4r40b37vwmnz8khh04vspd5gw91szzi1"
     },
     "mangowc": {
       "type": "GitRelease",
@@ -150,10 +150,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "0.10.3",
-      "revision": "776738cc284721ab78585b3e3fb2e4ee3da149af",
-      "url": "https://api.github.com/repos/DreamMaoMao/mangowc/tarball/0.10.3",
-      "hash": "1bn3hx5rblhkcpqfwaprxsmyb442rbp1rg8x0gsmd8wdd52k9vd0"
+      "version": "0.10.5",
+      "revision": "3645817f2d9c1ceb27c440a20fca6f5c5dc13a27",
+      "url": "https://api.github.com/repos/DreamMaoMao/mangowc/tarball/0.10.5",
+      "hash": "0c41x56skfdcpiaw5p5hm46pkzv8327h4n258xx0h8d2s19b4i34"
     },
     "nix-flatpak": {
       "type": "GitRelease",
@@ -180,9 +180,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "6a536c4b686ee4bcf07a7b0f8b823584560e2633",
-      "url": "https://github.com/oddlama/nix-topology/archive/6a536c4b686ee4bcf07a7b0f8b823584560e2633.tar.gz",
-      "hash": "1c54fh0db7hkf9krf4mc2i83448vdbb5nqzwhm25shmc3r5g4i1z"
+      "revision": "c15f569794a0f1a437850d0ac81675bcf23ca6cb",
+      "url": "https://github.com/oddlama/nix-topology/archive/c15f569794a0f1a437850d0ac81675bcf23ca6cb.tar.gz",
+      "hash": "1q5d27c4f618p4vr2abc7srrxxbmk1d7s1qfayskh3pxm4asz45f"
     },
     "nixpkgs": {
       "type": "Git",
@@ -193,9 +193,9 @@
       },
       "branch": "nixos-25.05",
       "submodules": false,
-      "revision": "78e34d1667d32d8a0ffc3eba4591ff256e80576e",
-      "url": "https://github.com/nixos/nixpkgs/archive/78e34d1667d32d8a0ffc3eba4591ff256e80576e.tar.gz",
-      "hash": "03zkw4rk7v2p2z43lfbig688i54a2822j45sfqdklr9rb0nqx3dx"
+      "revision": "c2448301fb856e351aab33e64c33a3fc8bcf637d",
+      "url": "https://github.com/nixos/nixpkgs/archive/c2448301fb856e351aab33e64c33a3fc8bcf637d.tar.gz",
+      "hash": "1rcvx4x6kc652pan6jggpqfvrzydhfi9k3kpjkj55mc38dwl690y"
     },
     "nixpkgs-unstable": {
       "type": "Git",
@@ -206,9 +206,9 @@
       },
       "branch": "nixos-unstable",
       "submodules": false,
-      "revision": "6a08e6bb4e46ff7fcbb53d409b253f6bad8a28ce",
-      "url": "https://github.com/nixos/nixpkgs/archive/6a08e6bb4e46ff7fcbb53d409b253f6bad8a28ce.tar.gz",
-      "hash": "0ixzzfdyrkm8mhfrgpdmq0bpfk5ypz63qnbxskj5xvfxvdca3ys3"
+      "revision": "b6a8526db03f735b89dd5ff348f53f752e7ddc8e",
+      "url": "https://github.com/nixos/nixpkgs/archive/b6a8526db03f735b89dd5ff348f53f752e7ddc8e.tar.gz",
+      "hash": "117mzxz0a0r01nvmykdrvgfnxh1vwgg8rj2p0v3v1as1kp7ywxdd"
     },
     "noshell": {
       "type": "Git",
@@ -245,9 +245,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "5a7d18b5c55642df5c432aadb757140edfeb70b3",
-      "url": "https://github.com/Mic92/sops-nix/archive/5a7d18b5c55642df5c432aadb757140edfeb70b3.tar.gz",
-      "hash": "1dk0kjms9a6in9flaz4pxrlngxj235xivgwcy9bvw60yy3brxvbr"
+      "revision": "d75e4f89e58fdda39e4809f8c52013caa22483b7",
+      "url": "https://github.com/Mic92/sops-nix/archive/d75e4f89e58fdda39e4809f8c52013caa22483b7.tar.gz",
+      "hash": "1svgkz60wlv722v8qgdkch0xxccipykx62xw7kfhgxqhmpw5mp83"
     },
     "stylix": {
       "type": "Git",
@@ -258,9 +258,9 @@
       },
       "branch": "release-25.05",
       "submodules": false,
-      "revision": "1ec254101285777db13922303cc47ded06e10bb3",
-      "url": "https://github.com/nix-community/stylix/archive/1ec254101285777db13922303cc47ded06e10bb3.tar.gz",
-      "hash": "0khm3q6bgc785gcd99q5knipbyinygmb9sr2dw1s5gnlgiipx2b3"
+      "revision": "91b9a270523361268ba6a8772152fde31103869f",
+      "url": "https://github.com/nix-community/stylix/archive/91b9a270523361268ba6a8772152fde31103869f.tar.gz",
+      "hash": "1mjzgq6fcxd6ihjjfsh0zv041ah7lk2k6ar4icych5vxp8d5qgp7"
     },
     "vicinae": {
       "type": "GitRelease",
@@ -273,10 +273,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.15.6",
-      "revision": "13865b4c50b3069c27a6ea270abab6c7948c2b6e",
-      "url": "https://api.github.com/repos/vicinaehq/vicinae/tarball/v0.15.6",
-      "hash": "0p0vwhxlbsckac37mvwsw0vr9hxd43spqvz3fhmqyd0m1xk3gmw7"
+      "version": "v0.16.2",
+      "revision": "b99015bc2870f9ad3139fab438ac68e3a0bbec0f",
+      "url": "https://api.github.com/repos/vicinaehq/vicinae/tarball/v0.16.2",
+      "hash": "1d6m48hdfi7yzqrmqp4nkg0r3zw50xgz3p2n2hnr1w26abjgilh8"
     }
   },
   "version": 5
