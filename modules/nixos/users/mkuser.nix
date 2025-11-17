@@ -46,6 +46,7 @@ in {
     
     ####### Per-user accounts ########
     users.users = genAttrs userList (name: {
+      createHome = true;
       home = "/home/${name}";
       uid = mkDefault 1000;
       isNormalUser = true;
@@ -76,9 +77,16 @@ in {
     ####### Impermanent Sane Defaults ########
     environment.persistence."${config.cauldron.host.impermanence.root}" = mkIf impermanence.enable {
       users = genAttrs userList (name: {
-        directories = [ "Desktop" "Documents" "Downloads" "Media" "Projects" "public" ];
+        directories = [
+          "Desktop"
+          "Documents"
+          "Downloads"
+          "Media"
+          "Projects"
+          "public"
+        ];
       });
-    };  
+    };
     
     ####### Ensure ~/.ssh exists with correct perms ########
     systemd.tmpfiles.rules = lib.concatMap
