@@ -74,20 +74,6 @@ in {
       ];
     });
     
-    ####### Impermanent Sane Defaults ########
-    environment.persistence."${config.cauldron.host.impermanence.root}" = mkIf impermanence.enable {
-      users = genAttrs userList (name: {
-        directories = [
-          { directory = "Desktop"; user = "${name}"; group = "users"; }
-          { directory = "Documents"; user = "${name}"; group = "users"; }
-          { directory = "Downloads"; user = "${name}"; group = "users"; }
-          { directory = "Media"; user = "${name}"; group = "users"; }
-          { directory = "Projects"; user = "${name}"; group = "users"; }
-          { directory = "public"; user = "${name}"; group = "users"; }
-        ];
-      });
-    };
-    
     ####### Ensure ~/.ssh exists with correct perms ########
     systemd.tmpfiles.rules = lib.concatMap
       (name: [ "d /home/${name}/.ssh 0700 ${name} users -" ])

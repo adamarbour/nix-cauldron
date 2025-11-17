@@ -65,6 +65,7 @@ in {
         "/var/lib/systemd/coredump"
         "/var/lib/colord"
         "/var/cache/nix"
+        "/home"
       ] ++ cfg.extra.dirs;
       files = [
 #        "/etc/machine-id" # We do not need this because we set it under the security module.
