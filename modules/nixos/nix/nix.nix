@@ -27,4 +27,13 @@ in {
     IOSchedulingClass = "idle";
     IOSchedulingPriority = 7;
   };
+  
+  systemd.services.nix-daemon = {
+    environment = {
+      TMPDIR = "/var/cache/nix";
+    };
+    serviceConfig = {
+      CacheDirectory = "nix";
+    };
+  };
 }
