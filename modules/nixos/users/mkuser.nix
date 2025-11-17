@@ -78,12 +78,12 @@ in {
     environment.persistence."${config.cauldron.host.impermanence.root}" = mkIf impermanence.enable {
       users = genAttrs userList (name: {
         directories = [
-          "Desktop"
-          "Documents"
-          "Downloads"
-          "Media"
-          "Projects"
-          "public"
+          { directory = "Desktop"; user = "${name}"; group = "users"; }
+          { directory = "Documents"; user = "${name}"; group = "users"; }
+          { directory = "Downloads"; user = "${name}"; group = "users"; }
+          { directory = "Media"; user = "${name}"; group = "users"; }
+          { directory = "Projects"; user = "${name}"; group = "users"; }
+          { directory = "public"; user = "${name}"; group = "users"; }
         ];
       });
     };
