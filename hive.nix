@@ -50,6 +50,7 @@ in {
         tags = [ "gaming" "all" ];
         targetHost = "10.24.13.101";  # nebula
         targetUser = "aarbour";
+        allowLocalDeployment = true;
       };
     };
   };
