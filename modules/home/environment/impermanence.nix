@@ -5,6 +5,8 @@ let
   cfg = osConfig.cauldron.host.impermanence;
 in {
   imports = [ (sources.impermanence + "/home-manager.nix") ];
+
+  # TODO: For use with additional files ...
   
 #  config = mkIf impermanence.enable {
 #    home.persistence."${cfg.root}/${config.home.homeDirectory}" = {

@@ -1,6 +1,7 @@
-{ lib, config, ... }:
+{ lib, config, osConfig, ... }:
 let
-  inherit (lib) mkDefault;
+  inherit (lib) mkIf mkDefault;
+  inherit (lib.cauldron) hasProfile;
 in {
   xdg = {
     enable = true;
@@ -9,7 +10,7 @@ in {
     dataHome = "${config.home.homeDirectory}/.local/share";
     stateHome = "${config.home.homeDirectory}/.local/state";
     
-    userDirs = {
+    userDirs = mkIf (hasProfile osConfig "graphical") {
       enable = true;
       createDirectories = true;
       

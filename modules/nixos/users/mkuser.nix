@@ -66,6 +66,8 @@ in {
         "tss"
         "power"
         "git"
+        "libvirtd"
+        "kvm"
       ];
 
       hashedPasswordFile = mkIf config.cauldron.secrets.enable
