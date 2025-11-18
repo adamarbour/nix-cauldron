@@ -3,8 +3,6 @@ let
   inherit (lib) genAttrs mkDefault optionalAttrs mkIf mergeAttrsList;
   inherit (lib.cauldron) ifTheyExist;
   
-  impermanence = config.cauldron.host.disk.impermanence;
-  
   secretsRepo = sources.secrets;
   userList = config.cauldron.system.users;
 in {
@@ -75,18 +73,6 @@ in {
         config.sops.secrets."users/${name}/id_ed25519.pub".path
       ];
     });
-    
-    ####### Impermanent Sane Defaults ########
-    environment.persistence."${config.cauldron.host.impermanence.root}" = mkIf impermanence.enable {
-      users = genAttrs userList (name: {
-        directories = map (dir: {
-          directory = dir;
-          user = name;
-          group = "users";
-          mode = "0700";
-        }) [ "Desktop" "Documents" "Downloads" "Media" "Projects" "public" ];
-      });
-    };
     
     ####### Ensure ~/.ssh exists with correct perms ########
     systemd.tmpfiles.rules = lib.concatMap
