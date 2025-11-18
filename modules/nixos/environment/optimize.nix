@@ -3,7 +3,7 @@ let
   inherit (lib) mkDefault mkForce;
 in {
   # Declarative user management
-  services.userborn.enable = true;
+  services.userborn.enable = false;
   
   # Use Systemd in the initrd by default
   boot.initrd.systemd.enable = mkDefault (!config.boot.swraid.enable && !config.boot.isContainer);

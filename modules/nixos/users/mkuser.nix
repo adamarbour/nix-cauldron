@@ -50,7 +50,7 @@ in {
       createHome = true;
       home = "/home/${name}";
       uid = mkDefault 1000;
-      isNormalUser = true;
+      isNormalUser = mkDefault true;
 
       extraGroups = [ "wheel" "nix" ]
       ++ ifTheyExist config [
@@ -74,13 +74,20 @@ in {
         config.sops.secrets."users/${name}/id_ed25519.pub".path
       ];
     });
+
+    ####### Impermanence for users #######
+    environment.persistence."${config.cauldron.host.impermanence.root}" = mkIf impermanence.enable {
+      users = genAttrs userList (name: {
+        directories = [ "Desktop" "Documents" "Downloads" "Media" "Projects" "public" ];
+      });
+    };
     
     ####### Ensure ~/.ssh exists with correct perms ########
     systemd.tmpfiles.rules = lib.concatMap
       (name: [ 
-      	  "d /home/${name}/.ssh 0700 ${name} users -"
+      	"d /home/${name}/.ssh 0700 ${name} users -"
       ] ++ lib.optional impermanence.enable
-        "d ${persist}/home/${name} 0755 ${name} users -"
+        "d ${persist}/home/${name} 0755 ${name} users -"  # Set proper permissions for home directory
       ) userList;
   };
 }

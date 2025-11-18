@@ -6,11 +6,11 @@ let
 in {
   imports = [ (sources.impermanence + "/home-manager.nix") ];
   
-  config = mkIf impermanence.enable {
-    home.persistence."${cfg.root}/${config.home.homeDirectory}" = {
-      directories = [ "Desktop" "Documents" "Downloads" "Media" "Projects" "public" ];
-      files = [];
-      allowOther = true;
-    };
-  };
+#  config = mkIf impermanence.enable {
+#    home.persistence."${cfg.root}/${config.home.homeDirectory}" = {
+#      directories = [ "Desktop" "Documents" "Downloads" "Media" "Projects" "public" ];
+#      files = [];
+#      allowOther = true;
+#    };
+#  };
 }
