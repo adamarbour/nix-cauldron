@@ -76,6 +76,7 @@ in {
     
     systemd.tmpfiles.rules = [
       "d ${cfg.root} 0755 root root -"
+      "d ${cfg.root}/home 0755 root users -"
     ];
   };
 }

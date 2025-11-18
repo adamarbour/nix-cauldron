@@ -2,7 +2,8 @@
 let
   inherit (lib) genAttrs mkDefault optionalAttrs mkIf mergeAttrsList;
   inherit (lib.cauldron) ifTheyExist;
-  
+  impermanence = config.cauldron.host.disk.impermanence;
+  persist = config.cauldron.host.impermanence.root;
   secretsRepo = sources.secrets;
   userList = config.cauldron.system.users;
 in {
@@ -78,6 +79,8 @@ in {
     systemd.tmpfiles.rules = lib.concatMap
       (name: [ 
       	  "d /home/${name}/.ssh 0700 ${name} users -"
-      ]) userList;
+      ] ++ lib.optional impermanence.enable
+        "d ${persist}/home/${name} 0755 ${name} users -"
+      ) userList;
   };
 }
