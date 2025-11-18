@@ -29,6 +29,7 @@
         printing.enable = true;
         bluetooth = true;
         tpm = true;
+        qemu = true;
       };
     };
     

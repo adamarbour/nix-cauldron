@@ -1,9 +1,15 @@
 { lib, pkgs, config, ...}:
 let
-    inherit (lib) mkDefault;
+    inherit (lib) mkIf mkDefault;
+    cfg = config.cauldron.host.feature;
 in {
+    options.cauldron.host.feature.qemu = mkOption {
+        type = types.bool;
+        default = false;
+        description = "Libvirt-based virtualization stack (KVM/QEMU).";
+    };
 
-    config = {
+    config = mkIf cfg.qemu {
         virtualisation.libvirtd = {
             enable = true;
 
