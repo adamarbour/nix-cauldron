@@ -1,6 +1,6 @@
 { lib, pkgs, config, ...}:
 let
-    inherit (lib) mkIf mkDefault;
+    inherit (lib) types mkIf mkOption mkDefault;
     cfg = config.cauldron.host.feature;
 in {
     options.cauldron.host.feature.qemu = mkOption {
