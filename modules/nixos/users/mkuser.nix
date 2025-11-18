@@ -79,7 +79,12 @@ in {
     ####### Impermanent Sane Defaults ########
     environment.persistence."${config.cauldron.host.impermanence.root}" = mkIf impermanence.enable {
       users = genAttrs userList (name: {
-        directories = [ "Desktop" "Documents" "Downloads" "Media" "Projects" "public" ];
+        directories = map (dir: {
+          directory = dir;
+          user = name;
+          group = "users";
+          mode = "0700";
+        }) [ "Desktop" "Documents" "Downloads" "Media" "Projects" "public" ];
       });
     };
     
@@ -87,9 +92,6 @@ in {
     systemd.tmpfiles.rules = lib.concatMap
       (name: [ 
       	  "d /home/${name}/.ssh 0700 ${name} users -"
-      	] ++ lib.optional impermanence.enable 
-      	  "d ${config.cauldron.host.impermanence.root}/home/${name} 0755 ${name} users -"
-      )
-      userList;
+      ]) userList;
   };
 }
